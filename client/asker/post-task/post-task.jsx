@@ -9,14 +9,7 @@ const{
 } = mui;
 
 PostTask = React.createClass({
-  mixins: [ReactMeteorData],
-  getMeteorData() {
-    return {
-      services: Service.find().fetch()
-    }
-  },
-
-  getInitialState: function () {
+  getInitialState () {
     return {
       selectedServiceId: []
     };

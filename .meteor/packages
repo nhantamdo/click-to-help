@@ -6,6 +6,8 @@
 
 meteor-platform
 react
+xolvio:cucumber
+
 cosmos:browserify
 meteorhacks:npm
 

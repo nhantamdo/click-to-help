@@ -11,23 +11,33 @@ const {
 } = mui;
 
 ListService = React.createClass({
-  getInitialState: function () {
+  getInitialState () {
     return {
     };
   },
   propTypes: {
     selectedServiceId: React.PropTypes.string,
-    services: React.PropTypes.array.isRequired,
     onServiceSelected: React.PropTypes.func
   },
 
   selectService(ServiceId) {
-    this.props.onServiceSelected(ServiceId);    
+    this.props.onServiceSelected(ServiceId);
+  },
+
+  mixins: [ReactMeteorData],
+  getMeteorData() {
+    return {
+      services: Service.find().fetch()
+    }
+  },
+
+  selectService(ServiceId) {
+    this.props.onServiceSelected(ServiceId);
   },
 
   render() {
     return <List subheader="Service List">{
-      this.props.services.map((service) => {
+      this.data.services.map((service) => {
         let style = {};
         if (this.props.selectedServiceId.indexOf(service.id) != -1) {
           style["color"] = "#ff6666";
