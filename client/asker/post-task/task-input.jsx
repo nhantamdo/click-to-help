@@ -34,6 +34,7 @@ TaskInput = React.createClass({
 
   getInitialState: function () {
     return {
+      errorDescription: false
     };
   },
 
@@ -60,9 +61,33 @@ TaskInput = React.createClass({
   },
 
   onContactInfo(){
-    React.render(<ContactInfo
-            serviceId={this.props.serviceId}
-            serviceText={this.props.serviceText}/>, document.getElementById("container"));
+    if(!this.state.errorDescription){
+      React.render(<ContactInfo
+              serviceId={this.props.serviceId}
+              serviceText={this.props.serviceText}/>, document.getElementById("container"));
+    }
+  },
+
+  onBlurDescription(){
+    if(this.refs.txtDescription.getValue().trim().length == 0){
+      this.setState({
+        errorDescription: true
+      });
+    }
+    else {
+      this.setState({
+        errorDescription: false
+      });
+    }
+  },
+
+  componentDidMount: function() {
+    this.refs.txtDescription.focus();
+
+    // Default Date is Tomorrow
+    var date = new Date();
+    date.setDate(date.getDate() + 1);
+    this.refs.dpDate.setDate(date);
   },
 
   render() {
@@ -77,11 +102,14 @@ TaskInput = React.createClass({
             </div>
           } />
         <TextField
+          ref="txtDescription"
           multiLine={true}
           floatingLabelText="Mô tả công việc (200)"
-          errorText={this.state.floatingErrorText}
+          errorText={this.state.errorDescription ? "Nhập mô tả" : ""}
+          onBlur={this.onBlurDescription}
           fullWidth={true} />
         <DatePicker
+          ref="dpDate"
           hintText="Ngày"
           autoOk={true}
           formatDate={this.onFormatDate}
