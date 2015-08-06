@@ -13,8 +13,8 @@ var customPalette = {
   accent1Color: "#c0c0c0"
 };
 
- const ThemeManager = new mui.Styles.ThemeManager();
- ThemeManager.setPalette(customPalette);
+const ThemeManager = new mui.Styles.ThemeManager();
+ThemeManager.setPalette(customPalette);
 
 PostTask = React.createClass({
   childContextTypes: {
@@ -53,20 +53,11 @@ PostTask = React.createClass({
   render() {
     return (
       <div>
-      <AppBar
-        title="Đăng công việc"
-        iconElementRight={
-          <div>
-            <IconButton iconClassName="icon-help" />
-            <IconButton iconClassName="icon-back" />
-          </div>
-        } />
         <div id="main">
-            <ContactInfo />
-            <ListService
-              services={this.data.services}
-              selectedServiceId={this.state.selectedServiceId}
-              onServiceSelected={this.selectService}/>
+          <ListService
+            services={this.data.services}
+            selectedServiceId={this.state.selectedServiceId}
+            onServiceSelected={this.selectService}/>
         </div>
       </div>
     );

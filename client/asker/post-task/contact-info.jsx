@@ -41,43 +41,40 @@ ContactInfo = React.createClass({
 
   render() {
     return (
-      <div>
-        <div className="Address">
+      <div className="button-secondary">
+        <div>
           <TextField ref="address"
             floatingLabelText="Address"
-            hintText="Example: 105 Mai Thị Lựu Q.1 TP.HCM"
             fullWidth={true}
             id="Address"/>
         </div>
-        <div className="PhoneNumber">
+        <div>
           <TextField ref="phoneNumber"
             floatingLabelText="Phone number"
-            hintText="Example: 0123456789"
             fullWidth={true}
             id="phoneNumber"/>
         </div>
-        <div className="Name">
+        <div>
           <TextField ref="name"
             floatingLabelText="Your fullname"
-            hintText="Example: Trần Kim Trưởng"
             defaultValue={this.props.taskerEmail}
             fullWidth={true}
             id="name"/>
         </div>
-        <div className="Name">
+        <div>
           <TextField ref="name"
             floatingLabelText="Your email (optional)"
-            hintText="Example: truongtk@twin.vn"
             fullWidth={true}
             id="email"/>
         </div>
+        <div className="button-padding-top">
         <RaisedButton
-          className="button-secondary"
           id="Post"
           label="Post Task"
           secondary={true}
           fullWidth={true}
           onClick={this.clickToChooseSkill}/>
+      </div>
       </div>
     );
   }

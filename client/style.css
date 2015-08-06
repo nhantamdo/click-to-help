@@ -28,6 +28,9 @@
     text-align: center;
     padding: 1% 5% 1% 5%;
 }
+.button-padding-top{
+  padding-top: 5%;
+}
 
 #Cost{
   margin-right: 10px;
