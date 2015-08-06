@@ -1,4 +1,4 @@
 Meteor.startup(function () {
   injectTapEventPlugin();
-  React.render(<App />, document.getElementById("container"));
+  React.render(<PostTask />, document.getElementById("container"));
 });
