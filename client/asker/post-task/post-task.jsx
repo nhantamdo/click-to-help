@@ -8,7 +8,25 @@ const{
   IconButton,
 } = mui;
 
+var customPalette = {
+  primary1Color: "#ff6666",
+  accent1Color: "#c0c0c0"
+};
+
+const ThemeManager = new mui.Styles.ThemeManager();
+ThemeManager.setPalette(customPalette);
+
 PostTask = React.createClass({
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function() {
+    return {
+      muiTheme: ThemeManager.getCurrentTheme()
+    };
+  },
+
   getInitialState () {
     return {
       selectedServiceId: []
@@ -17,11 +35,13 @@ PostTask = React.createClass({
   propTypes: {
   },
 
-  selectService(serviceId) {
+  selectService(serviceId, serviceText) {
     this.setState({
       selectedServiceId: [serviceId]
     });
-    React.render(<TaskInput />, document.getElementById("container"));
+    React.render(<TaskInput
+            serviceId={serviceId}
+            serviceText={serviceText}/>, document.getElementById("container"));
   },
 
   render() {
@@ -36,7 +56,6 @@ PostTask = React.createClass({
             </div>
           } />
         <ListService
-          services={this.data.services}
           selectedServiceId={this.state.selectedServiceId}
           onServiceSelected={this.selectService}/>
       </div>

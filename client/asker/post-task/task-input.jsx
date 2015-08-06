@@ -55,15 +55,19 @@ TaskInput = React.createClass({
     $("#Cost").text("$" + cost + "/" + value + "h");
   },
 
+  onBack(){
+    React.render(<PostTask />, document.getElementById("container"));
+  },
+
   render() {
     return (
       <div>
         <AppBar
-          title="Đăng công việc"
+          title={this.props.serviceText}
           iconElementRight={
             <div>
               <IconButton iconClassName="icon-help" />
-              <IconButton iconClassName="icon-back" />
+              <IconButton iconClassName="icon-back" onClick={this.onBack} />
             </div>
           } />
         <TextField
