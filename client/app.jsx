@@ -1,5 +1,6 @@
 const {
-  AppBar
+  AppBar,
+  IconButton
 } = mui;
 
 var customPalette = {
@@ -7,8 +8,8 @@ var customPalette = {
   accent1Color: "#c0c0c0"
 };
 
- const ThemeManager = new mui.Styles.ThemeManager();
- ThemeManager.setPalette(customPalette);
+const ThemeManager = new mui.Styles.ThemeManager();
+ThemeManager.setPalette(customPalette);
 
 App = React.createClass({
   childContextTypes: {
@@ -21,7 +22,19 @@ App = React.createClass({
   },
   render() {
     return (
-    <PostTask />
+      <div>
+        <AppBar
+          title="Đăng công việc"
+          iconElementRight={
+            <div>
+              <IconButton iconClassName="icon-help" />
+              <IconButton iconClassName="icon-back" />
+            </div>
+          } />
+        <div id="main">
+          <PostTask />
+        </div>
+      </div>
     )
   }
 });

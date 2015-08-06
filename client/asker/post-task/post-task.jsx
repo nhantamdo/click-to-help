@@ -52,22 +52,10 @@ PostTask = React.createClass({
 
   render() {
     return (
-      <div>
-      <AppBar
-        title="Đăng công việc"
-        iconElementRight={
-          <div>
-            <IconButton iconClassName="icon-help" />
-            <IconButton iconClassName="icon-back" />
-          </div>
-        } />
-        <div id="main">
-            <ListService
-              services={this.data.services}
-              selectedServiceId={this.state.selectedServiceId}
-              onServiceSelected={this.selectService}/>
-        </div>
-      </div>
+      <ListService
+        services={this.data.services}
+        selectedServiceId={this.state.selectedServiceId}
+        onServiceSelected={this.selectService}/>
     );
   }
 });
