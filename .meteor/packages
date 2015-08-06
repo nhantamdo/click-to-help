@@ -9,7 +9,5 @@ react
 cosmos:browserify
 meteorhacks:npm
 
-autopublish
-insecure
 
 npm-container
