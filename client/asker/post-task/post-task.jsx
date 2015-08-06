@@ -62,6 +62,7 @@ PostTask = React.createClass({
           </div>
         } />
         <div id="main">
+            <ContactInfo />
             <ListService
               services={this.data.services}
               selectedServiceId={this.state.selectedServiceId}
