@@ -32,79 +32,118 @@ ContactInfo = React.createClass({
 
   getInitialState () {
     return {
+      addressExist: true,
+      phoneExist: true,
+      nameExist: true
     };
   },
   propTypes: {
   },
 
   postTask () {
-    this.refs.dialog.show();
+    if (this.refs.address.getValue()=="") {
+      this.setState({
+        addressExist : false
+      });
+    }
+    else {
+      this.setState({
+        addressExist : true
+      });
+    }
+    if (this.refs.phoneNumber.getValue()=="") {
+      this.setState({
+        phoneExist : false
+      });
+    }
+    else {
+      this.setState({
+        phoneExist : true
+      });
+    }
+    if (
+      this.refs.name.getValue()=="") {this.setState({
+        nameExist : false
+      });
+    }
+    else {
+      this.setState({
+        nameExist : true
+      });
+    }
+    if (this.refs.address.getValue()!=""
+    &&this.refs.phoneNumber.getValue()!=""
+    &&this.refs.name.getValue()!=""){
+      this.refs.dialog.show();
+    }
   },
 
   onBack(){
     React.render(<TaskInput
-            serviceId={this.props.serviceId}
-            serviceText={this.props.serviceText}/>, document.getElementById("container"));
-  },
+      serviceId={this.props.serviceId}
+      serviceText={this.props.serviceText}/>, document.getElementById("container"));
+    },
 
-  render() {
-    let standardActions = [
-    { text: 'OK', ref: 'OK' }
-    ];
-    return (
-      <div>
-        <AppBar
-          title={this.props.serviceText}
-          iconElementRight={
-            <div>
-              <IconButton iconClassName="icon-help" />
-              <IconButton iconClassName="icon-back" onClick={this.onBack} />
+    render() {
+      let standardActions = [
+      { text: 'OK', ref: 'OK' }
+      ];
+      return (
+        <div>
+          <AppBar
+            title={this.props.serviceText}
+            iconElementRight={
+              <div>
+                <IconButton iconClassName="icon-help" />
+                <IconButton iconClassName="icon-back" onClick={this.onBack} />
+              </div>
+            } />
+            <div id= "Main2" className="button-secondary">
+              <div>
+                <TextField ref="address"
+                  floatingLabelText="Địa chỉ"
+                  fullWidth={true}
+                  errorText={this.state.addressExist? "":"Thông tin bắt buộc"}
+                  id="Address"/>
+              </div>
+              <div>
+                <TextField ref="phoneNumber"
+                  floatingLabelText="Số điện thoại"
+                  fullWidth={true}
+                  errorText={this.state.phoneExist? "":"Thông tin bắt buộc"}
+                  id="phoneNumber"/>
+              </div>
+              <div>
+                <TextField ref="name"
+                  floatingLabelText="Họ tên"
+                  fullWidth={true}
+                  errorText={this.state.nameExist? "":"Thông tin bắt buộc"}
+                  id="name"/>
+              </div>
+              <div>
+                <TextField ref="email"
+                  floatingLabelText="Email (optional)"
+                  fullWidth={true}
+                  id="email"/>
+              </div>
+              <div className="button-padding-top">
+                <RaisedButton
+                  id="Post"
+                  label="Post Task"
+                  secondary={true}
+                  fullWidth={true}
+                  onClick={this.postTask}/>
+              </div>
+              <Dialog
+                ref="dialog"
+                title="Confirm"
+                actions={standardActions}
+                actionFocus="OK"
+                modal={true}>
+                Your task had been posted.
+              </Dialog>
             </div>
-          } />
-          <div id= "Main2" className="button-secondary">
-            <div>
-              <TextField ref="address"
-                floatingLabelText="Address"
-                fullWidth={true}
-                id="Address"/>
-            </div>
-            <div>
-              <TextField ref="phoneNumber"
-                floatingLabelText="Phone number"
-                fullWidth={true}
-                id="phoneNumber"/>
-            </div>
-            <div>
-              <TextField ref="name"
-                floatingLabelText="Your fullname"
-                defaultValue={this.props.taskerEmail}
-                fullWidth={true}
-                id="name"/>
-            </div>
-            <div>
-              <TextField ref="name"
-                floatingLabelText="Your email (optional)"
-                fullWidth={true}
-                id="email"/>
-            </div>
-            <div className="button-padding-top">
-              <RaisedButton
-                id="Post"
-                label="Post Task"
-                secondary={true}
-                fullWidth={true}
-                onClick={this.postTask}/>
-            </div>
-            <Dialog
-              ref="dialog"
-              title="Confirm"
-              actions={standardActions}
-              actionFocus="OK"
-              modal={true}>
-              Your task had been posted.
-            </Dialog>
           </div>
-      </div>
-    );
-  }
-});
+        );
+      }
+    });
