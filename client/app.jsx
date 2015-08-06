@@ -20,26 +20,16 @@ App = React.createClass({
   childContextTypes: {
     muiTheme: React.PropTypes.object
   },
+
   getChildContext: function() {
     return {
       muiTheme: ThemeManager.getCurrentTheme()
     };
   },
+
   render() {
     return (
-      <div>
-        <AppBar
-          title="Đăng công việc"
-          iconElementRight={
-            <div>
-              <IconButton iconClassName="icon-help" />
-              <IconButton iconClassName="icon-back" />
-            </div>
-          } />
-        <div id="main">
-          <PostTask />
-        </div>
-      </div>
+      <PostTask />
     )
   }
 });

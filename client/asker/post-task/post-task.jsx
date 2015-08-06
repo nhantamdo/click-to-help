@@ -4,7 +4,8 @@
 */
 
 const{
-
+  AppBar,
+  IconButton,
 } = mui;
 
 PostTask = React.createClass({
@@ -27,17 +28,25 @@ PostTask = React.createClass({
     this.setState({
       selectedServiceId: [serviceId]
     });
-    setTimeout(function(){
-      console.log(serviceId);
-    },1000);
+    React.render(<TaskInput />, document.getElementById("container"));
   },
 
   render() {
     return (
-      <ListService
-        services={this.data.services}
-        selectedServiceId={this.state.selectedServiceId}
-        onServiceSelected={this.selectService}/>
+      <div>
+        <AppBar
+          title="Đăng công việc"
+          iconElementRight={
+            <div>
+              <IconButton iconClassName="icon-help" />
+              <IconButton iconClassName="icon-back" />
+            </div>
+          } />
+        <ListService
+          services={this.data.services}
+          selectedServiceId={this.state.selectedServiceId}
+          onServiceSelected={this.selectService}/>
+      </div>
     );
   }
 });

@@ -4,6 +4,8 @@
 */
 
 const{
+  AppBar,
+  IconButton,
   TextField,
   DatePicker,
   TimePicker,
@@ -11,7 +13,34 @@ const{
   RaisedButton
 } = mui;
 
+var customPalette = {
+  primary1Color: "#ff6666",
+  accent1Color: "#c0c0c0"
+};
+
+const ThemeManager = new mui.Styles.ThemeManager();
+ThemeManager.setPalette(customPalette);
+
 TaskInput = React.createClass({
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function() {
+    return {
+      muiTheme: ThemeManager.getCurrentTheme()
+    };
+  },
+
+  getInitialState: function () {
+    return {
+    };
+  },
+
+  propTypes: {
+    selectedServiceId: React.PropTypes.string
+  },
+
   onFormatDate(date){
     var d = date.getDate();
     d = d < 10 ? "0" + d : d;
@@ -29,6 +58,14 @@ TaskInput = React.createClass({
   render() {
     return (
       <div>
+        <AppBar
+          title="Đăng công việc"
+          iconElementRight={
+            <div>
+              <IconButton iconClassName="icon-help" />
+              <IconButton iconClassName="icon-back" />
+            </div>
+          } />
         <TextField
           multiLine={true}
           floatingLabelText="Mô tả công việc (200)"

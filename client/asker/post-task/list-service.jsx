@@ -21,8 +21,8 @@ ListService = React.createClass({
     onServiceSelected: React.PropTypes.func
   },
 
-  selectService(ServiceId) {    
-    this.props.onServiceSelected(ServiceId);
+  selectService(ServiceId) {
+    this.props.onServiceSelected(ServiceId);    
   },
 
   render() {
