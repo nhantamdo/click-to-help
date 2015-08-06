@@ -4,8 +4,6 @@
 */
 
 const{
-  AppBar,
-  IconButton,
   TextField,
   DatePicker,
   TimePicker,
@@ -13,24 +11,7 @@ const{
   RaisedButton
 } = mui;
 
-var customPalette = {
-  primary1Color: "#ff6666",
-  accent1Color: "#c0c0c0"
-};
-
- const ThemeManager = new mui.Styles.ThemeManager();
- ThemeManager.setPalette(customPalette);
-
 TaskInput = React.createClass({
-  childContextTypes: {
-    muiTheme: React.PropTypes.object
-  },
-  getChildContext: function() {
-    return {
-      muiTheme: ThemeManager.getCurrentTheme()
-    };
-  },
-
   onFormatDate(date){
     var d = date.getDate();
     d = d < 10 ? "0" + d : d;
@@ -49,8 +30,8 @@ TaskInput = React.createClass({
     return (
       <div>
         <TextField
-          hintText="Mô tả công việc (200)"
           multiLine={true}
+          floatingLabelText="Mô tả công việc (200)"
           fullWidth={true} />
         <DatePicker
           hintText="Ngày"
