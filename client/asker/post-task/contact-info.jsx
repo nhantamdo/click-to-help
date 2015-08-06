@@ -5,7 +5,8 @@
 
 const{
   TextField,
-  RaisedButton
+  RaisedButton,
+  Dialog
 } = mui;
 
 ContactInfo = React.createClass({
@@ -16,9 +17,16 @@ ContactInfo = React.createClass({
   propTypes: {
   },
 
+  postTask () {
+    this.refs.dialog.show();
+  },
+
   render() {
+    let standardActions = [
+    { text: 'OK', ref: 'OK' }
+    ];
     return (
-      <div className="button-secondary">
+      <div id= "Main2" className="button-secondary">
         <div>
           <TextField ref="address"
             floatingLabelText="Address"
@@ -45,13 +53,21 @@ ContactInfo = React.createClass({
             id="email"/>
         </div>
         <div className="button-padding-top">
-        <RaisedButton
-          id="Post"
-          label="Post Task"
-          secondary={true}
-          fullWidth={true}
-          onClick={this.clickToChooseSkill}/>
-      </div>
+          <RaisedButton
+            id="Post"
+            label="Post Task"
+            secondary={true}
+            fullWidth={true}
+            onClick={this.postTask}/>
+        </div>
+        <Dialog
+          ref="dialog"
+          title="Confirm"
+          actions={standardActions}
+          actionFocus="OK"
+          modal={true}>
+          Your task had been posted.
+        </Dialog>
       </div>
     );
   }
