@@ -7,14 +7,7 @@ const{
 } = mui;
 
 PostTask = React.createClass({
-  mixins: [ReactMeteorData],
-  getMeteorData() {
-    return {
-      services: Service.find().fetch()
-    }
-  },
-
-  getInitialState: function () {
+  getInitialState () {
     return {
       selectedServiceId: []
     };
@@ -26,9 +19,7 @@ PostTask = React.createClass({
     this.setState({
       selectedServiceId: [serviceId]
     });
-    setTimeout(function(){
-      console.log(serviceId);
-    },1000);
+    console.log(serviceId);
   },
 
   render() {
@@ -36,7 +27,6 @@ PostTask = React.createClass({
       <div>
         <div id="main">
           <ListService
-            services={this.data.services}
             selectedServiceId={this.state.selectedServiceId}
             onServiceSelected={this.selectService}/>
         </div>
