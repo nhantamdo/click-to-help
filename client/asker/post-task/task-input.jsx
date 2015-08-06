@@ -59,6 +59,12 @@ TaskInput = React.createClass({
     React.render(<PostTask />, document.getElementById("container"));
   },
 
+  onContactInfo(){
+    React.render(<ContactInfo
+            serviceId={this.props.serviceId}
+            serviceText={this.props.serviceText}/>, document.getElementById("container"));
+  },
+
   render() {
     return (
       <div>
@@ -73,6 +79,7 @@ TaskInput = React.createClass({
         <TextField
           multiLine={true}
           floatingLabelText="Mô tả công việc (200)"
+          errorText={this.state.floatingErrorText}
           fullWidth={true} />
         <DatePicker
           hintText="Ngày"
@@ -99,7 +106,8 @@ TaskInput = React.createClass({
           <RaisedButton
             label="Tiếp theo"
             secondary={true}
-            fullWidth={true} />
+            fullWidth={true}
+            onClick={this.onContactInfo} />
         </div>
       </div>
     );
