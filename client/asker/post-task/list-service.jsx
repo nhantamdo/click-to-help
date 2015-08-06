@@ -20,6 +20,10 @@ ListService = React.createClass({
     onServiceSelected: React.PropTypes.func
   },
 
+  selectService(ServiceId) {
+    this.props.onServiceSelected(ServiceId);
+  },
+
   mixins: [ReactMeteorData],
   getMeteorData() {
     return {
@@ -27,8 +31,8 @@ ListService = React.createClass({
     }
   },
 
-  selectService(ServiceId) {
-    this.props.onServiceSelected(ServiceId);
+  selectService(ServiceId, ServiceText) {
+    this.props.onServiceSelected(ServiceId, ServiceText);
   },
 
   render() {
@@ -42,7 +46,7 @@ ListService = React.createClass({
         return [
           <ListItem key={ service.id }
             primaryText={ service.text }
-            onClick={ this.selectService.bind(this, service.id) }
+            onClick={ this.selectService.bind(this, service.id, service.text) }
             leftAvatar={ <Avatar src={service.icon}/> }
             style={style}/>,
           <ListDivider/>

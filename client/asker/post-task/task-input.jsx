@@ -4,6 +4,8 @@
 */
 
 const{
+  AppBar,
+  IconButton,
   TextField,
   DatePicker,
   TimePicker,
@@ -11,7 +13,34 @@ const{
   RaisedButton
 } = mui;
 
+var customPalette = {
+  primary1Color: "#ff6666",
+  accent1Color: "#c0c0c0"
+};
+
+const ThemeManager = new mui.Styles.ThemeManager();
+ThemeManager.setPalette(customPalette);
+
 TaskInput = React.createClass({
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function() {
+    return {
+      muiTheme: ThemeManager.getCurrentTheme()
+    };
+  },
+
+  getInitialState: function () {
+    return {
+    };
+  },
+
+  propTypes: {
+    selectedServiceId: React.PropTypes.string
+  },
+
   onFormatDate(date){
     var d = date.getDate();
     d = d < 10 ? "0" + d : d;
@@ -26,12 +55,31 @@ TaskInput = React.createClass({
     $("#Cost").text("$" + cost + "/" + value + "h");
   },
 
+  onBack(){
+    React.render(<PostTask />, document.getElementById("container"));
+  },
+
+  onContactInfo(){
+    React.render(<ContactInfo
+            serviceId={this.props.serviceId}
+            serviceText={this.props.serviceText}/>, document.getElementById("container"));
+  },
+
   render() {
     return (
       <div>
+        <AppBar
+          title={this.props.serviceText}
+          iconElementRight={
+            <div>
+              <IconButton iconClassName="icon-help" />
+              <IconButton iconClassName="icon-back" onClick={this.onBack} />
+            </div>
+          } />
         <TextField
           multiLine={true}
           floatingLabelText="Mô tả công việc (200)"
+          errorText={this.state.floatingErrorText}
           fullWidth={true} />
         <DatePicker
           hintText="Ngày"
@@ -58,7 +106,8 @@ TaskInput = React.createClass({
           <RaisedButton
             label="Tiếp theo"
             secondary={true}
-            fullWidth={true} />
+            fullWidth={true}
+            onClick={this.onContactInfo} />
         </div>
       </div>
     );
