@@ -8,7 +8,7 @@ const {
   IconButton
 } = mui;
 
-App = React.createClass({  
+App = React.createClass({
   render() {
     return (
       <PostTask />

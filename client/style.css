@@ -28,8 +28,23 @@
     text-align: center;
     padding: 1% 5% 1% 5%;
 }
-.button-padding-top{
-  padding-top: 5%;
+
+.padding-top{
+  padding-top: 4%;
+}
+
+.padding-left{
+  padding-left: 4%;
+}
+
+.padding-left-right{
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.title{
+  font-weight: bold;
+  color: blue;
 }
 
 #Cost,#hoursNumber{
