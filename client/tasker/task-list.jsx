@@ -6,6 +6,12 @@
 const{
   AppBar,
   IconButton,
+  Tabs,
+  Tab,
+  List,
+  ListItem,
+  ListDivider,
+  Avatar
 } = mui;
 
 // var customPalette = {
@@ -46,7 +52,52 @@ ListTask_Tasker = React.createClass({
               <IconButton iconClassName="icon-back" />
             </div>
           } />
+          <Tabs>
+          <Tab label="Accepted" >
+
+          </Tab>
+          <Tab label="Confirmed" >
+
+          </Tab>
+        </Tabs>
       </div>
     );
+  }
+});
+
+ListService = React.createClass({
+  getInitialState () {
+    return {
+    };
+  },
+  propTypes: {
+  },
+
+  mixins: [ReactMeteorData],
+  getMeteorData() {
+    return {
+      tasks: Task.find().fetch()
+    }
+  },
+
+  render() {
+    return <List>{
+      this.data.tasks.map((task) => {
+        var service = Service.find({id: task.serviceId});
+        return [
+          <ListItem
+            key={task._id}
+            primaryText={ task.description }
+            secondaryText={
+              <p>
+                <span>Brunch this weekend?</span><br/>
+                I&apos;ll be in your neighborhood doing errands this weekend. Do you want to grab brunch?
+              </p>
+            }
+            leftAvatar={ <Avatar src={service.icon}/> }/>,
+          <ListDivider/>
+        ]
+      })
+    }</List>
   }
 });
