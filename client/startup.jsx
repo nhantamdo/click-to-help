@@ -1,4 +1,5 @@
 Meteor.subscribe("service");
+Meteor.subscribe("task");
 
 Meteor.startup(function () {
   injectTapEventPlugin();

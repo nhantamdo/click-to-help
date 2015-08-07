@@ -55,6 +55,7 @@ TaskPostConfirm = React.createClass({
     },
 
     confirm(){
+      Meteor.call("addTask",this.props);
       this.refs.dialog.show();
     },
 
