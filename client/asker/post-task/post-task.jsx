@@ -46,7 +46,7 @@ PostTask = React.createClass({
 
   render() {
     return (
-      <div>
+      <div id="mainPostTask">
         <AppBar
           title="Đăng công việc"
           iconElementRight={
