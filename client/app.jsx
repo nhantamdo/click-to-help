@@ -11,7 +11,7 @@ const {
 App = React.createClass({
   render() {
     return (
-      <ListTaskNotification />
+      <ListTask_Tasker />
     )
   }
 });

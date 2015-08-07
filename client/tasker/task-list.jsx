@@ -54,7 +54,7 @@ ListTask_Tasker = React.createClass({
           } />
           <Tabs>
           <Tab label="Accepted" >
-
+            <ListItemTask />
           </Tab>
           <Tab label="Confirmed" >
 
@@ -83,15 +83,27 @@ ListItemTask = React.createClass({
   render() {
     return <List>{
       this.data.tasks.map((task) => {
-        var service = Service.find({id: task.serviceId});
+        var service = Service.findOne({id: task.serviceId});
+        var h = task.time.getHours();
+        h = h < 10 ? "0" + h : h;
+        var mm = task.time.getMinutes();
+        mm = mm < 10 ? "0" + mm : mm;
+        var time = h + ":" + mm;
+
+        var d = task.date.getDate();
+        d = d < 10 ? "0" + d : d;
+        var m = task.date.getMonth() + 1;
+        m = m < 10 ? "0" + m : m;
+        var y = task.date.getFullYear();
+        var date = d + "/" + m + "/" + y;
         return [
           <ListItem
             key={task._id}
             primaryText={ task.description }
             secondaryText={
               <p>
-                <span>Brunch this weekend?</span><br/>
-                I&apos;ll be in your neighborhood doing errands this weekend. Do you want to grab brunch?
+                <span>{time} &nbsp; {date} - {task.duration}h</span><br/>
+                <span>{task.cost} VND - {task.address}</span><br/>
               </p>
             }
             leftAvatar={ <Avatar src={service.icon}/> }/>,
