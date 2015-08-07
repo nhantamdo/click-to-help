@@ -65,7 +65,7 @@ ListTask_Tasker = React.createClass({
   }
 });
 
-ListService = React.createClass({
+ListItemTask = React.createClass({
   getInitialState () {
     return {
     };
