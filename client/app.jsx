@@ -11,7 +11,7 @@ const {
 App = React.createClass({
   render() {
     return (
-      <ListTask_Tasker />
+      <PostTask />
     )
   }
 });
