@@ -81,7 +81,12 @@ ContactInfo = React.createClass({
   onBack(){
     React.render(<TaskInput
       serviceId={this.props.serviceId}
-      serviceText={this.props.serviceText}/>, document.getElementById("container"));
+      serviceText={this.props.serviceText}
+      description={this.props.description}
+      date={this.props.date}
+      time={this.props.time}
+      duration={this.props.duration}
+      cost={this.props.cost}/>, document.getElementById("container"));
     },
 
     render() {

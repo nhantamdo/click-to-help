@@ -44,7 +44,9 @@ ListService = React.createClass({
         }
 
         return [
-          <ListItem key={ service.id }
+          <ListItem
+            id="itemService"
+            key={ service.id }
             primaryText={ service.text }
             onClick={ this.selectService.bind(this, service.id, service.text) }
             leftAvatar={ <Avatar src={service.icon}/> }

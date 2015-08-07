@@ -21,12 +21,16 @@
 
 this.When(/^I choose a service$/, function (callback) {
   // Write code here that turns the phrase above into concrete actions
-  callback.pending();
+  this.client
+      .click('#itemService')
+      .call(callback);
 });
 
 this.When(/^I fill information "([^"]*)" in TextField Description$/, function (arg1, callback) {
   // Write code here that turns the phrase above into concrete actions
-  callback.pending();
+  $('.txtDescription div textarea:eq(1)').val('description 01');
+  this.client
+      .call(callback);
 });
 
 this.When(/^I click Next button$/, function (callback) {
