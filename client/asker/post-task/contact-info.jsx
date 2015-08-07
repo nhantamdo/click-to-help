@@ -11,13 +11,13 @@ const{
   Dialog
 } = mui;
 
-var customPalette = {
-  primary1Color: "#ff6666",
-  accent1Color: "#c0c0c0"
-};
+// var customPalette = {
+//   primary1Color: "#ff6666",
+//   accent1Color: "#c0c0c0"
+// };
 
 const ThemeManager = new mui.Styles.ThemeManager();
-ThemeManager.setPalette(customPalette);
+// ThemeManager.setPalette(customPalette);
 
 ContactInfo = React.createClass({
   childContextTypes: {
@@ -39,9 +39,22 @@ ContactInfo = React.createClass({
   },
   propTypes: {
   },
+  getDefaultProps: function() {
+    return {
+      address: "",
+      phone: "",
+      name: "",
+      email: "",
+    };
+  },
+
 
   postTask () {
-    if (this.refs.address.getValue()=="") {
+    var address = this.refs.address.getValue();
+    var phone = this.refs.phoneNumber.getValue();
+    var name = this.refs.name.getValue();
+    var email = this.refs.email.getValue();
+    if (address=="") {
       this.setState({
         addressExist : false
       });
@@ -51,7 +64,7 @@ ContactInfo = React.createClass({
         addressExist : true
       });
     }
-    if (this.refs.phoneNumber.getValue()=="") {
+    if (phone=="") {
       this.setState({
         phoneExist : false
       });
@@ -61,8 +74,7 @@ ContactInfo = React.createClass({
         phoneExist : true
       });
     }
-    if (
-      this.refs.name.getValue()=="") {this.setState({
+    if (name=="") {this.setState({
         nameExist : false
       });
     }
@@ -71,13 +83,20 @@ ContactInfo = React.createClass({
         nameExist : true
       });
     }
-    if (this.refs.address.getValue()!=""
-    &&this.refs.phoneNumber.getValue()!=""
-    &&this.refs.name.getValue()!=""){
+    if (address!="" && phone!="" && name!=""){
       React.render(<TaskPostConfirm
         serviceId={this.props.serviceId}
-        serviceText={this.props.serviceText} />, document.getElementById("container"));
-      }    
+        serviceText={this.props.serviceText}
+        description={this.props.description}
+        date={this.props.date}
+        time={this.props.time}
+        duration={this.props.duration}
+        cost={this.props.cost}
+        address={address}
+        phone={phone}
+        name={name}
+        email={email}/>, document.getElementById("container"));
+      }
   },
 
   onBack(){
@@ -107,6 +126,7 @@ ContactInfo = React.createClass({
                   <TextField ref="address"
                     floatingLabelText="Địa chỉ"
                     fullWidth={true}
+                    defaultValue={this.props.address}
                     errorText={this.state.addressExist? "":"Thông tin bắt buộc"}
                     id="Address"/>
                 </div>
@@ -114,6 +134,7 @@ ContactInfo = React.createClass({
                   <TextField ref="phoneNumber"
                     floatingLabelText="Số điện thoại"
                     fullWidth={true}
+                    defaultValue={this.props.phone}
                     errorText={this.state.phoneExist? "":"Thông tin bắt buộc"}
                     id="phoneNumber"/>
                 </div>
@@ -121,6 +142,7 @@ ContactInfo = React.createClass({
                   <TextField ref="name"
                     floatingLabelText="Họ tên"
                     fullWidth={true}
+                    defaultValue={this.props.name}
                     errorText={this.state.nameExist? "":"Thông tin bắt buộc"}
                     id="name"/>
                 </div>
@@ -128,6 +150,7 @@ ContactInfo = React.createClass({
                   <TextField ref="email"
                     floatingLabelText="Email (optional)"
                     fullWidth={true}
+                    defaultValue={this.props.email}
                     id="email"/>
                 </div>
                 <div className="padding-top">
