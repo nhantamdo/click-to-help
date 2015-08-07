@@ -8,13 +8,13 @@ const{
   IconButton,
 } = mui;
 
-var customPalette = {
-  primary1Color: "#ff6666",
-  accent1Color: "#c0c0c0"
-};
+// var customPalette = {
+//   primary1Color: "#ff6666",
+//   accent1Color: "#c0c0c0"
+// };
 
 const ThemeManager = new mui.Styles.ThemeManager();
-ThemeManager.setPalette(customPalette);
+//ThemeManager.setPalette(customPalette);
 
 PostTask = React.createClass({
   childContextTypes: {

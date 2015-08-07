@@ -13,13 +13,13 @@ const{
   RaisedButton
 } = mui;
 
-var customPalette = {
-  primary1Color: "#ff6666",
-  accent1Color: "#c0c0c0"
-};
+// var customPalette = {
+//   primary1Color: "#ff6666",
+//   accent1Color: "#c0c0c0"
+// };
 
 const ThemeManager = new mui.Styles.ThemeManager();
-ThemeManager.setPalette(customPalette);
+//ThemeManager.setPalette(customPalette);
 
 var duration = 2;
 
@@ -37,7 +37,9 @@ TaskInput = React.createClass({
   getInitialState: function () {
     return {
       errorDescription: false,
-      errorCost: false
+      errorCost: false,
+      errorCostText: "Thông tin bắt buộc",
+      textDescription: "Mô tả công việc (200)"
     };
   },
 
@@ -54,9 +56,27 @@ TaskInput = React.createClass({
     return d + "/" + m + "/" + y;
   },
 
+  onDescriptionChange(){
+    var numOfCharacter = 200 - this.refs.txtDescription.getValue().length;
+    this.setState({
+      textDescription: "Mô tả công việc (" + numOfCharacter + ")"
+    });
+  },
+
   onChangeSliderDuration(e,value){
     duration = value;
     $("#hoursNumber").text(value + "h");
+  },
+
+  onCostChange(){
+    var cost = this.refs.txtCost.getValue();
+    cost = Number(cost);
+    if(isNaN(cost)){
+      this.setState({
+        errorCost: true,
+        errorCostText: "Giá tiền chỉ nhập số"
+      });
+    }
   },
 
   onBack(){
@@ -66,7 +86,7 @@ TaskInput = React.createClass({
   onContactInfo(){
     var description = this.refs.txtDescription.getValue().trim();
     var cost = this.refs.txtCost.getValue().trim();
-    if(description.length == 0 || cost.length == 0){
+    if(description.length == 0 || cost.length == 0 || isNaN(Number(cost))){
       if(description.length == 0){
         this.setState({
           errorDescription: true
@@ -80,13 +100,21 @@ TaskInput = React.createClass({
 
       if(cost.length == 0){
         this.setState({
-          errorCost: true
+          errorCost: true,
+          errorCostText: "Thông tin bắt buộc"
         });
       }
       else {
-        this.setState({
-          errorCost: false
-        });
+        if(isNaN(Number(cost))){
+          this.setState({
+            errorCost: true,
+            errorCostText: "Giá tiền chỉ nhập số"
+          });
+        }else {
+          this.setState({
+            errorCost: false
+          });
+        }
       }
     }
     else {
@@ -154,9 +182,10 @@ TaskInput = React.createClass({
           ref="txtDescription"
           className="txtDescription"
           multiLine={true}
-          floatingLabelText="Mô tả công việc (200)"
+          floatingLabelText={this.state.textDescription}
           errorText={this.state.errorDescription ? "Thông tin bắt buộc" : ""}
           defaultValue={this.props.description != "" ? this.props.description : ""}
+          onChange={this.onDescriptionChange}
           fullWidth={true} />
         <DatePicker
           ref="dpDate"
@@ -185,8 +214,9 @@ TaskInput = React.createClass({
         <TextField
           ref="txtCost"
           floatingLabelText="Giá tiền (VND)"
-          errorText={this.state.errorCost ? "Thông tin bắt buộc" : ""}
+          errorText={this.state.errorCost ? this.state.errorCostText : ""}
           defaultValue={this.props.cost != "" ? this.props.cost : ""}
+          onChange={this.onCostChange}
           fullWidth={true}/>
         <br/>
         <div className="button-secondary">
