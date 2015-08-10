@@ -1,13 +1,15 @@
 /**
-* @Description: List Task of Tasker Screen
-* @Author: linhnh
+* @Description: Tasker Notification
+* @Author: truongtk
 */
 
 const{
   AppBar,
   IconButton,
   MenuItem,
-  LeftNav
+  LeftNav,
+  CardHeader,
+  Avatar
 } = mui;
 
 // var customPalette = {
@@ -18,25 +20,25 @@ const{
 const ThemeManager = new mui.Styles.ThemeManager();
 //ThemeManager.setPalette(customPalette);
 menuItems = [
-  { route: 'get-started', text: 'Get Started' },
-  { route: 'customization', text: 'Customization' },
-  { route: 'components', text: 'Components' },
-  { type: MenuItem.Types.SUBHEADER, text: 'Resources' },
-  {
-     type: MenuItem.Types.LINK,
-     payload: 'https://github.com/callemall/material-ui',
-     text: 'GitHub'
-  },
-  {
-     text: 'Disabled',
-     disabled: true
-  },
-  {
-     type: MenuItem.Types.LINK,
-     payload: 'https://www.google.com',
-     text: 'Disabled Link',
-     disabled: true
-  },
+{ route: 'get-started', text: 'Get Started' },
+{ route: 'customization', text: 'Customization' },
+{ route: 'components', text: 'Components' },
+{ type: MenuItem.Types.SUBHEADER, text: 'Resources' },
+{
+  type: MenuItem.Types.LINK,
+  payload: 'https://github.com/callemall/material-ui',
+  text: 'GitHub'
+},
+{
+  text: 'Disabled',
+  disabled: true
+},
+{
+  type: MenuItem.Types.LINK,
+  payload: 'https://www.google.com',
+  text: 'Disabled Link',
+  disabled: true
+},
 ];
 
 
@@ -60,7 +62,6 @@ ListTaskNotification = React.createClass({
 
   onClickNotification(e) {
     console.log(e);
-    this.refs.leftNav.toggle();
   },
 
   render() {
@@ -78,14 +79,10 @@ ListTaskNotification = React.createClass({
             </div>
           } />
           <div id="main">
-            <LeftNav
-              ref="leftNav"
-              docked={false}
-              menuItems={menuItems}
-              openRight={true}/>
-            <p>----------------------------</p>
-            <br/><br/><br/><br/><br/>
-            <p>----------------------------</p>
+            <CardHeader
+              title="Title"
+              subtitle="Subtitle"
+              avatar={<Avatar>A</Avatar>}/>
           </div>
         </div>
       );
