@@ -44,6 +44,10 @@ PostTask = React.createClass({
             serviceText={serviceText}/>, document.getElementById("container"));
   },
 
+  onBack(){
+    React.render(<HomePage />, document.getElementById("container"));
+  },
+
   render() {
     return (
       <div id="mainPostTask">
@@ -52,7 +56,7 @@ PostTask = React.createClass({
           iconElementRight={
             <div>
               <IconButton iconClassName="icon-help" />
-              <IconButton iconClassName="icon-back" />
+              <IconButton iconClassName="icon-back" onClick={this.onBack} />
             </div>
           } />
         <ListService

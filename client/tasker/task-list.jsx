@@ -40,6 +40,10 @@ ListTask_Tasker = React.createClass({
   propTypes: {
   },
 
+  onBack(){
+    React.render(<HomePage />, document.getElementById("container"));
+  },
+
   render() {
     return (
       <div>
@@ -49,7 +53,7 @@ ListTask_Tasker = React.createClass({
             <div>
               <IconButton iconClassName="icon-notification" />
               <IconButton iconClassName="icon-help" />
-              <IconButton iconClassName="icon-back" />
+              <IconButton iconClassName="icon-back" onClick={this.onBack} />
             </div>
           } />
           <Tabs>
