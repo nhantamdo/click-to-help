@@ -35,6 +35,7 @@ ListTask_Tasker = React.createClass({
 
   getInitialState () {
     return {
+      viewNotification: false
     };
   },
   propTypes: {
@@ -53,18 +54,26 @@ ListTask_Tasker = React.createClass({
     }
   },
 
-  render() {    
+  onClickNotification(e) {
+    this.setState({
+      viewNotification: !this.state.viewNotification
+    });
+  },
+
+  render() {
     return (
       <div>
         <AppBar
           title="Danh sách công việc"
           iconElementRight={
             <div>
-              <IconButton iconClassName="icon-notification" />
+              <IconButton iconClassName="icon-notification"
+                onClick={this.onClickNotification}/>
               <IconButton iconClassName="icon-help" />
               <IconButton iconClassName="icon-back" onClick={this.onBack} />
             </div>
           } />
+          {this.state.viewNotification? <ListTaskNotification />:
           <Tabs>
             <Tab label="Accepted" onActive={this.onActiveTab}>
               <ListItemTask />
@@ -72,33 +81,33 @@ ListTask_Tasker = React.createClass({
             <Tab label="Confirmed" onActive={this.onActiveTab}>
 
             </Tab>
-          </Tabs>
+          </Tabs>}
       </div>
     );
   }
 });
 
 ListItemTask = React.createClass({
-  getInitialState () {
-    return {
-    };
-  },
-  propTypes: {
-  },
+    getInitialState () {
+      return {
+      };
+    },
+    propTypes: {
+    },
 
-  mixins: [ReactMeteorData],
-  getMeteorData() {
-    return {
-      tasks: Task.find().fetch()
-    }
-  },
+    mixins: [ReactMeteorData],
+    getMeteorData() {
+      return {
+        tasks: Task.find().fetch()
+      }
+    },
 
-  formatMoney(num) {
+    formatMoney(num) {
       var p = num.toFixed(2).split(".");
       return p[0].split("").reverse().reduce(function(acc, num, i, orig) {
-          return  num + (i && !(i % 3) ? "," : "") + acc;
+        return  num + (i && !(i % 3) ? "," : "") + acc;
       }, "");
-  },
+    },
 
   render() {
     return <List>{
