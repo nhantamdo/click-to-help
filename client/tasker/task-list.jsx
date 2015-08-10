@@ -35,6 +35,7 @@ ListTask_Tasker = React.createClass({
 
   getInitialState () {
     return {
+      viewNotification: false
     };
   },
   propTypes: {
@@ -44,6 +45,12 @@ ListTask_Tasker = React.createClass({
     React.render(<HomePage />, document.getElementById("container"));
   },
 
+  onClickNotification(e) {
+    this.setState({
+      viewNotification: !this.state.viewNotification
+    });
+  },
+
   render() {
     return (
       <div>
@@ -51,82 +58,84 @@ ListTask_Tasker = React.createClass({
           title="Danh sách công việc"
           iconElementRight={
             <div>
-              <IconButton iconClassName="icon-notification" />
+              <IconButton iconClassName="icon-notification"
+                onClick={this.onClickNotification}/>
               <IconButton iconClassName="icon-help" />
               <IconButton iconClassName="icon-back" onClick={this.onBack} />
             </div>
           } />
-          <Tabs>
-          <Tab label="Accepted" >
-            <ListItemTask />
-          </Tab>
-          <Tab label="Confirmed" >
-
-          </Tab>
-        </Tabs>
-      </div>
-    );
-  }
-});
-
-ListItemTask = React.createClass({
-  getInitialState () {
-    return {
-    };
-  },
-  propTypes: {
-  },
-
-  mixins: [ReactMeteorData],
-  getMeteorData() {
-    return {
-      tasks: Task.find().fetch()
+          {this.state.viewNotification? <ListTaskNotification />:
+            <Tabs>
+              <Tab label="Accepted" >
+                <ListItemTask />
+              </Tab>
+              <Tab label="Confirmed" >
+              </Tab>
+            </Tabs>
+          }
+        </div>
+      );
     }
-  },
+  });
 
-  formatMoney(num) {
+  ListItemTask = React.createClass({
+    getInitialState () {
+      return {
+      };
+    },
+    propTypes: {
+    },
+
+    mixins: [ReactMeteorData],
+    getMeteorData() {
+      return {
+        tasks: Task.find().fetch()
+      }
+    },
+
+    formatMoney(num) {
       var p = num.toFixed(2).split(".");
       return p[0].split("").reverse().reduce(function(acc, num, i, orig) {
-          return  num + (i && !(i % 3) ? "," : "") + acc;
+        return  num + (i && !(i % 3) ? "," : "") + acc;
       }, "");
-  },
+    },
 
-  render() {
-    return <List>{
-      this.data.tasks.map((task) => {
-        var service = Service.findOne({id: task.serviceId});
-        var h = task.time.getHours();
-        h = h < 10 ? "0" + h : h;
-        var mm = task.time.getMinutes();
-        mm = mm < 10 ? "0" + mm : mm;
-        var time = h + ":" + mm;
+    render() {
+      return <List>{
+          this.data.tasks.map((task) => {
+            var service = Service.findOne({id: task.serviceId});
+            var h = task.time.getHours();
+            h = h < 10 ? "0" + h : h;
+            var mm = task.time.getMinutes();
+            mm = mm < 10 ? "0" + mm : mm;
+            var time = h + ":" + mm;
 
-        var d = task.date.getDate();
-        d = d < 10 ? "0" + d : d;
-        var m = task.date.getMonth() + 1;
-        m = m < 10 ? "0" + m : m;
-        var y = task.date.getFullYear();
-        var date = d + "/" + m + "/" + y;
+            var d = task.date.getDate();
+            d = d < 10 ? "0" + d : d;
+            var m = task.date.getMonth() + 1;
+            m = m < 10 ? "0" + m : m;
+            var y = task.date.getFullYear();
+            var date = d + "/" + m + "/" + y;
 
-        let styleItem = {};
-        styleItem["height"] = "32px";
+            let styleItem = {};
+            styleItem["height"] = "32px";
 
-        let cost = task.cost;
-        cost = this.formatMoney(Number(cost));
-        return [
-          <ListItem
-            key={task._id}
-            primaryText={ task.description }
-            secondaryText={
-              <p style={styleItem}>
-                <span>{time} &nbsp; {date} - làm trong {task.duration}h</span><br/>
-                {cost} VND - {task.address}
-              </p>
-            }
-            leftAvatar={ <Avatar src={service.icon}/> }/>,
-          <ListDivider/>
-        ]
-      })
-    }</List>
-  }
-});
+            let cost = task.cost;
+            cost = this.formatMoney(Number(cost));
+            return [
+            <ListItem
+              key={task._id}
+              primaryText={ task.description }
+              secondaryText={
+                <p style={styleItem}>
+                  <span>{time} &nbsp; {date} - làm trong {task.duration}h</span><br/>
+                  {cost} VND - {task.address}
+                </p>
+              }
+              leftAvatar={ <Avatar src={service.icon}/> }/>,
+            <ListDivider/>
+            ]
+          })
+        }</List>
+      }
+    });

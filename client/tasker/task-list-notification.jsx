@@ -9,38 +9,11 @@ const{
   MenuItem,
   LeftNav,
   CardHeader,
-  Avatar
+  Avatar,
+  Card,
 } = mui;
 
-// var customPalette = {
-//   primary1Color: "#ff6666",
-//   accent1Color: "#c0c0c0"
-// };
-
 const ThemeManager = new mui.Styles.ThemeManager();
-//ThemeManager.setPalette(customPalette);
-menuItems = [
-{ route: 'get-started', text: 'Get Started' },
-{ route: 'customization', text: 'Customization' },
-{ route: 'components', text: 'Components' },
-{ type: MenuItem.Types.SUBHEADER, text: 'Resources' },
-{
-  type: MenuItem.Types.LINK,
-  payload: 'https://github.com/callemall/material-ui',
-  text: 'GitHub'
-},
-{
-  text: 'Disabled',
-  disabled: true
-},
-{
-  type: MenuItem.Types.LINK,
-  payload: 'https://www.google.com',
-  text: 'Disabled Link',
-  disabled: true
-},
-];
-
 
 ListTaskNotification = React.createClass({
   childContextTypes: {
@@ -53,6 +26,28 @@ ListTaskNotification = React.createClass({
     };
   },
 
+  mixins: [ReactMeteorData],
+  getMeteorData() {
+    var thisTaskerId=1;
+    var result=[];
+    TaskStatus.find({taskerId:thisTaskerId}).forEach(function (taskStatus){
+      task=Task.findOne({_id:taskStatus.taskId});
+      service=Service.findOne({id:task.serviceId});
+      result.push({
+        serviceIcon: service.icon,
+        serviceText: service.text,
+        descripton: task.description,
+        date: task.date,
+        time: task.time,
+        address: task.address
+      });
+    });
+    console.log(result);
+    return {
+      taskStatus: result,
+    }
+  },
+
   getInitialState () {
     return {
     };
@@ -60,31 +55,21 @@ ListTaskNotification = React.createClass({
   propTypes: {
   },
 
-  onClickNotification(e) {
-    console.log(e);
+  renderNotification() {
+    return <Card>{
+        this.data.taskStatus.map((taskinfo) => {
+          return <CardHeader
+            title={taskinfo.serviceText}
+            avatar={<Avatar src={taskinfo.serviceIcon}/>}/>
+        })
+      }</Card>
   },
 
   render() {
     return (
-      <div>
-        <AppBar
-          title="Danh sách công việc"
-          iconElementRight={
-            <div>
-              <IconButton
-                iconClassName="icon-notification"
-                onFocus={this.onClickNotification}/>
-              <IconButton iconClassName="icon-help" />
-              <IconButton iconClassName="icon-back" />
-            </div>
-          } />
-          <div id="main">
-            <CardHeader
-              title="Title"
-              subtitle="Subtitle"
-              avatar={<Avatar>A</Avatar>}/>
-          </div>
-        </div>
-      );
-    }
-  });
+      <div id="notification">
+        {this.renderNotification()}
+      </div>
+    );
+  }
+});
