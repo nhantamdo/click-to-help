@@ -49,3 +49,107 @@ Service.upsert({
     text: "Dịch thuật"
   }
 });
+
+Tasker.upsert({
+  _id:1,
+  username:"toanpp",
+  email:"toanpp@twin.vn"
+},{
+  $set:{
+    _id:1,
+    username:"toanpp",
+    email:"toanpp@twin.vn"
+  }
+});
+
+Task.upsert({
+  _id:"bSrRwwWasRb79P22c",
+  serviceId:"001",
+  description:"Lau dọn nhà trong ngày 15/08/2015, bao gồm 2 phòng ngủ, 1 phòng khách",
+  date:new Date(),
+  time:new Date(),
+  duration:4.0,
+  address:"104 Mai Thị Lựu, Đakao, Quận 1, TP.HCM",
+  phone:"01228833055",
+  email:"toanpp@twin.vn",
+  cost: 200000,
+  createdAt:"2015-08-10T12:00:00"
+},
+{
+  $set: {
+    _id:"bSrRwwWasRb79P22c",
+    serviceId:"001",
+    description:"Lau dọn nhà trong ngày 15/08/2015, bao gồm 2 phòng ngủ, 1 phòng khách",
+    date:new Date(),
+    time:new Date(),
+    duration:4.0,
+    address:"104 Mai Thị Lựu, Đakao, Quận 1, TP.HCM",
+    phone:"01228833055",
+    email:"toanpp@twin.vn",
+    cost: 200000,
+    createdAt:"2015-08-10T12:00:00"
+  }
+});
+
+TaskStatus.upsert({
+  taskId:"bSrRwwWasRb79P22c",
+  taskerId:1,
+  status:"unread",
+  createdAt:"2015-08-10T12:00:00",
+  updatedAt:"2015-08-10T12:00:00"
+},
+{
+  $set:{
+    taskId:"bSrRwwWasRb79P22c",
+    taskerId:1,
+    status:"unread",
+    createdAt:"2015-08-10T12:00:00",
+    updatedAt:"2015-08-10T12:00:00"
+  }
+});
+
+Task.upsert({
+  _id:"bSrRwwWasRb79P22d",
+  serviceId:"002",
+  description:"Massage tai nha",
+  date:new Date(),
+  time:new Date(),
+  duration:1,
+  address:"104 Mai Thị Lựu, Đakao, Quận 1, TP.HCM",
+  phone:"01228833055",
+  email:"linhnh@twin.vn",
+  cost: 300000,
+  createdAt:"2015-08-10T12:00:00"
+},
+{
+  $set: {
+    _id:"bSrRwwWasRb79P22d",
+    serviceId:"002",
+    description:"Massage tai nha",
+    date:new Date(),
+    time:new Date(),
+    duration:1,
+    address:"104 Mai Thị Lựu, Đakao, Quận 1, TP.HCM",
+    phone:"01228833055",
+    email:"linhnh@twin.vn",
+    cost: 300000,
+    createdAt:"2015-08-10T12:00:00"
+  }
+});
+
+TaskStatus.upsert({
+  taskId:"bSrRwwWasRb79P22d",
+  taskerId:1,
+  status:"unread",
+  createdAt:"2015-08-10T12:00:00",
+  updatedAt:"2015-08-10T12:00:00"
+},
+{
+  $set:{
+    taskId:"bSrRwwWasRb79P22d",
+    taskerId:1,
+    status:"unread",
+    createdAt:"2015-08-10T12:00:00",
+    updatedAt:"2015-08-10T12:00:00"
+  }
+});
