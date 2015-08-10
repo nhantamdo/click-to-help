@@ -84,6 +84,13 @@ ListItemTask = React.createClass({
     }
   },
 
+  formatMoney(num) {
+      var p = num.toFixed(2).split(".");
+      return p[0].split("").reverse().reduce(function(acc, num, i, orig) {
+          return  num + (i && !(i % 3) ? "," : "") + acc;
+      }, "");
+  },
+
   render() {
     return <List>{
       this.data.tasks.map((task) => {
@@ -100,14 +107,20 @@ ListItemTask = React.createClass({
         m = m < 10 ? "0" + m : m;
         var y = task.date.getFullYear();
         var date = d + "/" + m + "/" + y;
+
+        let styleItem = {};
+        styleItem["height"] = "32px";
+
+        let cost = task.cost;
+        cost = this.formatMoney(Number(cost));
         return [
           <ListItem
             key={task._id}
             primaryText={ task.description }
             secondaryText={
-              <p>
-                <span>{time} &nbsp; {date} - {task.duration}h</span><br/>
-                <span>{task.cost} VND - {task.address}</span><br/>
+              <p style={styleItem}>
+                <span>{time} &nbsp; {date} - làm trong {task.duration}h</span><br/>
+                {cost} VND - {task.address}
               </p>
             }
             leftAvatar={ <Avatar src={service.icon}/> }/>,
