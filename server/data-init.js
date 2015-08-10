@@ -66,12 +66,13 @@ Task.upsert({
   _id:"bSrRwwWasRb79P22c",
   serviceId:"001",
   description:"Lau dọn nhà trong ngày 15/08/2015, bao gồm 2 phòng ngủ, 1 phòng khách",
-  startDate:"2015-08-15",
-  startTime:"00:08:00",
+  date:new Date(),
+  time:new Date(),
   duration:4.0,
   address:"104 Mai Thị Lựu, Đakao, Quận 1, TP.HCM",
   phone:"01228833055",
   email:"toanpp@twin.vn",
+  cost: 200000,
   createdAt:"2015-08-10T12:00:00"
 },
 {
@@ -79,12 +80,13 @@ Task.upsert({
     _id:"bSrRwwWasRb79P22c",
     serviceId:"001",
     description:"Lau dọn nhà trong ngày 15/08/2015, bao gồm 2 phòng ngủ, 1 phòng khách",
-    startDate:"2015-08-15",
-    startTime:"00:08:00",
+    date:new Date(),
+    time:new Date(),
     duration:4.0,
     address:"104 Mai Thị Lựu, Đakao, Quận 1, TP.HCM",
     phone:"01228833055",
     email:"toanpp@twin.vn",
+    cost: 200000,
     createdAt:"2015-08-10T12:00:00"
   }
 });
@@ -110,12 +112,13 @@ Task.upsert({
   _id:"bSrRwwWasRb79P22d",
   serviceId:"002",
   description:"Massage tai nha",
-  startDate:"2015-08-15",
-  startTime:"00:08:00",
+  date:new Date(),
+  time:new Date(),
   duration:1,
   address:"104 Mai Thị Lựu, Đakao, Quận 1, TP.HCM",
   phone:"01228833055",
   email:"linhnh@twin.vn",
+  cost: 300000,
   createdAt:"2015-08-10T12:00:00"
 },
 {
@@ -123,12 +126,13 @@ Task.upsert({
     _id:"bSrRwwWasRb79P22d",
     serviceId:"002",
     description:"Massage tai nha",
-    startDate:"2015-08-15",
-    startTime:"00:08:00",
+    date:new Date(),
+    time:new Date(),
     duration:1,
     address:"104 Mai Thị Lựu, Đakao, Quận 1, TP.HCM",
     phone:"01228833055",
     email:"linhnh@twin.vn",
+    cost: 300000,
     createdAt:"2015-08-10T12:00:00"
   }
 });
