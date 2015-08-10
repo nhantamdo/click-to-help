@@ -44,7 +44,16 @@ ListTask_Tasker = React.createClass({
     React.render(<HomePage />, document.getElementById("container"));
   },
 
-  render() {
+  onActiveTab(tab){
+    if(tab.props.tabIndex == 0){
+
+    }
+    else if(tab.props.tabIndex == 1){
+
+    }
+  },
+
+  render() {    
     return (
       <div>
         <AppBar
@@ -57,13 +66,13 @@ ListTask_Tasker = React.createClass({
             </div>
           } />
           <Tabs>
-          <Tab label="Accepted" >
-            <ListItemTask />
-          </Tab>
-          <Tab label="Confirmed" >
+            <Tab label="Accepted" onActive={this.onActiveTab}>
+              <ListItemTask />
+            </Tab>
+            <Tab label="Confirmed" onActive={this.onActiveTab}>
 
-          </Tab>
-        </Tabs>
+            </Tab>
+          </Tabs>
       </div>
     );
   }
@@ -109,7 +118,7 @@ ListItemTask = React.createClass({
         var date = d + "/" + m + "/" + y;
 
         let styleItem = {};
-        styleItem["height"] = "32px";
+        styleItem["height"] = "50px";
 
         let cost = task.cost;
         cost = this.formatMoney(Number(cost));
@@ -120,7 +129,8 @@ ListItemTask = React.createClass({
             secondaryText={
               <p style={styleItem}>
                 <span>{time} &nbsp; {date} - làm trong {task.duration}h</span><br/>
-                {cost} VND - {task.address}
+                {cost} VND<br/>
+                {task.address}
               </p>
             }
             leftAvatar={ <Avatar src={service.icon}/> }/>,
