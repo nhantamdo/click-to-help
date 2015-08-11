@@ -59,17 +59,18 @@ ListTaskNotification = React.createClass({
     return <Card>{
         this.data.taskStatus.map((taskinfo) => {
           return <CardHeader
-            title={taskinfo.serviceText}
+            title={taskinfo.time.getHours() + ":"
+              + taskinfo.time.getHours()}
             avatar={<Avatar src={taskinfo.serviceIcon}/>}/>
-        })
-      }</Card>
-  },
+          })
+        }</Card>
+      },
 
-  render() {
-    return (
-      <div id="notification">
-        {this.renderNotification()}
-      </div>
-    );
-  }
-});
+      render() {
+        return (
+          <div id="notification">
+            <TaskItem notification={true}/>
+          </div>
+        );
+      }
+    });
