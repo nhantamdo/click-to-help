@@ -9,16 +9,16 @@
 
     var url = require('url');
 
-    this.When(/^I click button Post a Task in Home page$/, function (callback) {
+    this.When(/^I click button Post a Task in Home page$/, function(callback) {
       this.client
-          .click('#btnPostTask')
-          .call(callback);
+        .click('#btnPostTask')
+        .call(callback);
     });
 
-    this.When(/^I click button I'm a Tasker in Home page$/, function (callback) {
+    this.When(/^I click button I'm a Tasker in Home page$/, function(callback) {
       this.client
-          .click('#btnTasker')
-          .call(callback);
+        .click('#btnTasker')
+        .call(callback);
     });
   };
 })();

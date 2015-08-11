@@ -67,7 +67,8 @@ ListTask_Tasker = React.createClass({
           title="Danh sách công việc"
           iconElementRight={
             <div>
-              <IconButton iconClassName="icon-notification"
+              <IconButton id="btnNotification"
+                iconClassName="icon-notification"
                 onClick={this.onClickNotification}/>
               <IconButton iconClassName="icon-help" />
               <IconButton iconClassName="icon-back" onClick={this.onBack} />

@@ -42,6 +42,7 @@ ListTaskNotification = React.createClass({
   render() {
     return (
       <div id="notification">
+        <p>Notification</p>
         <TaskItem status={['read','unread']}/>
       </div>
     );

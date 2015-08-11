@@ -1,5 +1,5 @@
 # Description: This is tasker test feature
-# Author: linhnh
+# Author: linhnh,truongtk
 Feature: tasker test
   As a new comer
   I am a Tasker
@@ -12,4 +12,6 @@ Feature: tasker test
   @dev
   Scenario:
     When I click button I'm a Tasker in Home page
-    Then move to List Task Screen
+    And move to List Task Screen
+    And I click notification
+    And I see my notification
