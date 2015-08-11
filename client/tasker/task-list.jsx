@@ -76,81 +76,13 @@ ListTask_Tasker = React.createClass({
           {this.state.viewNotification? <ListTaskNotification />:
           <Tabs>
             <Tab label="Accepted" onActive={this.onActiveTab}>
-              <ListItemTask status="accepted" />
+              <TaskItem status={['accepted']} />
             </Tab>
             <Tab label="Confirmed" onActive={this.onActiveTab}>
-              <ListItemTask status="confirmed" />
+              <TaskItem status={['confirmed']} />
             </Tab>
           </Tabs>}
       </div>
     );
-  }
-});
-
-ListItemTask = React.createClass({
-    getInitialState () {
-      return {
-      };
-    },
-    propTypes: {
-    },
-
-    mixins: [ReactMeteorData],
-    getMeteorData() {
-      let listItem = [];
-      var d = TaskStatus.find({status: this.props.status}).fetch();
-      d.forEach(function(item){
-        listItem.push(item.taskId.insertedId);
-      });
-      return {
-        tasks: Task.find({_id: {$in: listItem}}).fetch()
-      }
-    },
-
-    formatMoney(num) {
-      var p = num.toFixed(2).split(".");
-      return p[0].split("").reverse().reduce(function(acc, num, i, orig) {
-        return  num + (i && !(i % 3) ? "," : "") + acc;
-      }, "");
-    },
-
-  render() {
-    return <List>{
-      this.data.tasks.map((task) => {
-        var service = Service.findOne({id: task.serviceId});
-        var h = task.time.getHours();
-        h = h < 10 ? "0" + h : h;
-        var mm = task.time.getMinutes();
-        mm = mm < 10 ? "0" + mm : mm;
-        var time = h + ":" + mm;
-
-        var d = task.date.getDate();
-        d = d < 10 ? "0" + d : d;
-        var m = task.date.getMonth() + 1;
-        m = m < 10 ? "0" + m : m;
-        var y = task.date.getFullYear();
-        var date = d + "/" + m + "/" + y;
-
-        let styleItem = {};
-        styleItem["height"] = "50px";
-
-        let cost = task.cost;
-        cost = this.formatMoney(Number(cost));
-        return [
-          <ListItem
-            key={task._id}
-            primaryText={ task.description }
-            secondaryText={
-              <p style={styleItem}>
-                <span>{time} &nbsp; {date} - làm trong {task.duration}h</span><br/>
-                {cost} VND<br/>
-                {task.address}
-              </p>
-            }
-            leftAvatar={ <Avatar src={service.icon}/> }/>,
-          <ListDivider/>
-        ]
-      })
-    }</List>
   }
 });
