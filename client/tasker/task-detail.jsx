@@ -10,10 +10,12 @@ const{
   DatePicker,
   TimePicker,
   Slider,
-  RaisedButton
+  RaisedButton,
+  CardTitle,
+  CardActions,
+  FlatButton
 } = mui;
-
-
+Meteor.subscribe("task");
 const ThemeManager = new mui.Styles.ThemeManager();
 //ThemeManager.setPalette(customPalette);
 
@@ -21,35 +23,45 @@ TaskDetail = React.createClass({
   childContextTypes: {
     muiTheme: React.PropTypes.object
   },
+
   getChildContext: function() {
     return {
       muiTheme: ThemeManager.getCurrentTheme()
     };
   },
-  
+
   mixins: [ReactMeteorData],
+
   getMeteorData() {
     return {
-      tasks: Task.findOne({})
+      tasks: Task.find({_id:"QLGjMyMGRjBsFPTsu"}).fetch()
     }
-  },
-
-  getDefaultService: function(){
-    var task1 = this.data.tasks;
-    //var service = Service.findOne({id: task1.serviceId});
-    return "Don dep nha";//service.text;
   },
 
   onBack(){
     React.render(<HomePage />, document.getElementById("container"));
   },
 
-
-
   render() {
+    console.log(this.data.tasks);
+    var service = Service.findOne({_id:this.data.tasks.serviceId});
     return (
-      <div>
-      <AppBar title="dhsgvdhsgvd"/>
+      <div id="taskDetailContainer">
+      <AppBar title="Task detail"
+      iconElementRight={
+        <div>
+        <IconButton iconClassName="icon-notification"
+        onClick={this.onClickNotification}/>
+        <IconButton iconClassName="icon-help" />
+        <IconButton iconClassName="icon-back" onClick={this.onBack} />
+        </div>
+      } />
+      <CardTitle title={service.text} subtitle={this.data.tasks.description}/>
+      <CardActions>
+      <FlatButton label="Action1"/>
+      <FlatButton label="Action2"/>
+      </CardActions>
+
       </div>
     );
   }
