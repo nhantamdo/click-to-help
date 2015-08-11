@@ -28,24 +28,8 @@ ListTaskNotification = React.createClass({
 
   mixins: [ReactMeteorData],
   getMeteorData() {
-    var thisTaskerId=1;
-    var result=[];
-    TaskStatus.find({taskerId:thisTaskerId}).forEach(function (taskStatus){
-      task=Task.findOne({_id:taskStatus.taskId});
-      service=Service.findOne({id:task.serviceId});
-      result.push({
-        serviceIcon: service.icon,
-        serviceText: service.text,
-        descripton: task.description,
-        date: task.date,
-        time: task.time,
-        address: task.address
-      });
-    });
-    console.log(result);
     return {
-      taskStatus: result,
-    }
+    };
   },
 
   getInitialState () {
@@ -55,22 +39,12 @@ ListTaskNotification = React.createClass({
   propTypes: {
   },
 
-  renderNotification() {
-    return <Card>{
-        this.data.taskStatus.map((taskinfo) => {
-          return <CardHeader
-            title={taskinfo.time.getHours() + ":"
-              + taskinfo.time.getHours()}
-            avatar={<Avatar src={taskinfo.serviceIcon}/>}/>
-          })
-        }</Card>
-      },
-
-      render() {
-        return (
-          <div id="notification">
-            <TaskItem notification={true}/>
-          </div>
-        );
-      }
-    });
+  render() {
+    return (
+      <div id="notification">
+        <p>Notification</p>
+        <TaskItem status={['read','unread']}/>
+      </div>
+    );
+  }
+});
