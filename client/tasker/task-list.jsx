@@ -79,7 +79,7 @@ ListTask_Tasker = React.createClass({
             <Tab label="Accepted" onActive={this.onActiveTab}>
               <TaskItem status={['accepted']} />
             </Tab>
-            <Tab label="Confirmed" onActive={this.onActiveTab}>
+            <Tab label="Confirmed" id="tabConfirmed" onActive={this.onActiveTab}>
               <TaskItem status={['confirmed']} />
             </Tab>
           </Tabs>}

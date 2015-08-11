@@ -12,17 +12,33 @@
     this.Given(/^I am a Tasker$/, function(callback) {
       // Write code here that turns the phrase above into concrete actions
       this.client
-        .url(process.env.ROOT_URL)
-        .waitForExist('body *')
-        .waitForVisible('body *')
-        .call(callback);
+      .url(process.env.ROOT_URL)
+      .waitForExist('body *')
+      .waitForVisible('body *')
+      .call(callback);
     });
 
-    this.When(/^move to List Task Screen$/, function(callback) {
-      // Write code here that turns the phrase above into concrete actions
+    this.When(/^move to List Task Screen$/, function (callback) {
       this.client
         .pause(5000)
         .call(callback);
+    });
+
+    this.Then(/^display tasks which status is accepted in the first Tab$/, function (callback) {
+      this.client
+      .call(callback);
+    });
+
+    this.When(/^I click Tab Confirmed$/, function (callback) {
+      // Write code here that turns the phrase above into concrete actions
+      this.client
+          .click('#tabConfirmed')
+          .call(callback);
+    });
+
+    this.Then(/^display tasks which status is confirmed in the second Tab$/, function (callback) {
+      // Write code here that turns the phrase above into concrete actions
+      callback.pending();
     });
 
     this.When(/^I click notification$/, function(callback) {
@@ -31,7 +47,7 @@
         .call(callback);
     });
 
-    this.When(/^I see my notification$/, function(callback) {
+    this.Then(/^I see my notification$/, function(callback) {
       this.client
         .pause(5000)
         .call(callback);

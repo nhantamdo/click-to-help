@@ -13,5 +13,12 @@ Feature: tasker test
   Scenario:
     When I click button I'm a Tasker in Home page
     And move to List Task Screen
+    Then display tasks which status is accepted in the first Tab
     And I click notification
-    And I see my notification
+    Then I see my notification
+
+  @dev
+  Scenario:
+    When I click button I'm a Tasker in Home page
+    And I click Tab Confirmed
+    Then display tasks which status is confirmed in the second Tab
