@@ -179,6 +179,7 @@ TaskInput = React.createClass({
             </div>
           } />
         <TextField
+          id="txtDescription"
           ref="txtDescription"
           className="txtDescription"
           multiLine={true}
@@ -203,6 +204,7 @@ TaskInput = React.createClass({
           <span id="hoursNumber">2h</span>
         </div>
         <Slider
+          id="sliderDuration"
           ref="sliderDuration"
           name="sliderDuration"
           min={0.5}
@@ -212,6 +214,7 @@ TaskInput = React.createClass({
           fullWidth={true}
           onChange={this.onChangeSliderDuration} />
         <TextField
+          id="txtCost"
           ref="txtCost"
           floatingLabelText="Giá tiền (VND)"
           errorText={this.state.errorCost ? this.state.errorCostText : ""}
@@ -221,6 +224,7 @@ TaskInput = React.createClass({
         <br/>
         <div className="button-secondary">
           <RaisedButton
+            id="btnNext"
             label="Tiếp theo"
             secondary={true}
             fullWidth={true}
