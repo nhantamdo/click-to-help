@@ -53,6 +53,7 @@ HomePage = React.createClass({
         <br/>
         <div className="button-secondary">
           <RaisedButton
+            id="btnPostTask"
             label="Post a Task"
             secondary={true}
             fullWidth={true}
@@ -60,6 +61,7 @@ HomePage = React.createClass({
         </div>
         <div className="button-secondary">
           <RaisedButton
+            id="btnTasker"
             label="I'm a Tasker"
             primary={true}
             fullWidth={true}
