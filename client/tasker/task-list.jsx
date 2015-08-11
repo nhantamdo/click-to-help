@@ -35,6 +35,7 @@ ListTask_Tasker = React.createClass({
 
   getInitialState () {
     return {
+      viewNotification: false
     };
   },
   propTypes: {
@@ -44,6 +45,21 @@ ListTask_Tasker = React.createClass({
     React.render(<HomePage />, document.getElementById("container"));
   },
 
+  onActiveTab(tab){
+    if(tab.props.tabIndex == 0){
+
+    }
+    else if(tab.props.tabIndex == 1){
+
+    }
+  },
+
+  onClickNotification(e) {
+    this.setState({
+      viewNotification: !this.state.viewNotification
+    });
+  },
+
   render() {
     return (
       <div>
@@ -51,45 +67,47 @@ ListTask_Tasker = React.createClass({
           title="Danh sách công việc"
           iconElementRight={
             <div>
-              <IconButton iconClassName="icon-notification" />
+              <IconButton iconClassName="icon-notification"
+                onClick={this.onClickNotification}/>
               <IconButton iconClassName="icon-help" />
               <IconButton iconClassName="icon-back" onClick={this.onBack} />
             </div>
           } />
+          {this.state.viewNotification? <ListTaskNotification />:
           <Tabs>
-          <Tab label="Accepted" >
-            <ListItemTask />
-          </Tab>
-          <Tab label="Confirmed" >
+            <Tab label="Accepted" onActive={this.onActiveTab}>
+              <ListItemTask />
+            </Tab>
+            <Tab label="Confirmed" onActive={this.onActiveTab}>
 
-          </Tab>
-        </Tabs>
+            </Tab>
+          </Tabs>}
       </div>
     );
   }
 });
 
 ListItemTask = React.createClass({
-  getInitialState () {
-    return {
-    };
-  },
-  propTypes: {
-  },
+    getInitialState () {
+      return {
+      };
+    },
+    propTypes: {
+    },
 
-  mixins: [ReactMeteorData],
-  getMeteorData() {
-    return {
-      tasks: Task.find().fetch()
-    }
-  },
+    mixins: [ReactMeteorData],
+    getMeteorData() {
+      return {
+        tasks: Task.find().fetch()
+      }
+    },
 
-  formatMoney(num) {
+    formatMoney(num) {
       var p = num.toFixed(2).split(".");
       return p[0].split("").reverse().reduce(function(acc, num, i, orig) {
-          return  num + (i && !(i % 3) ? "," : "") + acc;
+        return  num + (i && !(i % 3) ? "," : "") + acc;
       }, "");
-  },
+    },
 
   render() {
     return <List>{
@@ -109,7 +127,7 @@ ListItemTask = React.createClass({
         var date = d + "/" + m + "/" + y;
 
         let styleItem = {};
-        styleItem["height"] = "32px";
+        styleItem["height"] = "50px";
 
         let cost = task.cost;
         cost = this.formatMoney(Number(cost));
@@ -120,7 +138,8 @@ ListItemTask = React.createClass({
             secondaryText={
               <p style={styleItem}>
                 <span>{time} &nbsp; {date} - làm trong {task.duration}h</span><br/>
-                {cost} VND - {task.address}
+                {cost} VND<br/>
+                {task.address}
               </p>
             }
             leftAvatar={ <Avatar src={service.icon}/> }/>,
