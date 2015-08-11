@@ -27,7 +27,7 @@ TaskItem = React.createClass({
     var thisTaskerId=1;
     var result=[];
     TaskStatus.find({}).forEach(function (taskStatus){
-      task=Task.findOne({_id:taskStatus.taskId});
+      task=Task.findOne({_id:taskStatus.taskId.insertedId});
       service=Service.findOne({id:task.serviceId});
       result.push({
         key: task._id,
