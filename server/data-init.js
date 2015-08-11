@@ -91,7 +91,7 @@ task1 = Task.upsert({
 TaskStatus.upsert({
   taskId:task1,
   taskerId:tasker1,
-  status:"unread",
+  status:"accepted",
   createdAt:"2015-08-10T12:00:00",
   updatedAt:"2015-08-10T12:00:00"
 },
@@ -99,7 +99,7 @@ TaskStatus.upsert({
   $set:{
     taskId:task1,
     taskerId:tasker1,
-    status:"unread",
+    status:"accepted",
     createdAt:"2015-08-10T12:00:00",
     updatedAt:"2015-08-10T12:00:00"
   }
@@ -135,7 +135,7 @@ task2 = Task.upsert({
 TaskStatus.upsert({
   taskId:task2,
   taskerId:tasker1,
-  status:"unread",
+  status:"confirmed",
   createdAt:"2015-08-10T12:00:00",
   updatedAt:"2015-08-10T12:00:00"
 },
@@ -143,7 +143,7 @@ TaskStatus.upsert({
   $set:{
     taskId:task2,
     taskerId:tasker1,
-    status:"unread",
+    status:"confirmed",
     createdAt:"2015-08-10T12:00:00",
     updatedAt:"2015-08-10T12:00:00"
   }

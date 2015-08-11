@@ -76,10 +76,10 @@ ListTask_Tasker = React.createClass({
           {this.state.viewNotification? <ListTaskNotification />:
           <Tabs>
             <Tab label="Accepted" onActive={this.onActiveTab}>
-              <ListItemTask />
+              <ListItemTask status="accepted" />
             </Tab>
             <Tab label="Confirmed" onActive={this.onActiveTab}>
-
+              <ListItemTask status="confirmed" />
             </Tab>
           </Tabs>}
       </div>
@@ -97,8 +97,13 @@ ListItemTask = React.createClass({
 
     mixins: [ReactMeteorData],
     getMeteorData() {
+      let listItem = [];
+      var d = TaskStatus.find({status: this.props.status}).fetch();
+      d.forEach(function(item){
+        listItem.push(item.taskId.insertedId);
+      });
       return {
-        tasks: Task.find().fetch()
+        tasks: Task.find({_id: {$in: listItem}}).fetch()
       }
     },
 
