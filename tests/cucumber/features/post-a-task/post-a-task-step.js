@@ -10,8 +10,7 @@
     var url = require('url');
 
     this.Given(/^I am a new user$/, function (callback) {
-      // Write code here that turns the phrase above into concrete actions
-      console.log(process.env.ROOT_URL);
+      // Write code here that turns the phrase above into concrete actions      
       this.client
       .url(process.env.ROOT_URL)
       .waitForExist('body *')

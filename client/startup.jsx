@@ -5,5 +5,5 @@ Meteor.subscribe("tasker");
 
 Meteor.startup(function () {
   injectTapEventPlugin();
-  React.render(<PostTask/>, document.getElementById("container"));
+  React.render(<HomePage/>, document.getElementById("container"));
 });
