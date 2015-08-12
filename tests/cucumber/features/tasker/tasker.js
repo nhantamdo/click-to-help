@@ -20,25 +20,25 @@
 
     this.When(/^move to List Task Screen$/, function (callback) {
       this.client
-        .pause(5000)
         .call(callback);
     });
 
     this.Then(/^display tasks which status is accepted in the first Tab$/, function (callback) {
       this.client
-      .call(callback);
+          .pause(5000)
+          .call(callback);
     });
 
     this.When(/^I click Tab Confirmed$/, function (callback) {
       // Write code here that turns the phrase above into concrete actions
       this.client
-          .click('#tabConfirmed')
+          .click('div=Confirmed')
           .call(callback);
     });
 
     this.Then(/^display tasks which status is confirmed in the second Tab$/, function (callback) {
-      // Write code here that turns the phrase above into concrete actions
-      callback.pending();
+      this.client          
+          .call(callback);
     });
 
     this.When(/^I click notification$/, function(callback) {
