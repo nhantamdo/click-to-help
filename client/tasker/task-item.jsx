@@ -6,7 +6,8 @@ const{
   List,
   ListItem,
   ListDivider,
-  Avatar
+  Avatar,
+  subheader,
 } = mui;
 
 TaskItem = React.createClass({
@@ -58,11 +59,18 @@ TaskItem = React.createClass({
       return  num + (i && !(i % 3) ? "," : "") + acc;
     }, "");
   },
+  onDetailClick(taskKey){
+    React.render(<TaskDetail taskKey={taskKey}/>, document.getElementById("container"));
+
+  },
 
   render() {
-    return <List>{
-        this.data.tasks.map((task) => {
+
+    return <List subheader= {this.props.subheader}>{
+        this.data.tasks.map((task,index) => {
           //var service = Service.findOne({id: task.serviceId});
+          console.log(this.data.tasks.length);
+          console.log(index);
           var h = task.time.getHours();
           h = h < 10 ? "0" + h : h;
           var mm = task.time.getMinutes();
@@ -83,6 +91,7 @@ TaskItem = React.createClass({
           cost = this.formatMoney(Number(cost));
           return [
           <ListItem
+            id={task.key}
             className={task.status=="unread"? "unread-task":"task"}
             key={task.key}
             primaryText={ task.description }
@@ -93,8 +102,8 @@ TaskItem = React.createClass({
               {task.address}
             </p>
           }
-          leftAvatar={ <Avatar src={task.serviceIcon}/> }/>,
-        <ListDivider/>
+          leftAvatar={ <Avatar src={task.serviceIcon}/> }
+          onClick={this.onDetailClick.bind(this, task.key)}/>,
         ]
       })
     }</List>
