@@ -9,7 +9,7 @@ Feature: Task information test
     Given I am a Tasker
 
   # This scenario will run as part of the Meteor dev cycle because it has the @dev tag
-  @dev
+  #@dev
   Scenario:
     When I click the button I'm a Tasker
     And I click the notification button

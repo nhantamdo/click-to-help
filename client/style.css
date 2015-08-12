@@ -2,9 +2,25 @@ body{
   margin: 0px 0px 0px 0px;
 }
 
-.appbar{
+.appbar {
   position: fixed;
   top: 0;
+  width: 100%;
+  z-index: 10;
+}
+.main {
+  margin-top: 64px;
+}
+
+.notification {
+  z-index: 10;
+  margin-left: 10%;
+  margin-right: 10%;
+  top: 45px;
+  bottom:10%;
+  position:fixed;
+  overflow-y:scroll;
+  overflow-x:hidden;
 }
 
 .icon-help{
@@ -60,11 +76,6 @@ body{
 
 .unread-task {
   font-weight: bold !important;
-}
-
-.notification {
-  margin-left: 10%;
-  margin-right: 5%;
 }
 
 #Cost,#hoursNumber{

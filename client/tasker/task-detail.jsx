@@ -17,7 +17,8 @@ const{
   CardText,
   Paper,
   Card,
-  CardHeader
+  CardHeader,
+  Avatar
 } = mui;
 
 const ThemeManager = new mui.Styles.ThemeManager();
@@ -118,6 +119,11 @@ TaskDetail = React.createClass({
     style["font-weight"] = "bold";
     let boldStyle = {};
     boldStyle["font-weight"] = "bold";
+    let subText = {};
+    subText["color"]="rgba(0, 0, 0, 0.54)";
+    let avatarStyle = {};
+    avatarStyle["magin-left"] = "40%";
+    avatarStyle["magin-right"] = "40%";
     return (
       <div id="taskDetailContainer">
       <AppBar title="Task information"
@@ -131,15 +137,14 @@ TaskDetail = React.createClass({
       } />
       {this.state.viewNotification? <ListTaskNotification />:
         <Card zDepth={0}>
-        <CardHeader style={boldStyle}
+        <Avatar src={service.icon} size={75} style={avatarStyle}/>
+        <CardTitle style={boldStyle}
         title={task.description}
-        avatar={service.icon}>
-        </CardHeader>
-        <br/>
-        <CardText>At: {time} &nbsp; {date} - Duration {task.duration}h</CardText>
-        <CardText>Cost: {cost} VND</CardText>
-        <CardText>Location: {task.address}</CardText>
-        <CardText>Contact: {task.phone} - {task.email}</CardText>
+        />
+        <CardText style={subText}>At: {time} &nbsp; {date} - Duration {task.duration}h</CardText>
+        <CardText style={subText}>Cost: {cost} VND</CardText>
+        <CardText style={subText}>Location: {task.address}</CardText>
+        <CardText style={subText}>Contact: {task.phone} - {task.email}</CardText>
         {numberConfirmed==0?<CardText style={style}>{numberAccepted==0? "No one accepted":numberAccepted==1? "Have 1 tasker accepted":"Have ".concat(numberAccepted).concat(" taskers accepted")}</CardText>:<CardText style={style}>This task is comfirmed</CardText>}
         <CardActions>
         <RaisedButton

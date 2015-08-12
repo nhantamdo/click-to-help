@@ -38,7 +38,7 @@
 
     this.When(/^I click the task "([^"]*)"$/, function (taskName,callback) {
       this.client
-      .click('div='.concat(taskName))
+      .click('p='.concat(taskName))
 
       .call(callback);
     });

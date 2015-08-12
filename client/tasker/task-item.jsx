@@ -67,44 +67,50 @@ TaskItem = React.createClass({
 
 
   render() {
-
+    let primaryTextStyle = {
+      overflow: 'hidden',
+      whiteSpace: 'pre-line',
+      textOverflow: 'ellipsis',
+      height: '32px',
+    };
     return <List subheader= {this.props.subheader}>{
-        this.data.tasks.map((task,index) => {
-          //var service = Service.findOne({id: task.serviceId});
-          var h = task.time.getHours();
-          h = h < 10 ? "0" + h : h;
-          var mm = task.time.getMinutes();
-          mm = mm < 10 ? "0" + mm : mm;
-          var time = h + ":" + mm;
+      this.data.tasks.map((task,index) => {
+        var h = task.time.getHours();
+        h = h < 10 ? "0" + h : h;
+        var mm = task.time.getMinutes();
+        mm = mm < 10 ? "0" + mm : mm;
+        var time = h + ":" + mm;
 
-          var d = task.date.getDate();
-          d = d < 10 ? "0" + d : d;
-          var m = task.date.getMonth() + 1;
-          m = m < 10 ? "0" + m : m;
-          var y = task.date.getFullYear();
-          var date = d + "/" + m + "/" + y;
+        var d = task.date.getDate();
+        d = d < 10 ? "0" + d : d;
+        var m = task.date.getMonth() + 1;
+        m = m < 10 ? "0" + m : m;
+        var y = task.date.getFullYear();
+        var date = d + "/" + m + "/" + y;
 
-          let styleItem = {};
-          styleItem["height"] = "50px";
+        let styleItem = {};
+        styleItem["height"] = "50px";
 
-          let cost = task.cost;
-          cost = this.formatMoney(Number(cost));
-          return [
+        let cost = task.cost;
+        cost = this.formatMoney(Number(cost));
+        return [
           <ListItem
-            id={task.key}
-            className={task.status=="unread"? "unread-task":"task"}
-            key={task.key}
-            primaryText={ task.description }
-            secondaryText={
-              <p style={styleItem}>
-                <span>{time} &nbsp; {date} - làm trong {task.duration}h</span><br/>
-                {cost} VND<br/>
-              {task.address}
+          id={task.key}
+          className={task.status=="unread"? "unread-task":"task"}
+          key={task.key}
+          primaryText={ <p style={primaryTextStyle}>
+          {task.description}
+          </p> }
+          secondaryText={
+            <p style={styleItem}>
+            <span>{time} &nbsp; {date} - làm trong {task.duration}h</span><br/>
+            {cost} VND<br/>
+            {task.address}
             </p>
           }
           leftAvatar={ <Avatar src={task.serviceIcon}/> }
           onClick={this.onDetailClick.bind(this, task.key)}/>,
-        this.listDivider(index,this.data.tasks.length)
+          this.listDivider(index,this.data.tasks.length)
         ]
       })
     }</List>
