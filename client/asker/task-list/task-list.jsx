@@ -1,5 +1,5 @@
 /**
-* @Description: List Task of Tasker Screen
+* @Description: List Task of Asker Screen
 * @Author: linhnh
 */
 
@@ -7,11 +7,7 @@ const{
   AppBar,
   IconButton,
   Tabs,
-  Tab,
-  List,
-  ListItem,
-  ListDivider,
-  Avatar
+  Tab
 } = mui;
 
 // var customPalette = {
@@ -22,7 +18,7 @@ const{
 const ThemeManager = new mui.Styles.ThemeManager();
 //ThemeManager.setPalette(customPalette);
 
-ListTask_Tasker = React.createClass({
+ListTask_Asker = React.createClass({
   childContextTypes: {
     muiTheme: React.PropTypes.object
   },
@@ -45,21 +41,6 @@ ListTask_Tasker = React.createClass({
     React.render(<HomePage />, document.getElementById("container"));
   },
 
-  onActiveTab(tab){
-    if(tab.props.tabIndex == 0){
-
-    }
-    else if(tab.props.tabIndex == 1){
-
-    }
-  },
-
-  onClickNotification(e) {
-    this.setState({
-      viewNotification: !this.state.viewNotification
-    });
-  },
-
   render() {
     return (
       <div className="appbar">
@@ -74,18 +55,16 @@ ListTask_Tasker = React.createClass({
               <IconButton iconClassName="icon-back" onClick={this.onBack} />
             </div>
           } />
-          {this.state.viewNotification? <ListTaskNotification />:
-            <div>
-              <Tabs>
-                <Tab label="Accepted" onActive={this.onActiveTab}>
-                  <TaskItem status={['accepted']} />
-                </Tab>
-                <Tab label="Confirmed" onActive={this.onActiveTab}>
-                  <TaskItem status={['confirmed']} />
-                </Tab>
-              </Tabs>
-            </div>
-          }
+          <div>
+            <Tabs>
+              <Tab label="Accepted">
+                <TaskItem_Asker status={['accepted']} />
+              </Tab>
+              <Tab label="Confirmed">
+                <TaskItem_Asker status={['confirmed']} />
+              </Tab>
+            </Tabs>
+          </div>
       </div>
     );
   }
