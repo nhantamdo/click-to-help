@@ -33,7 +33,7 @@ HomePage = React.createClass({
   },
 
   onAskerClick(){
-    React.render(<PostTask />, document.getElementById("container"));
+    React.render(<ListTask_Asker />, document.getElementById("container"));
   },
 
   onTaskerClick() {
