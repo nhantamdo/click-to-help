@@ -61,8 +61,11 @@ TaskItem = React.createClass({
   },
   onDetailClick(taskKey){
     React.render(<TaskDetail taskKey={taskKey}/>, document.getElementById("container"));
-
   },
+  listDivider(index,length) {
+    if (index != length-1) return <ListDivider/>;
+  },
+
 
   render() {
 
@@ -104,6 +107,7 @@ TaskItem = React.createClass({
           }
           leftAvatar={ <Avatar src={task.serviceIcon}/> }
           onClick={this.onDetailClick.bind(this, task.key)}/>,
+        this.listDivider(index,this.data.tasks.length)
         ]
       })
     }</List>
