@@ -67,7 +67,12 @@ TaskItem = React.createClass({
 
 
   render() {
-
+    let primaryTextStyle = {
+      overflow: 'hidden',
+      whiteSpace: 'pre-line',
+      textOverflow: 'ellipsis',
+      height: '32px',
+    };
     return <List subheader= {this.props.subheader}>{
         this.data.tasks.map((task,index) => {
           var h = task.time.getHours();
@@ -93,7 +98,9 @@ TaskItem = React.createClass({
             id={task.key}
             className={task.status=="unread"? "unread-task":"task"}
             key={task.key}
-            primaryText={ task.description }
+            primaryText={ <p style={primaryTextStyle}>
+              {task.description}
+            </p> }
             secondaryText={
               <p style={styleItem}>
                 <span>{time} &nbsp; {date} - làm trong {task.duration}h</span><br/>
