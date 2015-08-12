@@ -6,7 +6,8 @@ const{
   List,
   ListItem,
   ListDivider,
-  Avatar
+  Avatar,
+  subheader,
 } = mui;
 
 TaskItem = React.createClass({
@@ -64,9 +65,12 @@ TaskItem = React.createClass({
   },
 
   render() {
-    return <List>{
-        this.data.tasks.map((task) => {
+
+    return <List subheader= {this.props.subheader}>{
+        this.data.tasks.map((task,index) => {
           //var service = Service.findOne({id: task.serviceId});
+          console.log(this.data.tasks.length);
+          console.log(index);
           var h = task.time.getHours();
           h = h < 10 ? "0" + h : h;
           var mm = task.time.getMinutes();
@@ -100,7 +104,6 @@ TaskItem = React.createClass({
           }
           leftAvatar={ <Avatar src={task.serviceIcon}/> }
           onClick={this.onDetailClick.bind(this, task.key)}/>,
-        <ListDivider/>
         ]
       })
     }</List>

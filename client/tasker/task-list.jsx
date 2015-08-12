@@ -62,7 +62,7 @@ ListTask_Tasker = React.createClass({
 
   render() {
     return (
-      <div>
+      <div className="appbar">
         <AppBar
           title="Danh sách công việc"
           iconElementRight={
@@ -75,14 +75,17 @@ ListTask_Tasker = React.createClass({
             </div>
           } />
           {this.state.viewNotification? <ListTaskNotification />:
-          <Tabs>
-            <Tab label="Accepted" onActive={this.onActiveTab}>
-              <TaskItem status={['accepted']} />
-            </Tab>
-            <Tab label="Confirmed" id="tabConfirmed" onActive={this.onActiveTab}>
-              <TaskItem status={['confirmed']} />
-            </Tab>
-          </Tabs>}
+            <div className="tabConfirmed">
+              <Tabs>
+                <Tab label="Accepted" onActive={this.onActiveTab}>
+                  <TaskItem status={['accepted']} />
+                </Tab>
+                <Tab label="Confirmed" onActive={this.onActiveTab}>
+                  <TaskItem status={['confirmed']} />
+                </Tab>
+              </Tabs>
+            </div>
+          }
       </div>
     );
   }

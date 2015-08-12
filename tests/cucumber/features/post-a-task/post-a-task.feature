@@ -10,7 +10,7 @@ Feature: Post a task test
     Given I am a new user
 
   # This scenario will run as part of the Meteor dev cycle because it has the @dev tag
-  @dev
+  #@dev
   Scenario:
     When I click button Post a Task in Home page
     And I choose a service
