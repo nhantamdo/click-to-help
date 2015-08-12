@@ -61,32 +61,50 @@ ListTask_Tasker = React.createClass({
   },
 
   render() {
+    let tabStyle = {
+      position: 'fixed',
+      zIndex: '7'
+    };
+    let inkStyle = {
+      position: 'fixed',
+      zIndex:'8',
+      top: '112px',
+    };
+    let contentStyle ={
+      padding: "48px 0px 0px 0px",
+    };
     return (
-      <div className="appbar">
-        <AppBar
-          title="Danh sách công việc"
-          iconElementRight={
-            <div>
-              <IconButton id="btnNotification"
-                iconClassName="icon-notification"
-                onClick={this.onClickNotification}/>
-              <IconButton iconClassName="icon-help" />
-              <IconButton iconClassName="icon-back" onClick={this.onBack} />
-            </div>
-          } />
-          {this.state.viewNotification? <ListTaskNotification />:
-            <div>
-              <Tabs>
-                <Tab label="Accepted" onActive={this.onActiveTab}>
-                  <TaskItem status={['accepted']} />
-                </Tab>
-                <Tab label="Confirmed" onActive={this.onActiveTab}>
-                  <TaskItem status={['confirmed']} />
-                </Tab>
-              </Tabs>
-            </div>
-          }
-      </div>
-    );
-  }
-});
+      <div>
+        <div className="appbar">
+          <AppBar
+            title="Danh sách công việc"
+            iconElementRight={
+              <div>
+                <IconButton id="btnNotification"
+                  iconClassName="icon-notification"
+                  onClick={this.onClickNotification}/>
+                <IconButton iconClassName="icon-help" />
+                <IconButton iconClassName="icon-back" onClick={this.onBack} />
+              </div>
+            } />
+          </div>
+          <div className="main">
+            {this.state.viewNotification? <ListTaskNotification />:""}
+              <div>
+                <Tabs
+                  tabItemContainerStyle={tabStyle}
+                  inkBarStyle={inkStyle}
+                  contentContainerStyle={contentStyle}>
+                  <Tab label="Accepted" onActive={this.onActiveTab}>
+                    <TaskItem status={['accepted']} />
+                  </Tab>
+                  <Tab label="Confirmed" onActive={this.onActiveTab}>
+                    <TaskItem status={['confirmed']} />
+                  </Tab>
+                </Tabs>
+              </div>
+          </div>
+        </div>
+      );
+    }
+  });
