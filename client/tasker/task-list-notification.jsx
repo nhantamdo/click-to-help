@@ -11,6 +11,7 @@ const{
   CardHeader,
   Avatar,
   Card,
+  Paper
 } = mui;
 
 const ThemeManager = new mui.Styles.ThemeManager();
@@ -41,10 +42,11 @@ ListTaskNotification = React.createClass({
 
   render() {
     return (
-      <div id="notification">
-        <p>Notification</p>
-        <TaskItem status={['read','unread']}/>
-      </div>
+      <Paper zDepth={2}>
+        <div id="notification">
+          <TaskItem subheader="notification" status={['read','unread']}/>
+        </div>
+      </Paper>
     );
   }
 });
