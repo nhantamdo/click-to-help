@@ -11,14 +11,9 @@ Feature: Task information test
   # This scenario will run as part of the Meteor dev cycle because it has the @dev tag
   @dev
   Scenario:
-    When I click button I'm a Tasker in Home page
-    And move to List Task Screen
-    Then display tasks which status is accepted in the first Tab
-    And I click notification
-    Then I see my notification
-
-  @dev
-  Scenario:
-    When I click button I'm a Tasker in Home page
-    And I click Tab Confirmed
-    Then display tasks which status is confirmed in the second Tab
+    When I click the button I'm a Tasker
+    And I click the notification button
+    And I click the task "Massage tai nha"
+    Then I see "Task information" and "Massage tai nha"
+    When I click Skip button
+    Then I see "notification" list

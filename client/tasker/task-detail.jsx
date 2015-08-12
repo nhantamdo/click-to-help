@@ -58,7 +58,9 @@ TaskDetail = React.createClass({
   },
 
   onSkipClick(){
-    React.render(<ListTaskNotification />, document.getElementById("container"));
+    this.setState({
+      viewNotification: !this.state.viewNotification
+    });
   },
 
   render() {
