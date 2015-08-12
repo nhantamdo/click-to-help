@@ -40,6 +40,7 @@ TaskDetail = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
     var handle = Meteor.subscribe("task");
+
     return {
       taskLoading:! handle.ready(),
       tasks:Task.find({_id:this.props.taskKey}).fetch()
@@ -93,9 +94,14 @@ TaskDetail = React.createClass({
     cost = this.formatMoney(Number(cost));
 
     var service = Service.findOne({id:task.serviceId});
+    let style = {};
+    style["color"] = "red";
+    style["font-weight"] = "bold";
+    let boldStyle = {};
+    boldStyle["font-weight"] = "bold";
     return (
       <div id="taskDetailContainer">
-      <AppBar title="Task detail"
+      <AppBar title="Task information"
       iconElementRight={
         <div>
         <IconButton iconClassName="icon-notification"
@@ -105,16 +111,17 @@ TaskDetail = React.createClass({
         </div>
       } />
       <Card zDepth={0}>
-      <CardHeader
+      <CardHeader style={boldStyle}
       title={task.description}
       avatar={service.icon}>
       </CardHeader>
       <br/>
 
-      <CardText>Lúc: {time} &nbsp; {date} - làm trong {task.duration}h</CardText>
-      <CardText>Chi phí: {cost} VND</CardText>
-      <CardText>Tại: {task.address}</CardText>
-      <CardText>Liên hệ: {task.phone} - {task.email}</CardText>
+      <CardText>At: {time} &nbsp; {date} - Duration {task.duration}h</CardText>
+      <CardText>Cost: {cost} VND</CardText>
+      <CardText>Location: {task.address}</CardText>
+      <CardText>Contact: {task.phone} - {task.email}</CardText>
+      <CardText style={style}>Have 3 tasker accepted</CardText>
       <CardActions>
       <RaisedButton
       id="btnSkip"
@@ -123,7 +130,7 @@ TaskDetail = React.createClass({
       onClick={this.onSkipClick} />
       <RaisedButton
       id="btnGetIt"
-      label="Get it"
+      label="Accept"
       primary={true}
       onClick={this.onGetItClick}/>
       </CardActions>
