@@ -1,6 +1,6 @@
 /**
-* @Description: Task Item Notification
-* @Author: truongtk,linhnh
+* @Description: Task Item of Task List Asker
+* @Author: linhnh
 */
 const{
   List,
@@ -10,7 +10,7 @@ const{
   subheader,
 } = mui;
 
-TaskItem = React.createClass({
+TaskItem_Asker = React.createClass({
   getInitialState () {
     return {
     };
@@ -38,19 +38,9 @@ TaskItem = React.createClass({
         status: taskStatus.status
       });
     });
-    console.log(result);
     return {
       tasks: result,
     }
-
-    // let listItem = [];
-    // var d = TaskStatus.find({status: {$in: this.props.status}},{sort: {updatedAt: -1}}).fetch();
-    // d.forEach(function(item){
-    //   listItem.push(item.taskId.insertedId);
-    // });
-    // return {
-    //   tasks: Task.find({_id: {$in: listItem}}).fetch()
-    // }
   },
 
   formatMoney(num) {
@@ -59,21 +49,14 @@ TaskItem = React.createClass({
       return  num + (i && !(i % 3) ? "," : "") + acc;
     }, "");
   },
+
   onDetailClick(taskKey){
     React.render(<TaskDetail taskKey={taskKey}/>, document.getElementById("container"));
   },
-  listDivider(index,length) {
-    if (index != length-1) return <ListDivider/>;
-  },
-
 
   render() {
-
     return <List subheader= {this.props.subheader}>{
         this.data.tasks.map((task,index) => {
-          //var service = Service.findOne({id: task.serviceId});
-          console.log(this.data.tasks.length);
-          console.log(index);
           var h = task.time.getHours();
           h = h < 10 ? "0" + h : h;
           var mm = task.time.getMinutes();
@@ -100,14 +83,12 @@ TaskItem = React.createClass({
             primaryText={ task.description }
             secondaryText={
               <p style={styleItem}>
-                <span>{time} &nbsp; {date} - làm trong {task.duration}h</span><br/>
-                {cost} VND<br/>
-              {task.address}
+                <span>{cost} VND</span><br/>
+                {time} &nbsp; {date} - làm trong {task.duration}h
             </p>
           }
           leftAvatar={ <Avatar src={task.serviceIcon}/> }
           onClick={this.onDetailClick.bind(this, task.key)}/>,
-        this.listDivider(index,this.data.tasks.length)
         ]
       })
     }</List>

@@ -1,3 +1,7 @@
+body{
+  margin: 0px 0px 0px 0px;
+}
+
 .appbar{
   position: fixed;
   top: 0;
@@ -54,8 +58,13 @@
   color: blue;
 }
 
-.unread-task{
+.unread-task {
   font-weight: bold !important;
+}
+
+.notification {
+  margin-left: 10%;
+  margin-right: 5%;
 }
 
 #Cost,#hoursNumber{
