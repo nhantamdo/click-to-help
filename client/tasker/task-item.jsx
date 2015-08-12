@@ -24,7 +24,7 @@ TaskItem = React.createClass({
     var result=[];
     TaskStatus.find({status: {$in: this.props.status}},{sort: {updatedAt: -1}})
     .forEach(function (taskStatus){
-      task = Task.findOne({_id:taskStatus.taskId.insertedId});
+      task = Task.findOne({_id:taskStatus.taskId});
       service = Service.findOne({id:task.serviceId});
       result.push({
         key: task._id,
@@ -38,7 +38,6 @@ TaskItem = React.createClass({
         status: taskStatus.status
       });
     });
-    console.log(result);
     return {
       tasks: result,
     }
@@ -72,8 +71,6 @@ TaskItem = React.createClass({
     return <List subheader= {this.props.subheader}>{
         this.data.tasks.map((task,index) => {
           //var service = Service.findOne({id: task.serviceId});
-          console.log(this.data.tasks.length);
-          console.log(index);
           var h = task.time.getHours();
           h = h < 10 ? "0" + h : h;
           var mm = task.time.getMinutes();

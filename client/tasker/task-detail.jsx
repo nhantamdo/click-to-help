@@ -30,6 +30,11 @@ TaskDetail = React.createClass({
   childContextTypes: {
     muiTheme: React.PropTypes.object
   },
+  getInitialState () {
+    return {
+      viewNotification: false
+    };
+  },
 
   getChildContext: function() {
     return {
@@ -40,10 +45,14 @@ TaskDetail = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
     var handle = Meteor.subscribe("task");
+    var taskStatusHandle = Meteor.subscribe("taskStatus");
 
     return {
       taskLoading:! handle.ready(),
-      tasks:Task.find({_id:this.props.taskKey}).fetch()
+      taskStatusLoading:! taskStatusHandle.ready(),
+      tasks:Task.find({_id:this.props.taskKey}).fetch(),
+      taskStatus:TaskStatus.find({taskId:this.props.taskKey, status:"accepted"}).fetch(),
+      taskStatusConfirm:TaskStatus.find({taskId:this.props.taskKey, status:"confirmed"}).fetch()
     }
   },
   formatMoney(num) {
@@ -58,13 +67,17 @@ TaskDetail = React.createClass({
   },
 
   onSkipClick(){
+    React.render(<ListTask_Tasker/>, document.getElementById("container"));
+  },
+
+  onClickNotification(e) {
     this.setState({
       viewNotification: !this.state.viewNotification
     });
   },
 
   render() {
-    if (this.data.taskLoading) {
+    if (this.data.taskLoading || this.data.taskStatusLoading) {
       return (
         <div id="taskDetailContainer">
         <AppBar title="Task detail"
@@ -80,6 +93,10 @@ TaskDetail = React.createClass({
       );
     }
     var task  = this.data.tasks[0];
+    var numberAccepted = this.data.taskStatus.length;
+    console.log(task);
+    console.log(numberAccepted);
+    var numberConfirmed = this.data.taskStatusConfirm.length;
     var h = task.time.getHours();
     h = h < 10 ? "0" + h : h;
     var mm = task.time.getMinutes();
@@ -112,31 +129,35 @@ TaskDetail = React.createClass({
         <IconButton iconClassName="icon-back" onClick={this.onBack} />
         </div>
       } />
-      <Card zDepth={0}>
-      <CardHeader style={boldStyle}
-      title={task.description}
-      avatar={service.icon}>
-      </CardHeader>
-      <br/>
+      {this.state.viewNotification? <ListTaskNotification />:
+        <Card zDepth={0}>
+        <CardHeader style={boldStyle}
+        title={task.description}
+        avatar={service.icon}>
+        </CardHeader>
+        <br/>
+        <CardText>At: {time} &nbsp; {date} - Duration {task.duration}h</CardText>
+        <CardText>Cost: {cost} VND</CardText>
+        <CardText>Location: {task.address}</CardText>
+        <CardText>Contact: {task.phone} - {task.email}</CardText>
+        {numberConfirmed==0?<CardText style={style}>{numberAccepted==0? "No one accepted":numberAccepted==1? "Have 1 tasker accepted":"Have ".concat(numberAccepted).concat(" taskers accepted")}</CardText>:<CardText style={style}>This task is comfirmed</CardText>}
+        <CardActions>
+        <RaisedButton
+        id="btnSkip"
+        label="Skip"
+        secondary={true}
+        onClick={this.onSkipClick} />
+        {numberConfirmed==0?
+          <RaisedButton
+          id="btnGetIt"
+          label="Accept"
+          primary={true}
+          onClick={this.onGetItClick}/>:<span></span>
+        }
 
-      <CardText>At: {time} &nbsp; {date} - Duration {task.duration}h</CardText>
-      <CardText>Cost: {cost} VND</CardText>
-      <CardText>Location: {task.address}</CardText>
-      <CardText>Contact: {task.phone} - {task.email}</CardText>
-      <CardText style={style}>Have 3 tasker accepted</CardText>
-      <CardActions>
-      <RaisedButton
-      id="btnSkip"
-      label="Skip"
-      secondary={true}
-      onClick={this.onSkipClick} />
-      <RaisedButton
-      id="btnGetIt"
-      label="Accept"
-      primary={true}
-      onClick={this.onGetItClick}/>
-      </CardActions>
-      </Card>
+        </CardActions>
+        </Card>
+      }
 
       </div>
     );

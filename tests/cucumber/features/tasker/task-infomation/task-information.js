@@ -57,10 +57,10 @@
       .call(callback);
     });
 
-    this.Then(/^I see "([^"]*)" list$/, function (arg1, callback) {
+    this.Then(/^I see task list page$/, function (callback) {
       this.client
-      .waitForExist('div='.concat(arg1))
-      .waitForVisible('div='.concat(arg1))
+      .waitForExist('div=Accepted')
+      .waitForVisible('div=Accepted')
       .call(callback);
     });
 

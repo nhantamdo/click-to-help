@@ -16,4 +16,4 @@ Feature: Task information test
     And I click the task "Massage tai nha"
     Then I see "Task information" and "Massage tai nha"
     When I click Skip button
-    Then I see "notification" list
+    Then I see task list page
