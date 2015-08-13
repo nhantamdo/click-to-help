@@ -24,7 +24,7 @@ TaskItem_Asker = React.createClass({
     var result=[];
     TaskStatus.find({status: {$in: this.props.status}},{sort: {updatedAt: -1}})
     .forEach(function (taskStatus){
-      task = Task.findOne({_id:taskStatus.taskId.insertedId});
+      task = Task.findOne({_id:taskStatus.taskId});
       service = Service.findOne({id:task.serviceId});
       result.push({
         key: task._id,
@@ -85,7 +85,7 @@ TaskItem_Asker = React.createClass({
               <p style={styleItem}>
                 <span>{cost} VND</span><br/>
                 {time} &nbsp; {date} - làm trong {task.duration}h
-            </p>
+              </p>
           }
           leftAvatar={ <Avatar src={task.serviceIcon}/> }
           onClick={this.onDetailClick.bind(this, task.key)}/>,
