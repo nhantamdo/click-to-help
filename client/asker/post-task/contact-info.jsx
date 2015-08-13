@@ -114,6 +114,7 @@ ContactInfo = React.createClass({
         return (
           <div>
             <AppBar
+              className="appbar"
               title={this.props.serviceText}
               iconElementRight={
                 <div>
@@ -121,7 +122,7 @@ ContactInfo = React.createClass({
                   <IconButton iconClassName="icon-back" onClick={this.onBack} />
                 </div>
               } />
-              <div id= "Main2" className="button-secondary">
+            <div id= "Main2" className="main button-secondary">
                 <div>
                   <TextField ref="address"
                     floatingLabelText="Địa chỉ"
@@ -153,7 +154,7 @@ ContactInfo = React.createClass({
                     defaultValue={this.props.email}
                     id="email"/>
                 </div>
-                <div className="padding-top">
+                <div className="padding-top padding-bottom">
                   <RaisedButton
                     id="Post"
                     label="Post Task"

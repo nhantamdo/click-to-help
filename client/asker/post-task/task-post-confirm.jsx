@@ -76,6 +76,7 @@ TaskPostConfirm = React.createClass({
       return (
         <div>
           <AppBar
+            className="appbar"
             title={this.props.serviceText}
             iconElementRight={
               <div>
@@ -83,56 +84,58 @@ TaskPostConfirm = React.createClass({
                 <IconButton iconClassName="icon-back" onClick={this.onBack} />
               </div>
             } />
-            <div className="padding-left-right padding-top" id="discription">
-              <span className="title">Mô tả công việc:</span>
-              <br/>
-              <span className="text">{this.props.description}</span>
-            </div>
-            <div className="padding-left-right padding-top" id="time-work">
-              <span className="title">Bắt đầu:</span>
-              <span className="text-right">{ftime} {fdate}</span>
-            </div>
-            <div className="padding-left-right padding-top" id="duration">
-              <span className="title">Thời gian:</span>
-              <span className="text-right">{this.props.duration}h</span>
-            </div>
-            <div className="padding-left-right padding-top" id="price">
-              <span className="title">Giá:</span>
-              <span className="text-right">{this.props.cost} VND</span>
-            </div>
-            <div className="padding-left-right padding-top" id="location">
-              <span className="title">Địa điểm:</span>
-              <span className="text-right">{this.props.address}</span>
-            </div>
-            <div className="padding-left-right padding-top" id="phone">
-              <span className="title">Số liên lạc:</span>
-              <span className="text-right">{this.props.phone}</span>
-            </div>
-            <div className="padding-left-right padding-top" id="name">
-              <span className="title">Họ Tên:</span>
-              <span className="text-right">{this.props.name}</span>
-            </div>
-            {(this.props.email=="")? "" :
-              <div className="padding-left-right padding-top" id="Email">
-                <span className="title">Email:</span>
-                <span className="text-right">{this.props.email}</span>
-              </div>}
-              <div className="padding-top">
-                <RaisedButton
-                  id="Post"
-                  label="Xác nhận"
-                  secondary={true}
-                  fullWidth={true}
-                  onClick={this.confirm}/>
+            <div className="main">
+              <div className="padding-left-right padding-top" id="discription">
+                <span className="title">Mô tả công việc:</span>
+                <br/>
+                <span className="text">{this.props.description}</span>
               </div>
-              <Dialog
-                ref="dialog"
-                title="Thông báo"
-                actions={[{ text: 'Kết thúc', ref: 'OK' }]}
-                actionFocus="OK"
-                modal={true}>
-                Yêu cầu của bạn đã được gửi
-              </Dialog>
+              <div className="padding-left-right padding-top" id="time-work">
+                <span className="title">Bắt đầu:</span>
+                <span className="text-right">{ftime} {fdate}</span>
+              </div>
+              <div className="padding-left-right padding-top" id="duration">
+                <span className="title">Thời gian:</span>
+                <span className="text-right">{this.props.duration}h</span>
+              </div>
+              <div className="padding-left-right padding-top" id="price">
+                <span className="title">Giá:</span>
+                <span className="text-right">{this.props.cost} VND</span>
+              </div>
+              <div className="padding-left-right padding-top" id="location">
+                <span className="title">Địa điểm:</span>
+                <span className="text-right">{this.props.address}</span>
+              </div>
+              <div className="padding-left-right padding-top" id="phone">
+                <span className="title">Số liên lạc:</span>
+                <span className="text-right">{this.props.phone}</span>
+              </div>
+              <div className="padding-left-right padding-top" id="name">
+                <span className="title">Họ Tên:</span>
+                <span className="text-right">{this.props.name}</span>
+              </div>
+              {(this.props.email=="")? "" :
+                <div className="padding-left-right padding-top" id="Email">
+                  <span className="title">Email:</span>
+                  <span className="text-right">{this.props.email}</span>
+                </div>}
+                <div className="padding-top padding-bottom">
+                  <RaisedButton
+                    id="Post"
+                    label="Xác nhận"
+                    secondary={true}
+                    fullWidth={true}
+                    onClick={this.confirm}/>
+                </div>
+                <Dialog
+                  ref="dialog"
+                  title="Thông báo"
+                  actions={[{ text: 'Kết thúc', ref: 'OK' }]}
+                  actionFocus="OK"
+                  modal={true}>
+                  Yêu cầu của bạn đã được gửi
+                </Dialog>
+              </div>
             </div>
           );
         }
