@@ -90,4 +90,5 @@ body{
   position: fixed !important;
   bottom: 10%;
   right: 10%;
+  box-shadow: 1px 5px 30px grey;
 }

@@ -60,6 +60,10 @@ TaskItem_Asker = React.createClass({
     React.render(<TaskDetail taskKey={taskKey}/>, document.getElementById("container"));
   },
 
+  onClickTaskerAvatar(taskerId){
+    console.log(taskerId);
+  },
+
   render() {
     return <List subheader= {this.props.subheader}>{
         this.data.tasks.map((task,index) => {
@@ -83,7 +87,7 @@ TaskItem_Asker = React.createClass({
           cost = this.formatMoney(Number(cost));
           let listTasker = task.tasker.map((item) => {
             return [
-              <Avatar src={item.avatar} />
+              <Avatar src={item.avatar} onClick={this.onClickTaskerAvatar.bind(this,item._id)} />
             ]
           });
           return [
@@ -91,7 +95,11 @@ TaskItem_Asker = React.createClass({
             id={task.key}
             className={task.status=="unread"? "unread-task":"task"}
             key={task.key}
-            primaryText={ task.description }
+            primaryText={
+              <span onClick={this.onDetailClick.bind(this, task.key)}>
+                {task.description}
+              </span>
+            }
             secondaryText={
               <p style={styleItem}>
                 <span>{cost} VND</span><br/>
@@ -99,8 +107,7 @@ TaskItem_Asker = React.createClass({
                 {listTasker}
               </p>
           }
-          leftAvatar={ <Avatar src={task.serviceIcon}/> }
-          onClick={this.onDetailClick.bind(this, task.key)}/>,
+          leftAvatar={ <Avatar src={task.serviceIcon}/> }/>,
         ]
       })
     }</List>

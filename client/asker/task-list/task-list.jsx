@@ -7,7 +7,8 @@ const{
   AppBar,
   IconButton,
   Tabs,
-  Tab
+  Tab,
+  FloatingActionButton
 } = mui;
 
 // var customPalette = {
@@ -41,6 +42,10 @@ ListTask_Asker = React.createClass({
     React.render(<HomePage />, document.getElementById("container"));
   },
 
+  onPostTask(){
+    React.render(<PostTask />, document.getElementById("container"));
+  },
+
   render() {
     return (
       <div>
@@ -66,6 +71,9 @@ ListTask_Asker = React.createClass({
               </Tab>
             </Tabs>
           </div>
+          <FloatingActionButton secondary={true} className="floatingPoint" onClick={this.onPostTask}>
+            <b>+</b>
+          </FloatingActionButton>
       </div>
     );
   }
