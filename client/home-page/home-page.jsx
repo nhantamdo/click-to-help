@@ -5,12 +5,9 @@
 
 const{
   AppBar,
-  LeftNav,
-  MenuItem,
   RaisedButton,
-  CardMedia,
-  CardHeader,
-  IconButton
+  IconButton,
+  FloatingActionButton
 } = mui;
 
 // var customPalette = {
@@ -37,7 +34,11 @@ HomePage = React.createClass({
   },
 
   onTaskerClick() {
-      React.render(<ListTask_Tasker />,document.getElementById("container"));
+    React.render(<ListTask_Tasker />,document.getElementById("container"));
+  },
+
+  onPostTask(){
+    React.render(<PostTask />, document.getElementById("container"));
   },
 
   render() {
@@ -54,7 +55,7 @@ HomePage = React.createClass({
         <div className="button-secondary">
           <RaisedButton
             id="btnPostTask"
-            label="Post a Task"
+            label="I'm an Asker"
             secondary={true}
             fullWidth={true}
             onClick={this.onAskerClick} />
@@ -67,6 +68,9 @@ HomePage = React.createClass({
             fullWidth={true}
             onClick={this.onTaskerClick}/>
         </div>
+        <FloatingActionButton secondary={true} className="floatingPoint" onClick={this.onPostTask}>
+          <b>+</b>
+        </FloatingActionButton>
       </div>
     );
   }

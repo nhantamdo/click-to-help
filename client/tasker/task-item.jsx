@@ -62,7 +62,10 @@ TaskItem = React.createClass({
     React.render(<TaskDetail taskKey={taskKey}/>, document.getElementById("container"));
   },
   listDivider(index,length) {
-    if (index != length-1) return <ListDivider/>;
+    let listDividerStyle = {
+      marginTop: 0,
+    };
+    if (index != length-1) return <ListDivider style={listDividerStyle}/>;
   },
 
 
@@ -73,8 +76,17 @@ TaskItem = React.createClass({
       textOverflow: 'ellipsis',
       height: '32px',
     };
-    return <List subheader= {this.props.subheader}>{
-      this.data.tasks.map((task,index) => {
+    let unreadStyle = {
+      backgroundColor: "#eceff5",
+      borderColor: "#d8dfea",
+    };
+    let readStyle = {
+      borderColor: "#d8dfea",
+    };
+
+    return <List subheader= {this.props.subheader}>
+      {this.listDivider(0,2)}
+      {this.data.tasks.map((task,index) => {
         var h = task.time.getHours();
         h = h < 10 ? "0" + h : h;
         var mm = task.time.getMinutes();
@@ -96,7 +108,7 @@ TaskItem = React.createClass({
         return [
           <ListItem
           id={task.key}
-          className={task.status=="unread"? "unread-task":"task"}
+          style={task.status=="unread"? unreadStyle:readStyle}
           key={task.key}
           primaryText={ <p style={primaryTextStyle}>
           {task.description}

@@ -52,12 +52,37 @@ Service.upsert({
 
 tasker1 = Tasker.upsert({
   username: "toanpp",
-  email: "toanpp@twin.vn"
+  email: "toanpp@twin.vn",
+  avatar: "icons/img/baby-care.png"
 }, {
   $set: {
-
     username: "toanpp",
-    email: "toanpp@twin.vn"
+    email: "toanpp@twin.vn",
+    avatar: "icons/img/baby-care.png"
+  }
+});
+
+tasker2 = Tasker.upsert({
+  username: "linhnh",
+  email: "linhnh@twin.vn",
+  avatar: "icons/img/home-massage.png"
+}, {
+  $set: {
+    username: "linhnh",
+    email: "linhnh@twin.vn",
+    avatar: "icons/img/home-massage.png"
+  }
+});
+
+tasker3 = Tasker.upsert({
+  username: "truongtt",
+  email: "truongtt@twin.vn",
+  avatar: "icons/img/cook-help.png"
+}, {
+  $set: {
+    username: "truongtt",
+    email: "truongtt@twin.vn",
+    avatar: "icons/img/cook-help.png"
   }
 });
 
@@ -95,15 +120,49 @@ TaskStatus.upsert({
   createdAt: "2015-08-10T12:00:00",
   updatedAt: "2015-08-10T12:00:00"
 },
-  {
-    $set: {
-      taskId: task1.insertedId,
-      taskerId: tasker1.insertedId,
-      status: "accepted",
-      createdAt: "2015-08-10T12:00:00",
-      updatedAt: "2015-08-10T12:00:00"
-    }
-  });
+{
+  $set: {
+    taskId: task1.insertedId,
+    taskerId: tasker1.insertedId,
+    status: "accepted",
+    createdAt: "2015-08-10T12:00:00",
+    updatedAt: "2015-08-10T12:00:00"
+  }
+});
+
+TaskStatus.upsert({
+  taskId: task1.insertedId,
+  taskerId: tasker2.insertedId,
+  status: "accepted",
+  createdAt: "2015-08-10T12:00:00",
+  updatedAt: "2015-08-10T12:00:00"
+},
+{
+  $set: {
+    taskId: task1.insertedId,
+    taskerId: tasker2.insertedId,
+    status: "accepted",
+    createdAt: "2015-08-10T12:00:00",
+    updatedAt: "2015-08-10T12:00:00"
+  }
+});
+
+TaskStatus.upsert({
+  taskId: task1.insertedId,
+  taskerId: tasker3.insertedId,
+  status: "confirmed",
+  createdAt: "2015-08-10T12:00:00",
+  updatedAt: "2015-08-10T12:00:00"
+},
+{
+  $set: {
+    taskId: task1.insertedId,
+    taskerId: tasker3.insertedId,
+    status: "confirmed",
+    createdAt: "2015-08-10T12:00:00",
+    updatedAt: "2015-08-10T12:00:00"
+  }
+});
 
 task2 = Task.upsert({
   serviceId: "002",
@@ -179,6 +238,55 @@ TaskStatus.upsert({
       taskerId: tasker1.insertedId,
       status: "read",
       createdAt: "2015-08-10T12:00:00",
+      updatedAt: "2015-08-10T12:00:00"
+    }
+  });
+
+TaskStatus.upsert({
+  taskId: task2.insertedId,
+  taskerId: tasker1.insertedId,
+  status: "read",
+  createdAt: "2015-07-10T12:00:00",
+  updatedAt: "2015-08-10T12:00:00"
+},
+  {
+    $set: {
+      taskId: task2.insertedId,
+      taskerId: tasker1.insertedId,
+      status: "read",
+      createdAt: "2015-07-10T12:00:00",
+      updatedAt: "2015-08-10T12:00:00"
+    }
+  });
+TaskStatus.upsert({
+  taskId: task2.insertedId,
+  taskerId: tasker1.insertedId,
+  status: "read",
+  createdAt: "2015-06-10T12:00:00",
+  updatedAt: "2015-08-10T12:00:00"
+},
+  {
+    $set: {
+      taskId: task2.insertedId,
+      taskerId: tasker1.insertedId,
+      status: "read",
+      createdAt: "2015-06-10T12:00:00",
+      updatedAt: "2015-08-10T12:00:00"
+    }
+  });
+TaskStatus.upsert({
+  taskId: task2.insertedId,
+  taskerId: tasker1.insertedId,
+  status: "read",
+  createdAt: "2015-05-10T12:00:00",
+  updatedAt: "2015-08-10T12:00:00"
+},
+  {
+    $set: {
+      taskId: task2.insertedId,
+      taskerId: tasker1.insertedId,
+      status: "read",
+      createdAt: "2015-05-10T12:00:00",
       updatedAt: "2015-08-10T12:00:00"
     }
   });

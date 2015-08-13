@@ -21,11 +21,16 @@ TaskItem_Asker = React.createClass({
 
   mixins: [ReactMeteorData],
   getMeteorData() {
+    var status = this.props.status;
     var result=[];
-    TaskStatus.find({status: {$in: this.props.status}},{sort: {updatedAt: -1}})
+    TaskStatus.find({status: {$in: status}},{sort: {updatedAt: -1}})
     .forEach(function (taskStatus){
-      task = Task.findOne({_id:taskStatus.taskId.insertedId});
+      task = Task.findOne({_id:taskStatus.taskId});
       service = Service.findOne({id:task.serviceId});
+      tasker = [];
+      TaskStatus.find({taskId: taskStatus.taskId,status: {$in: status}}).forEach(function(itemTaskStatus){
+        tasker.push(Tasker.findOne({_id: itemTaskStatus.taskerId}));
+      });
       result.push({
         key: task._id,
         serviceIcon: service.icon,
@@ -35,7 +40,8 @@ TaskItem_Asker = React.createClass({
         address: task.address,
         cost: task.cost,
         duration: task.duration,
-        status: taskStatus.status
+        status: taskStatus.status,
+        tasker: tasker
       });
     });
     return {
@@ -71,10 +77,15 @@ TaskItem_Asker = React.createClass({
           var date = d + "/" + m + "/" + y;
 
           let styleItem = {};
-          styleItem["height"] = "50px";
+          styleItem["height"] = "75px";
 
           let cost = task.cost;
           cost = this.formatMoney(Number(cost));
+          let listTasker = task.tasker.map((item) => {
+            return [
+              <Avatar src={item.avatar} />
+            ]
+          });
           return [
           <ListItem
             id={task.key}
@@ -84,8 +95,9 @@ TaskItem_Asker = React.createClass({
             secondaryText={
               <p style={styleItem}>
                 <span>{cost} VND</span><br/>
-                {time} &nbsp; {date} - làm trong {task.duration}h
-            </p>
+                {time} &nbsp; {date} - làm trong {task.duration}h<br/>
+                {listTasker}
+              </p>
           }
           leftAvatar={ <Avatar src={task.serviceIcon}/> }
           onClick={this.onDetailClick.bind(this, task.key)}/>,
