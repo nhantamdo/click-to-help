@@ -179,7 +179,7 @@ TaskInput = React.createClass({
                 <IconButton iconClassName="icon-back" onClick={this.onBack} />
               </div>
             } />
-            <div className="main">
+            <div className="main padding-left-right">
               <TextField
                 id="txtDescription"
                 ref="txtDescription"
