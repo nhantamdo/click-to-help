@@ -182,3 +182,52 @@ TaskStatus.upsert({
       updatedAt: "2015-08-10T12:00:00"
     }
   });
+
+TaskStatus.upsert({
+  taskId: task2.insertedId,
+  taskerId: tasker1.insertedId,
+  status: "read",
+  createdAt: "2015-07-10T12:00:00",
+  updatedAt: "2015-08-10T12:00:00"
+},
+  {
+    $set: {
+      taskId: task2.insertedId,
+      taskerId: tasker1.insertedId,
+      status: "read",
+      createdAt: "2015-07-10T12:00:00",
+      updatedAt: "2015-08-10T12:00:00"
+    }
+  });
+TaskStatus.upsert({
+  taskId: task2.insertedId,
+  taskerId: tasker1.insertedId,
+  status: "read",
+  createdAt: "2015-06-10T12:00:00",
+  updatedAt: "2015-08-10T12:00:00"
+},
+  {
+    $set: {
+      taskId: task2.insertedId,
+      taskerId: tasker1.insertedId,
+      status: "read",
+      createdAt: "2015-06-10T12:00:00",
+      updatedAt: "2015-08-10T12:00:00"
+    }
+  });
+TaskStatus.upsert({
+  taskId: task2.insertedId,
+  taskerId: tasker1.insertedId,
+  status: "read",
+  createdAt: "2015-05-10T12:00:00",
+  updatedAt: "2015-08-10T12:00:00"
+},
+  {
+    $set: {
+      taskId: task2.insertedId,
+      taskerId: tasker1.insertedId,
+      status: "read",
+      createdAt: "2015-05-10T12:00:00",
+      updatedAt: "2015-08-10T12:00:00"
+    }
+  });
