@@ -43,7 +43,7 @@ HomePage = React.createClass({
 
   render() {
     let stylePostTask = {
-      "text-align": "center",
+      "textAlign": "center",
       "padding": "40% 0 40% 0"
     };
     return (

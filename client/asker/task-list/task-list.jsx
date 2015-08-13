@@ -51,7 +51,7 @@ ListTask_Asker = React.createClass({
       <div>
         <AppBar
           className="appbar"
-          title="Danh sách công việc"
+          title="Ask List"
           iconElementRight={
             <div>
               <IconButton id="btnNotification"
@@ -61,9 +61,9 @@ ListTask_Asker = React.createClass({
               <IconButton iconClassName="icon-back" onClick={this.onBack} />
             </div>
           } />
-          <div className="tabStrip">
+          <div className="main">
             <Tabs>
-              <Tab label="Accepted">
+              <Tab label="Waiting">
                 <TaskItem_Asker status={['accepted']} />
               </Tab>
               <Tab label="Confirmed">
