@@ -15,8 +15,8 @@ body{
 
 .notification {
   z-index: 10;
-  margin-left: 10%;
-  margin-right: 10%;
+  left: 10%;
+  right: 10%;
   top: 45px;
   max-height: 80%;
   position:fixed;
@@ -90,4 +90,5 @@ body{
   bottom: 5%;
   right: 5%;
   box-shadow: 1px 5px 30px grey;
+  z-index: 11;
 }
