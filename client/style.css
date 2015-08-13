@@ -62,8 +62,12 @@ body{
     padding: 1% 5% 1% 5%;
 }
 
-.padding-top{
+.padding-top {
   padding-top: 4%;
+}
+
+.padding-bottom {
+  padding-bottom: 4%;
 }
 
 .padding-left{
