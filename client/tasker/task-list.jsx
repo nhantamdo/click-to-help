@@ -71,7 +71,7 @@ ListTask_Tasker = React.createClass({
       top: '112px',
     };
     let contentStyle ={
-      padding: "48px 0px 0px 0px",
+      padding: "40px 0px 0px 0px",
     };
     return (
       <div>

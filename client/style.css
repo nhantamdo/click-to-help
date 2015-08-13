@@ -74,10 +74,6 @@ body{
   color: blue;
 }
 
-.unread-task {
-  font-weight: bold !important;
-}
-
 #Cost,#hoursNumber{
   margin-right: 10px;
   float: right;
