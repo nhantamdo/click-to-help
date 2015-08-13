@@ -18,6 +18,17 @@
         .call(callback);
     });
 
+    this.When(/^I click button Post a Task in Intro page$/, function (callback) {
+      this.client
+          .click("#btnPostTask")
+          .call(callback);
+    });
+
+    this.When(/^display Post Task Screen$/, function (callback) {
+      this.client
+          .call(callback);
+    });
+
     this.When(/^I choose a service$/, function(callback) {
       // Write code here that turns the phrase above into concrete actions
       this.client

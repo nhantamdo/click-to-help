@@ -92,7 +92,7 @@ body{
 .floatingPoint{
   color: #fff;
   position: fixed !important;
-  bottom: 10%;
-  right: 10%;
+  bottom: 5%;
+  right: 5%;
   box-shadow: 1px 5px 30px grey;
 }

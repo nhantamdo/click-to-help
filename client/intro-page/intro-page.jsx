@@ -55,7 +55,7 @@ HomePage = React.createClass({
               <IconButton iconClassName="icon-help" />
             </div>
           } />
-        <div style={stylePostTask}>
+        <div style={stylePostTask} id="btnPostTask">
           <Avatar
             color="#fff"
             backgroundColor="#00bcd4"
@@ -66,7 +66,6 @@ HomePage = React.createClass({
         </div>
         <div className="button-secondary">
           <RaisedButton
-            id="btnPostTask"
             label="Login"
             secondary={true}
             fullWidth={true}
@@ -74,7 +73,6 @@ HomePage = React.createClass({
         </div>
         <div className="button-secondary">
           <RaisedButton
-            id="btnTasker"
             label="Become a Tasker"
             primary={true}
             fullWidth={true}
