@@ -40,29 +40,32 @@ PostTask = React.createClass({
       selectedServiceId: [serviceId]
     });
     React.render(<TaskInput
-            serviceId={serviceId}
-            serviceText={serviceText}/>, document.getElementById("container"));
-  },
+      serviceId={serviceId}
+      serviceText={serviceText}/>, document.getElementById("container"));
+    },
 
-  onBack(){
-    React.render(<HomePage />, document.getElementById("container"));
-  },
+    onBack(){
+      React.render(<HomePage />, document.getElementById("container"));
+    },
 
-  render() {
-    return (
-      <div id="mainPostTask">
-        <AppBar
-          title="Đăng công việc"
-          iconElementRight={
-            <div>
-              <IconButton iconClassName="icon-help" />
-              <IconButton iconClassName="icon-back" onClick={this.onBack} />
+    render() {
+      return (
+        <div id="mainPostTask">
+          <AppBar
+            className="appbar"
+            title="Đăng công việc"
+            iconElementRight={
+              <div>
+                <IconButton iconClassName="icon-help" />
+                <IconButton iconClassName="icon-back" onClick={this.onBack} />
+              </div>
+            } />
+            <div className="main">
+              <ListService
+                selectedServiceId={this.state.selectedServiceId}
+                onServiceSelected={this.selectService}/>
             </div>
-          } />
-        <ListService
-          selectedServiceId={this.state.selectedServiceId}
-          onServiceSelected={this.selectService}/>
-      </div>
-    );
-  }
-});
+          </div>
+        );
+      }
+    });

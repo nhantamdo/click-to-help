@@ -92,22 +92,22 @@ ListTask_Tasker = React.createClass({
                 <IconButton iconClassName="icon-back" onClick={this.onBack} />
               </div>
             } />
+            {this.state.viewNotification? <ListTaskNotification />:{}}
           </div>
           <div className="main">
-            {this.state.viewNotification? <ListTaskNotification />:""}
-              <div>
-                <Tabs
-                  tabItemContainerStyle={tabStyle}
-                  inkBarStyle={inkStyle}
-                  contentContainerStyle={contentStyle}>
-                  <Tab label="Accepted" onActive={this.onActiveTab}>
-                    <TaskItem status={['accepted']} />
-                  </Tab>
-                  <Tab label="Confirmed" onActive={this.onActiveTab}>
-                    <TaskItem status={['confirmed']} />
-                  </Tab>
-                </Tabs>
-              </div>
+            <div>
+              <Tabs
+                tabItemContainerStyle={tabStyle}
+                inkBarStyle={inkStyle}
+                contentContainerStyle={contentStyle}>
+                <Tab label="Accepted" onActive={this.onActiveTab}>
+                  <TaskItem status={['accepted']} />
+                </Tab>
+                <Tab label="Confirmed" onActive={this.onActiveTab}>
+                  <TaskItem status={['confirmed']} />
+                </Tab>
+              </Tabs>
+            </div>
           </div>
           <FloatingActionButton secondary={true} className="floatingPoint" onClick={this.onPostTask}>
             <b>+</b>
