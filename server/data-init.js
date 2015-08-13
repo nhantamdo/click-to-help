@@ -53,36 +53,36 @@ Service.upsert({
 tasker1 = Tasker.upsert({
   username: "toanpp",
   email: "toanpp@twin.vn",
-  avatar: "icons/img/baby-care.png"
+  avatar: "avatars/toanpp.jpg"
 }, {
   $set: {
     username: "toanpp",
     email: "toanpp@twin.vn",
-    avatar: "icons/img/baby-care.png"
+    avatar: "avatars/toanpp.jpg"
   }
 });
 
 tasker2 = Tasker.upsert({
   username: "linhnh",
   email: "linhnh@twin.vn",
-  avatar: "icons/img/home-massage.png"
+  avatar: "avatars/linhnh.jpg"
 }, {
   $set: {
     username: "linhnh",
     email: "linhnh@twin.vn",
-    avatar: "icons/img/home-massage.png"
+    avatar: "avatars/linhnh.jpg"
   }
 });
 
 tasker3 = Tasker.upsert({
   username: "truongtt",
   email: "truongtt@twin.vn",
-  avatar: "icons/img/cook-help.png"
+  avatar: "avatars/truongtk.jpg"
 }, {
   $set: {
     username: "truongtt",
     email: "truongtt@twin.vn",
-    avatar: "icons/img/cook-help.png"
+    avatar: "avatars/truongtk.jpg"
   }
 });
 
