@@ -22,8 +22,12 @@ TaskItem = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
     var result=[];
-    TaskStatus.find({status: {$in: this.props.status}, taskerId:{$ne:null}},{sort: {updatedAt: -1}})
+    var tasker = Tasker.find({email:"linhnh@twin.vn"}).fetch();
+    console.log(this.props.status);
+    console.log(tasker);
+    TaskStatus.find({status: {$in: this.props.status}, taskerId:tasker[0]._id},{sort: {updatedAt: -1}})
     .forEach(function (taskStatus){
+
       task = Task.findOne({_id:taskStatus.taskId});
       service = Service.findOne({id:task.serviceId});
       result.push({

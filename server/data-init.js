@@ -130,40 +130,6 @@ TaskStatus.upsert({
   }
 });
 
-TaskStatus.upsert({
-  taskId: task1.insertedId,
-  taskerId: tasker2.insertedId,
-  status: "accepted",
-  createdAt: "2015-08-10T12:00:00",
-  updatedAt: "2015-08-10T12:00:00"
-},
-{
-  $set: {
-    taskId: task1.insertedId,
-    taskerId: tasker2.insertedId,
-    status: "accepted",
-    createdAt: "2015-08-10T12:00:00",
-    updatedAt: "2015-08-10T12:00:00"
-  }
-});
-
-TaskStatus.upsert({
-  taskId: task1.insertedId,
-  taskerId: tasker3.insertedId,
-  status: "confirmed",
-  createdAt: "2015-08-10T12:00:00",
-  updatedAt: "2015-08-10T12:00:00"
-},
-{
-  $set: {
-    taskId: task1.insertedId,
-    taskerId: tasker3.insertedId,
-    status: "confirmed",
-    createdAt: "2015-08-10T12:00:00",
-    updatedAt: "2015-08-10T12:00:00"
-  }
-});
-
 task2 = Task.upsert({
   serviceId: "002",
   description: "Massage tai nha",
@@ -224,6 +190,23 @@ TaskStatus.upsert({
       updatedAt: "2015-08-10T12:00:00"
     }
   });
+  TaskStatus.upsert({
+    taskId: task1.insertedId,
+    taskerId: tasker2.insertedId,
+    status: "unread",
+    createdAt: "2015-08-10T12:00:00",
+    updatedAt: "2015-08-10T12:00:00"
+  },
+    {
+      $set: {
+        taskId: task1.insertedId,
+        taskerId: tasker2.insertedId,
+        status: "unread",
+        createdAt: "2015-08-10T12:00:00",
+        updatedAt: "2015-08-10T12:00:00"
+      }
+    });
+
 
 TaskStatus.upsert({
   taskId: task2.insertedId,
