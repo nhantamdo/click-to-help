@@ -12,7 +12,8 @@ Feature: Post a task test
   # This scenario will run as part of the Meteor dev cycle because it has the @dev tag
   #@dev
   Scenario:
-    When I click button Post a Task in Home page
+    When I click button Post a Task in Intro page
+    And display Post Task Screen
     And I choose a service
     And I fill information "Description" in TextField Description
     And I click Next button

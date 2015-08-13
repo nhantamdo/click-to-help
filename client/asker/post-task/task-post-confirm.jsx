@@ -84,38 +84,38 @@ TaskPostConfirm = React.createClass({
                 <IconButton iconClassName="icon-back" onClick={this.onBack} />
               </div>
             } />
-            <div className="main">
-              <div className="padding-left-right padding-top" id="discription">
+            <div className="main padding-left-right">
+              <div className=" padding-top" id="discription">
                 <span className="title">Mô tả công việc:</span>
                 <br/>
                 <span className="text">{this.props.description}</span>
               </div>
-              <div className="padding-left-right padding-top" id="time-work">
+              <div className=" padding-top" id="time-work">
                 <span className="title">Bắt đầu:</span>
                 <span className="text-right">{ftime} {fdate}</span>
               </div>
-              <div className="padding-left-right padding-top" id="duration">
+              <div className=" padding-top" id="duration">
                 <span className="title">Thời gian:</span>
                 <span className="text-right">{this.props.duration}h</span>
               </div>
-              <div className="padding-left-right padding-top" id="price">
+              <div className=" padding-top" id="price">
                 <span className="title">Giá:</span>
                 <span className="text-right">{this.props.cost} VND</span>
               </div>
-              <div className="padding-left-right padding-top" id="location">
+              <div className=" padding-top" id="location">
                 <span className="title">Địa điểm:</span>
                 <span className="text-right">{this.props.address}</span>
               </div>
-              <div className="padding-left-right padding-top" id="phone">
+              <div className=" padding-top" id="phone">
                 <span className="title">Số liên lạc:</span>
                 <span className="text-right">{this.props.phone}</span>
               </div>
-              <div className="padding-left-right padding-top" id="name">
+              <div className=" padding-top" id="name">
                 <span className="title">Họ Tên:</span>
                 <span className="text-right">{this.props.name}</span>
               </div>
               {(this.props.email=="")? "" :
-                <div className="padding-left-right padding-top" id="Email">
+                <div className=" padding-top" id="Email">
                   <span className="title">Email:</span>
                   <span className="text-right">{this.props.email}</span>
                 </div>}

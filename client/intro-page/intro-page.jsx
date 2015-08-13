@@ -5,9 +5,9 @@
 
 const{
   AppBar,
+  Avatar,
   RaisedButton,
-  IconButton,
-  FloatingActionButton
+  IconButton
 } = mui;
 
 // var customPalette = {
@@ -42,6 +42,10 @@ HomePage = React.createClass({
   },
 
   render() {
+    let stylePostTask = {
+      "text-align": "center",
+      "padding": "40% 0 40% 0"
+    };
     return (
       <div>
         <AppBar
@@ -51,26 +55,29 @@ HomePage = React.createClass({
               <IconButton iconClassName="icon-help" />
             </div>
           } />
-        <br/>
+        <div style={stylePostTask} id="btnPostTask">
+          <Avatar
+            color="#fff"
+            backgroundColor="#00bcd4"
+            size={120}
+            onClick={this.onPostTask}>
+            +
+          </Avatar>
+        </div>
         <div className="button-secondary">
           <RaisedButton
-            id="btnPostTask"
-            label="I'm an Asker"
+            label="Login"
             secondary={true}
             fullWidth={true}
             onClick={this.onAskerClick} />
         </div>
         <div className="button-secondary">
           <RaisedButton
-            id="btnTasker"
-            label="I'm a Tasker"
+            label="Become a Tasker"
             primary={true}
             fullWidth={true}
             onClick={this.onTaskerClick}/>
         </div>
-        <FloatingActionButton secondary={true} className="floatingPoint" onClick={this.onPostTask}>
-          <b>+</b>
-        </FloatingActionButton>
       </div>
     );
   }
