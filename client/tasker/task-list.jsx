@@ -11,7 +11,8 @@ const{
   List,
   ListItem,
   ListDivider,
-  Avatar
+  Avatar,
+  FloatingActionButton
 } = mui;
 
 // var customPalette = {
@@ -60,6 +61,10 @@ ListTask_Tasker = React.createClass({
     });
   },
 
+  onPostTask(){
+    React.render(<PostTask />, document.getElementById("container"));
+  },
+
   render() {
     let tabStyle = {
       position: 'fixed',
@@ -104,6 +109,9 @@ ListTask_Tasker = React.createClass({
               </Tabs>
             </div>
           </div>
+          <FloatingActionButton secondary={true} className="floatingPoint" onClick={this.onPostTask}>
+            <b>+</b>
+          </FloatingActionButton>
         </div>
       );
     }
