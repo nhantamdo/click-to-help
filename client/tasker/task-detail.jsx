@@ -52,8 +52,8 @@ TaskDetail = React.createClass({
       taskLoading:! handle.ready(),
       taskStatusLoading:! taskStatusHandle.ready(),
       tasks:Task.find({_id:this.props.taskKey}).fetch(),
-      taskStatus:TaskStatus.find({taskId:this.props.taskKey, status:"accepted"}).fetch(),
-      taskStatusConfirm:TaskStatus.find({taskId:this.props.taskKey, status:"confirmed"}).fetch()
+      taskStatus:TaskStatus.find({taskId:this.props.taskKey, status:"accepted", taskerId:{$ne:null}}).fetch(),
+      taskStatusConfirm:TaskStatus.find({taskId:this.props.taskKey, status:"confirmed", taskerId:{$ne:null}}).fetch()
     }
   },
   formatMoney(num) {
@@ -69,6 +69,14 @@ TaskDetail = React.createClass({
 
   onSkipClick(){
     React.render(<ListTask_Tasker/>, document.getElementById("container"));
+  },
+  onAcceptClick(){
+    var task  = this.data.tasks[0];
+    var tasker = Tasker.find({email:"toanpp@twin.vn"}).fetch();
+    var taskStatus = TaskStatus.find({taskerId:tasker[0]._id, taskId:task._id,status:{$in: ["read","unread"]} }).fetch();
+    Meteor.call("changeToAccepted", taskStatus._id);
+    //TaskStatus.update({_id:taskStatus._id}, {status:"accepted"});
+    console.log(TaskStatus.find({taskerId:tasker._id, taskId:task._id,status:{$in: ["read","unread"]} }).fetch());
   },
 
   onClickNotification(e) {
@@ -94,9 +102,15 @@ TaskDetail = React.createClass({
       );
     }
     var task  = this.data.tasks[0];
+    var tasker = Tasker.find({email:"toanpp@twin.vn"}).fetch();
+    console.log(tasker);
+    var taskStatus = TaskStatus.find({taskerId:tasker[0]._id, taskId:task._id,status:{$in: ["accepted"]} }).fetch();
+    var isAccepted = false;
+    if(taskStatus.length > 0){
+      isAccepted = true;
+    }
+    console.log(taskStatus);
     var numberAccepted = this.data.taskStatus.length;
-    console.log(task);
-    console.log(numberAccepted);
     var numberConfirmed = this.data.taskStatusConfirm.length;
     var h = task.time.getHours();
     h = h < 10 ? "0" + h : h;
@@ -152,12 +166,12 @@ TaskDetail = React.createClass({
         label="Skip"
         secondary={true}
         onClick={this.onSkipClick} />
-        {numberConfirmed==0?
+        {numberConfirmed==0 && isAccepted==false?
           <RaisedButton
           id="btnGetIt"
           label="Accept"
           primary={true}
-          onClick={this.onGetItClick}/>:<span></span>
+          onClick={this.onAcceptClick}/>:<span></span>
         }
 
         </CardActions>
