@@ -119,8 +119,7 @@ TaskDetail = React.createClass({
     var tasker = Tasker.find({email:"linhnh@twin.vn"}).fetch()[0];
     TaskStatus.find({taskId:this.props.taskKey, status:"unread", taskerId:tasker._id})
     .forEach(function (taskStatus){
-      Meteor.call("changeToRead", taskStatus._id);
-
+      Meteor.call("changeToRead", taskStatus);
     });
   },
 
