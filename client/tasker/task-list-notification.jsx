@@ -39,7 +39,6 @@ ListTaskNotification = React.createClass({
     };
   },
   propTypes: {
-    onClickOutside: React.PropTypes.func
   },
   //
   // onClickOutside() {
@@ -49,12 +48,6 @@ ListTaskNotification = React.createClass({
   render() {
     return (
       <div className="NTF">
-        <Overlay
-          ref="overlay"
-          show={true}
-          transitionEnabled={true}
-          onTouchTap={this.props.onClickOutside}
-        />
         <Paper zDepth={1} className="notification">
           <div id="notification">
             <TaskItem subheader="notification" status={['read','unread']}/>

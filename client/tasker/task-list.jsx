@@ -12,7 +12,8 @@ const{
   ListItem,
   ListDivider,
   Avatar,
-  FloatingActionButton
+  FloatingActionButton,
+  Overlay
 } = mui;
 
 // var customPalette = {
@@ -82,42 +83,26 @@ ListTask_Tasker = React.createClass({
     };
     return (
       <div>
-        <div className="appbar">
-          <AppBar
-            title="Task List"
-            iconElementRight={
-              <div>
-                <IconButton id="btnNotification"
-                  iconClassName="icon-notification"
-                  onClick={this.onClickNotification}/>
-                <IconButton iconClassName="icon-help" />
-                <IconButton iconClassName="icon-back" onClick={this.onBack} />
-              </div>
-            } />
-            {this.state.viewNotification?
-              <ListTaskNotification
-                onClickOutside={this.onClickNotification}
-                />:{}}
-              </div>
-              <div className="main">
-                <div>
-                  <Tabs
-                    tabItemContainerStyle={tabStyle}
-                    inkBarStyle={inkStyle}
-                    contentContainerStyle={contentStyle}>
-                    <Tab label="Accepted" onActive={this.onActiveTab}>
-                      <TaskItem status={['accepted']} />
-                    </Tab>
-                    <Tab label="Confirmed" onActive={this.onActiveTab}>
-                      <TaskItem status={['confirmed']} />
-                    </Tab>
-                  </Tabs>
-                </div>
-              </div>
-              <FloatingActionButton secondary={true} className="floatingPoint" onClick={this.onPostTask}>
-                <b>+</b>
-              </FloatingActionButton>
+        <TaskerAppBAr />
+          <div className="main">
+            <div>
+              <Tabs
+                tabItemContainerStyle={tabStyle}
+                inkBarStyle={inkStyle}
+                contentContainerStyle={contentStyle}>
+                <Tab label="Accepted" onActive={this.onActiveTab}>
+                  <TaskItem status={['accepted']} />
+                </Tab>
+                <Tab label="Confirmed" onActive={this.onActiveTab}>
+                  <TaskItem status={['confirmed']} />
+                </Tab>
+              </Tabs>
             </div>
-          );
-        }
-      });
+          </div>
+          <FloatingActionButton secondary={true} className="floatingPoint" onClick={this.onPostTask}>
+            <b>+</b>
+          </FloatingActionButton>
+        </div>
+      );
+    }
+  });
