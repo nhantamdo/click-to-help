@@ -84,7 +84,7 @@ TaskItem = React.createClass({
     };
     let readStyle = {
       borderColor: "#d8dfea",
-    };    
+    };
     return <List subheader= {this.props.subheader}>
       {this.listDivider(0,2)}
       {this.data.tasks.map((task,index) => {
