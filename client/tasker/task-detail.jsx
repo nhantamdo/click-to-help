@@ -128,115 +128,104 @@ TaskDetail = React.createClass({
     if (this.data.taskLoading || this.data.taskStatusLoading) {
       return (
         <div id="taskDetailContainer">
-        <AppBar title="Task detail"
-        iconElementRight={
-          <div>
-          <IconButton iconClassName="icon-notification"
-          onClick={this.onClickNotification}/>
-          <IconButton iconClassName="icon-help" />
-          <IconButton iconClassName="icon-back" onClick={this.onBack} />
+          <AppBar title="Task detail"
+            iconElementRight={
+              <div>
+                <IconButton iconClassName="icon-notification"
+                  onClick={this.onClickNotification}/>
+                <IconButton iconClassName="icon-help" />
+                <IconButton iconClassName="icon-back" onClick={this.onBack} />
+              </div>
+            } />
           </div>
-        } />
+        );
+      }
+      var isShow = this.showAcceptButton();
+      var task  = this.data.tasks[0];
+      var service = Service.findOne({id:task.serviceId});
+      var numberConfirmed = this.data.taskStatusConfirm.length;
+      var numberAccepted = this.data.taskStatus.length;
+
+      var h = task.time.getHours();
+      h = h < 10 ? "0" + h : h;
+      var mm = task.time.getMinutes();
+      mm = mm < 10 ? "0" + mm : mm;
+      var time = h + ":" + mm;
+      var d = task.date.getDate();
+      d = d < 10 ? "0" + d : d;
+      var m = task.date.getMonth() + 1;
+      m = m < 10 ? "0" + m : m;
+      var y = task.date.getFullYear();
+      var date = d + "/" + m + "/" + y;
+      let cost = task.cost;
+      cost = this.formatMoney(Number(cost));
+
+      let style = {};
+      style["color"] = "red";
+      style["fontWeight"] = "bold";
+      let boldStyle = {
+      };
+      let subText = {};
+      subText["color"]="rgba(0, 0, 0, 0.54)";
+      let avatarStyle = {
+        marginLeft:"16px",
+        marginTop:"10px",
+        marginRight:"5px",
+        float:"left"
+      };
+      return (
+
+        <div id="taskDetailContainer">
+          <TaskerAppBAr />
+          <div className="main">
+            <Snackbar ref="thissnackbar"
+              message="Accept succesful"
+              action="Back to Tasks list"
+              autoHideDuration={0}
+              onActionTouchTap={this._handleAction}/>
+            <Card zDepth={0}>
+              <div className="taskDescription">
+
+                <Avatar src={service.icon} style={avatarStyle}/>
+
+                <CardTitle style={boldStyle}
+                  title={task.description}
+                  />
+              </div>
+              <CardText style={subText}>
+                <div>At: {time} &nbsp; {date} - Duration {task.duration}h</div>
+                <div>Cost: {cost} VND</div>
+                <div>Location: {task.address}</div>
+                <div>Contact: {task.phone} - {task.email}</div>
+                {numberConfirmed==0?<div style={style}>{numberAccepted==0? "No one accepted":numberAccepted==1? "Have 1 tasker accepted":"Have ".concat(numberAccepted).concat(" taskers accepted")}</div>:<div style={style}>This task is comfirmed</div>}
+              </CardText>
+              <CardActions>
+
+                {isShow == true?
+                  <RaisedButton
+                    id="btnSkip"
+                    label="Skip"
+                    secondary={true}
+                    onClick={this.onSkipClick} />:<span></span>
+                }
+                {isShow == true?
+                  <RaisedButton
+                    id="btnGetIt"
+                    label="Accept"
+                    primary={true}
+                    onClick={this.onAcceptClick}/>
+                  :<span></span>
+              }
+              {isShow == !true?
+                <RaisedButton
+                  id="btnBack"
+                  label="Back to list"
+                  primary={true}
+                  onClick={this.onBackClick}/>:<span></span>
+              }
+            </CardActions>
+          </Card>
         </div>
-      );
-    }
-    var isShow = this.showAcceptButton();
-    var task  = this.data.tasks[0];
-    var service = Service.findOne({id:task.serviceId});
-    var numberConfirmed = this.data.taskStatusConfirm.length;
-    var numberAccepted = this.data.taskStatus.length;
-
-    var h = task.time.getHours();
-    h = h < 10 ? "0" + h : h;
-    var mm = task.time.getMinutes();
-    mm = mm < 10 ? "0" + mm : mm;
-    var time = h + ":" + mm;
-    var d = task.date.getDate();
-    d = d < 10 ? "0" + d : d;
-    var m = task.date.getMonth() + 1;
-    m = m < 10 ? "0" + m : m;
-    var y = task.date.getFullYear();
-    var date = d + "/" + m + "/" + y;
-    let cost = task.cost;
-    cost = this.formatMoney(Number(cost));
-
-    let style = {};
-    style["color"] = "red";
-    style["fontWeight"] = "bold";
-    let boldStyle = {
-    };
-    let subText = {};
-    subText["color"]="rgba(0, 0, 0, 0.54)";
-    let avatarStyle = {
-      marginLeft:"16px",
-      marginTop:"10px",
-      marginRight:"5px",
-      float:"left"
-    };
-    return (
-
-      <div id="taskDetailContainer">
-      <div className="appbar">
-      <AppBar title="Task information"
-      iconElementRight={
-        <div>
-        <IconButton iconClassName="icon-notification"
-        onClick={this.onClickNotification}/>
-        <IconButton iconClassName="icon-help" />
-        <IconButton iconClassName="icon-back" onClick={this.onBack} />
-        </div>
-      } />
-      {this.state.viewNotification? <ListTaskNotification />:{}}
-      </div>
-      <div className="main">
-      <Snackbar ref="thissnackbar"
-      message="Accept succesful"
-      action="Back to Tasks list"
-      autoHideDuration={0}
-      onActionTouchTap={this._handleAction}/>
-      <Card zDepth={0}>
-      <div className="taskDescription">
-
-      <Avatar src={service.icon} style={avatarStyle}/>
-
-      <CardTitle style={boldStyle}
-      title={task.description}
-      />
-      </div>
-      <CardText style={subText}>
-      <div>At: {time} &nbsp; {date} - Duration {task.duration}h</div>
-      <div>Cost: {cost} VND</div>
-      <div>Location: {task.address}</div>
-      <div>Contact: {task.phone} - {task.email}</div>
-      {numberConfirmed==0?<div style={style}>{numberAccepted==0? "No one accepted":numberAccepted==1? "Have 1 tasker accepted":"Have ".concat(numberAccepted).concat(" taskers accepted")}</div>:<div style={style}>This task is comfirmed</div>}
-      </CardText>
-      <CardActions>
-
-      {isShow == true?
-        <RaisedButton
-        id="btnSkip"
-        label="Skip"
-        secondary={true}
-        onClick={this.onSkipClick} />:<span></span>
-      }
-      {isShow == true?
-        <RaisedButton
-        id="btnGetIt"
-        label="Accept"
-        primary={true}
-        onClick={this.onAcceptClick}/>
-        :<span></span>
-      }
-      {isShow == !true?
-        <RaisedButton
-        id="btnBack"
-        label="Back to list"
-        primary={true}
-        onClick={this.onBackClick}/>:<span></span>
-      }
-      </CardActions>
-      </Card>
-      </div>
       </div>
     );
   }

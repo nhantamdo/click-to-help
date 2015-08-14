@@ -11,7 +11,8 @@ const{
   CardHeader,
   Avatar,
   Card,
-  Paper
+  Paper,
+  Overlay
 } = mui;
 
 const ThemeManager = new mui.Styles.ThemeManager();
@@ -39,6 +40,10 @@ ListTaskNotification = React.createClass({
   },
   propTypes: {
   },
+  //
+  // onClickOutside() {
+  //   console.log("Hide");
+  // },
 
   render() {
     return (

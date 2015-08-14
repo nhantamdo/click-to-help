@@ -55,8 +55,18 @@ TaskPostConfirm = React.createClass({
     },
 
     confirm(){
-      Meteor.call("addTask",this.props);
+      Meteor.call("addTask",this.props,function (error, result) {
+        if (error) {
+          console.log("Error");
+        } else {
+          console.log("Accepted");
+        }
+      });
       this.refs.dialog.show();
+    },
+
+    onClickConfirm() {
+      React.render(<ListTask_Asker />, document.getElementById("container"));
     },
 
     render() {
@@ -130,10 +140,18 @@ TaskPostConfirm = React.createClass({
                 <Dialog
                   ref="dialog"
                   title="Thông báo"
-                  actions={[{ text: 'Kết thúc', ref: 'OK' }]}
+                  actions={[{ text: 'OK',onTouchTap: this.onClickConfirm ,ref: 'OK' }]}
                   actionFocus="OK"
                   modal={true}>
-                  Yêu cầu của bạn đã được gửi
+                  Your Request is submitted
+                </Dialog>
+                <Dialog
+                  ref="error"
+                  title="Error"
+                  actions={[{ text: 'Cancel',ref: 'Error' }]}
+                  actionFocus="Error"
+                  modal={true}>
+                  Error occur when submit
                 </Dialog>
               </div>
             </div>

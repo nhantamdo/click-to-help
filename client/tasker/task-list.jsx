@@ -12,7 +12,8 @@ const{
   ListItem,
   ListDivider,
   Avatar,
-  FloatingActionButton
+  FloatingActionButton,
+  Overlay
 } = mui;
 
 // var customPalette = {
@@ -56,9 +57,11 @@ ListTask_Tasker = React.createClass({
   },
 
   onClickNotification(e) {
+    console.log("click notification");
     this.setState({
       viewNotification: !this.state.viewNotification
     });
+
   },
 
   onPostTask(){
@@ -80,20 +83,7 @@ ListTask_Tasker = React.createClass({
     };
     return (
       <div>
-        <div className="appbar">
-          <AppBar
-            title="Task List"
-            iconElementRight={
-              <div>
-                <IconButton id="btnNotification"
-                  iconClassName="icon-notification"
-                  onClick={this.onClickNotification}/>
-                <IconButton iconClassName="icon-help" />
-                <IconButton iconClassName="icon-back" onClick={this.onBack} />
-              </div>
-            } />
-            {this.state.viewNotification? <ListTaskNotification />:{}}
-          </div>
+        <TaskerAppBAr />
           <div className="main">
             <div>
               <Tabs
