@@ -84,7 +84,7 @@ ListTask_Tasker = React.createClass({
       <div>
         <div className="appbar">
           <AppBar
-            title="Danh sách công việc"
+            title="Task List"
             iconElementRight={
               <div>
                 <IconButton id="btnNotification"
