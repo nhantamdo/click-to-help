@@ -53,7 +53,7 @@ PostTask = React.createClass({
         <div id="mainPostTask">
           <AppBar
             className="appbar"
-            title="Đăng công việc"
+            title="Service"
             iconElementRight={
               <div>
                 <IconButton iconClassName="icon-help" />
