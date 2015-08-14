@@ -7,7 +7,8 @@ Meteor.methods({
       createdAt:taskStatus.createdAt,
       updatedAt:taskStatus.updatedAt});
     },
-    removeConfirm: function (taskId) {
-      TaskStatus.remove({taskId:taskId, status:"confirmed"});
+    
+      removeConfirm: function (taskId) {
+        TaskStatus.remove({taskId:taskId, status:"confirmed"});
       }
-  });
+    });

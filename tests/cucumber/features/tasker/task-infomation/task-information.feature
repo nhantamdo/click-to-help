@@ -9,11 +9,19 @@ Feature: Task information test
     Given I am a Tasker
 
   # This scenario will run as part of the Meteor dev cycle because it has the @dev tag
-  #@dev
+  @dev
   Scenario:
-    When I click the button I'm a Tasker
+    When I click the button Become a Takser
     And I click the notification button
-    And I click the task "Massage tai nha"
-    Then I see "Task information" and "Massage tai nha"
+    And I click the task "Lau dọn nhà trong ngày 15/08/2015, bao gồm 2 phòng ngủ, 1 phòng khách"
+    Then I see "Task information" and "Lau dọn nhà trong ngày 15/08/2015, bao gồm 2 phòng ngủ, 1 phòng khách"
     When I click Skip button
     Then I see task list page
+  @dev
+  Scenario:
+    When I click the button Become a Takser
+    And I click the notification button
+    And I click the task "Lau dọn nhà trong ngày 15/08/2015, bao gồm 2 phòng ngủ, 1 phòng khách"
+    Then I see "Task information" and "Lau dọn nhà trong ngày 15/08/2015, bao gồm 2 phòng ngủ, 1 phòng khách"
+    When I click Accept button
+    Then I see "You accepted this task."

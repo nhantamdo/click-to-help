@@ -96,7 +96,9 @@ TaskDetail = React.createClass({
     }
     else{
       Meteor.call("changeToAccepted", taskFind[0]);
+      React.render(<span>You accepted this task</span>, document.getElementById("spanMessage"));
     }
+
   },
 
   onClickNotification(e) {
@@ -199,7 +201,7 @@ TaskDetail = React.createClass({
         id="btnGetIt"
         label="Accept"
         primary={true}
-        onClick={this.onAcceptClick}/>:<span></span>
+        onClick={this.onAcceptClick}/>:<span id="spanMessage"></span>
       }
       </CardActions>
       </Card>

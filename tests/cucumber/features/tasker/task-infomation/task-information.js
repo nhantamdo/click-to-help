@@ -9,6 +9,8 @@
 
   module.exports = function() {
 
+
+    //this.server.call('changeAllToRead').call(callback);
     var url = require('url');
 
     this.Given(/^I am a Tasker$/, function(callback) {
@@ -20,9 +22,9 @@
       .call(callback);
     });
 
-    this.When(/^I click the button I'm a Tasker$/, function (callback) {
+    this.When(/^I click the button Become a Takser$/, function (callback) {
       this.client
-      .click('#btnTasker')
+      .click('div=Become a Tasker')
       .waitForExist('div=Accepted')
       .waitForVisible('div=Accepted')
       .call(callback);
@@ -63,6 +65,20 @@
       .waitForVisible('div=Accepted')
       .call(callback);
     });
+
+    this.When(/^I click Accept button$/, function (callback) {
+      this.client
+      .click('#btnGetIt')
+      .call(callback);
+    });
+
+    this.Then(/^I see "([^"]*)"$/, function (arg1, callback) {
+      this.client
+      .waitForExist('div='.concat(arg1))
+      .waitForVisible('div='.concat(arg1))
+      .call(callback);
+    });
+
 
 
   };
