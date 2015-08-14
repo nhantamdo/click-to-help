@@ -18,7 +18,8 @@ const{
   Paper,
   Card,
   CardHeader,
-  Avatar
+  Avatar,
+  Snackbar
 } = mui;
 
 const ThemeManager = new mui.Styles.ThemeManager();
@@ -79,7 +80,11 @@ TaskDetail = React.createClass({
   },
 
   onBack(){
-    React.render(<HomePage />, document.getElementById("container"));
+    React.render(<ListTask_Tasker/>, document.getElementById("container"));
+  },
+
+  onBackClick(){
+    React.render(<ListTask_Tasker/>, document.getElementById("container"));
   },
 
   onSkipClick(){
@@ -90,20 +95,32 @@ TaskDetail = React.createClass({
     var tasker = Tasker.find({email:"linhnh@twin.vn"}).fetch();
     var task  = this.data.tasks[0];
     var taskFind = TaskStatus.find({taskId:task._id, taskerId:tasker[0]._id}).fetch();
-    console.log(taskFind);
     if(taskFind.length <= 0){
       console.log("Something wrong!");
     }
     else{
       Meteor.call("changeToAccepted", taskFind[0]);
-      React.render(<span>You accepted this task</span>, document.getElementById("spanMessage"));
+      this.refs.thissnackbar.show();
     }
 
+  },
+  _handleAction() {
+    //We can add more code to this function, but for now we'll just include an alert.
+    React.render(<ListTask_Tasker/>, document.getElementById("container"));
   },
 
   onClickNotification(e) {
     this.setState({
       viewNotification: !this.state.viewNotification
+    });
+  },
+  componentDidMount: function() {
+    //this.refs.txtDescription.focus();
+    var tasker = Tasker.find({email:"linhnh@twin.vn"}).fetch()[0];
+    TaskStatus.find({taskId:this.props.taskKey, status:"unread", taskerId:tasker._id})
+    .forEach(function (taskStatus){
+      Meteor.call("changeToRead", taskStatus._id);
+
     });
   },
 
@@ -151,8 +168,13 @@ TaskDetail = React.createClass({
     let subText = {};
     subText["color"]="rgba(0, 0, 0, 0.54)";
     let avatarStyle = {
+      marginLeft:"16px",
+      marginTop:"10px",
+      marginRight:"5px",
+      float:"left"
     };
     return (
+
       <div id="taskDetailContainer">
       <div className="appbar">
       <AppBar title="Task information"
@@ -167,26 +189,27 @@ TaskDetail = React.createClass({
       {this.state.viewNotification? <ListTaskNotification />:{}}
       </div>
       <div className="main">
+      <Snackbar ref="thissnackbar"
+      message="Accept succesful"
+      action="Back to Tasks list"
+      autoHideDuration={0}
+      onActionTouchTap={this._handleAction}/>
       <Card zDepth={0}>
       <div className="taskDescription">
-      <table>
-      <tr>
-      <td>
-      <Avatar src={service.icon} size={75} style={avatarStyle}/>
-      </td>
-      <td>
+
+      <Avatar src={service.icon} style={avatarStyle}/>
+
       <CardTitle style={boldStyle}
       title={task.description}
       />
-      </td>
-      </tr>
-      </table>
       </div>
-      <CardText style={subText}>At: {time} &nbsp; {date} - Duration {task.duration}h</CardText>
-      <CardText style={subText}>Cost: {cost} VND</CardText>
-      <CardText style={subText}>Location: {task.address}</CardText>
-      <CardText style={subText}>Contact: {task.phone} - {task.email}</CardText>
-      {numberConfirmed==0?<CardText style={style}>{numberAccepted==0? "No one accepted":numberAccepted==1? "Have 1 tasker accepted":"Have ".concat(numberAccepted).concat(" taskers accepted")}</CardText>:<CardText style={style}>This task is comfirmed</CardText>}
+      <CardText style={subText}>
+      <div>At: {time} &nbsp; {date} - Duration {task.duration}h</div>
+      <div>Cost: {cost} VND</div>
+      <div>Location: {task.address}</div>
+      <div>Contact: {task.phone} - {task.email}</div>
+      {numberConfirmed==0?<div style={style}>{numberAccepted==0? "No one accepted":numberAccepted==1? "Have 1 tasker accepted":"Have ".concat(numberAccepted).concat(" taskers accepted")}</div>:<div style={style}>This task is comfirmed</div>}
+      </CardText>
       <CardActions>
 
       {isShow == true?
@@ -201,7 +224,15 @@ TaskDetail = React.createClass({
         id="btnGetIt"
         label="Accept"
         primary={true}
-        onClick={this.onAcceptClick}/>:<span id="spanMessage"></span>
+        onClick={this.onAcceptClick}/>
+        :<span></span>
+      }
+      {isShow == !true?
+        <RaisedButton
+        id="btnBack"
+        label="Back to list"
+        primary={true}
+        onClick={this.onBackClick}/>:<span></span>
       }
       </CardActions>
       </Card>

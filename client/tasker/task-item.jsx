@@ -24,7 +24,6 @@ TaskItem = React.createClass({
     var result=[];
     var tasker = Tasker.find({email:"linhnh@twin.vn"}).fetch();
     console.log(this.props.status);
-    console.log(tasker);
     TaskStatus.find({status: {$in: this.props.status}, taskerId:tasker[0]._id},{sort: {updatedAt: -1}})
     .forEach(function (taskStatus){
 

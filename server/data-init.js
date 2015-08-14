@@ -160,7 +160,7 @@ task2 = Task.upsert({
 TaskStatus.upsert({
   taskId: task2.insertedId,
   taskerId: tasker1.insertedId,
-  status: "confirmed",
+  status: "accepted",
   createdAt: "2015-08-10T12:00:00",
   updatedAt: "2015-08-10T12:00:00"
 },
@@ -168,7 +168,7 @@ TaskStatus.upsert({
     $set: {
       taskId: task2.insertedId,
       taskerId: tasker1.insertedId,
-      status: "confirmed",
+      status: "accepted",
       createdAt: "2015-08-10T12:00:00",
       updatedAt: "2015-08-10T12:00:00"
     }
