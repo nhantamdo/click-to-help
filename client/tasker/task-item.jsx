@@ -23,11 +23,8 @@ TaskItem = React.createClass({
   getMeteorData() {
     var result=[];
     var tasker = Tasker.find({email:"linhnh@twin.vn"}).fetch();
-    console.log(this.props.status);
-    console.log(tasker);
     TaskStatus.find({status: {$in: this.props.status}, taskerId:tasker[0]._id},{sort: {updatedAt: -1}})
     .forEach(function (taskStatus){
-
       task = Task.findOne({_id:taskStatus.taskId});
       service = Service.findOne({id:task.serviceId});
       result.push({
@@ -62,16 +59,17 @@ TaskItem = React.createClass({
       return  num + (i && !(i % 3) ? "," : "") + acc;
     }, "");
   },
+
   onDetailClick(taskKey){
     React.render(<TaskDetail taskKey={taskKey}/>, document.getElementById("container"));
   },
+
   listDivider(index,length) {
     let listDividerStyle = {
       marginTop: 0,
     };
     if (index != length-1) return <ListDivider style={listDividerStyle}/>;
   },
-
 
   render() {
     let primaryTextStyle = {
@@ -86,8 +84,7 @@ TaskItem = React.createClass({
     };
     let readStyle = {
       borderColor: "#d8dfea",
-    };
-
+    };    
     return <List subheader= {this.props.subheader}>
       {this.listDivider(0,2)}
       {this.data.tasks.map((task,index) => {
