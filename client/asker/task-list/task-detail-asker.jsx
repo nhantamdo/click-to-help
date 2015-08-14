@@ -19,7 +19,8 @@ const{
   Card,
   CardHeader,
   Avatar,
-  Snackbar
+  Snackbar,
+  Checkbox
 } = mui;
 
 const ThemeManager = new mui.Styles.ThemeManager();
@@ -115,7 +116,16 @@ TaskDetailAsker = React.createClass({
         </div>
       );
     }
+    var lstTasker = [];
     var task  = this.data.tasks[0];
+    TaskStatus.find({taskId:task._id, status:"accepted", taskerId:{$ne:null}})
+    .forEach(function (taskStatus){
+      var Acceptedtasker = Tasker.find({_id:taskStatus.taskerId}).fetch()[0];
+      lstTasker.push(Acceptedtasker);
+    });
+
+
+
     var service = Service.findOne({id:task.serviceId});
 
     var h = task.time.getHours();
@@ -138,6 +148,8 @@ TaskDetailAsker = React.createClass({
     let boldStyle = {
     };
     let subText = {};
+    let taskerStyle = {float:"left",display:"block"};
+    let checkBoxStyle = {display:"block", marginTop:"16px"};
     subText["color"]="rgba(0, 0, 0, 0.54)";
     let avatarStyle = {
       marginLeft:"16px",
@@ -149,7 +161,7 @@ TaskDetailAsker = React.createClass({
 
       <div id="taskDetailContainer">
       <div className="appbar">
-      <AppBar title="Task information"
+      <AppBar title="Confirming"
       iconElementRight={
         <div>
         <IconButton iconClassName="icon-notification"
@@ -177,10 +189,25 @@ TaskDetailAsker = React.createClass({
       </div>
       <CardText style={subText}>
       <div>At: {time} &nbsp; {date} - Duration {task.duration}h</div>
-      <div>Cost: {cost} VND</div>
-      <div>Location: {task.address}</div>
-      <div>Contact: {task.phone} - {task.email}</div>
+      <div>Cost: {cost} VND - Location: {task.address}</div>
       </CardText>
+      {lstTasker.map((Acceptedtasker) => {
+        return [
+          <div>
+          <CardHeader style={taskerStyle}
+          title={Acceptedtasker.username}
+          subtitle="Accepted at ****"
+          avatar={Acceptedtasker.avatar}/>
+          <div id="checkAccept">
+          <Checkbox
+          name="checkboxName1"
+          value="checkboxValue1"/>
+          </div>
+          </div>
+        ]
+      })
+    }
+    <div id="functionButton">
       <CardActions>
       <RaisedButton
       id="btnCancel"
@@ -193,9 +220,10 @@ TaskDetailAsker = React.createClass({
       primary={true}
       onClick={this.onAcceptClick}/>
       </CardActions>
-      </Card>
-      </div>
-      </div>
-    );
-  }
+    </div>
+    </Card>
+    </div>
+    </div>
+  );
+}
 });

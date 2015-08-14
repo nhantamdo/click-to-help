@@ -57,7 +57,7 @@ TaskItem_Asker = React.createClass({
   },
 
   onDetailClick(taskKey){
-    React.render(<TaskDetail taskKey={taskKey}/>, document.getElementById("container"));
+    React.render(<TaskDetailAsker taskKey={taskKey}/>, document.getElementById("container"));
   },
 
   onClickTaskerAvatar(taskerId){
