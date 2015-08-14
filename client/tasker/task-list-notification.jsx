@@ -47,13 +47,11 @@ ListTaskNotification = React.createClass({
 
   render() {
     return (
-      <div className="NTF">
-        <Paper zDepth={1} className="notification">
-          <div id="notification">
-            <TaskItem subheader="notification" status={['read','unread']}/>
-          </div>
-        </Paper>
-      </div>
+      <Paper zDepth={1} className="notification">
+        <div id="notification">
+          <TaskItem subheader="notification" status={['read','unread']}/>
+        </div>
+      </Paper>
     );
   }
 });
