@@ -22,6 +22,7 @@ const ThemeManager = new mui.Styles.ThemeManager();
 //ThemeManager.setPalette(customPalette);
 
 var duration = 2;
+var descriptionLimit = 10;
 
 TaskInput = React.createClass({
   childContextTypes: {
@@ -38,8 +39,9 @@ TaskInput = React.createClass({
     return {
       errorDescription: false,
       errorCost: false,
-      errorCostText: "Thông tin bắt buộc",
-      textDescription: "Mô tả công việc (200)"
+      errorCostText: "This field is required",
+      textDescription: "Description (200)",
+      textDescriptionLimit: "Thông tin bắt buộc"
     };
   },
 
@@ -56,11 +58,36 @@ TaskInput = React.createClass({
     return d + "/" + m + "/" + y;
   },
 
+  onValidateDescription(description){
+    if(description.length == 0){
+      this.setState({
+        errorDescription: true,
+        textDescriptionLimit: "This field is required."
+      });
+    }
+    else {
+      var numOfCharacter = descriptionLimit - description.length;
+      if(numOfCharacter < 0){
+        this.setState({
+          errorDescription: true,
+          textDescriptionLimit: "Description must be less than 200 character."
+        });
+      }
+      else {
+        this.setState({
+          errorDescription: false,
+          textDescription: "Description (" + numOfCharacter + ")"
+        });
+      }
+    }
+  },
+
   onDescriptionChange(){
-    var numOfCharacter = 200 - this.refs.txtDescription.getValue().length;
-    this.setState({
-      textDescription: "Mô tả công việc (" + numOfCharacter + ")"
-    });
+    this.onValidateDescription(this.refs.txtDescription.getValue().trim());
+  },
+
+  onBlurDescription(){
+    this.onValidateDescription(this.refs.txtDescription.getValue().trim());
   },
 
   onChangeSliderDuration(e,value){
@@ -68,14 +95,47 @@ TaskInput = React.createClass({
     $("#hoursNumber").text(value + "h");
   },
 
+  replaceAll(find, replace, str) {
+    return str.replace(new RegExp(find, 'g'), replace);
+  },
+
   onCostChange(){
     var cost = this.refs.txtCost.getValue();
+    cost = this.replaceAll(",","",cost);
     cost = Number(cost);
     if(isNaN(cost)){
       this.setState({
         errorCost: true,
-        errorCostText: "Giá tiền chỉ nhập số"
+        errorCostText: "Cost must be a number."
       });
+    }
+    else {
+      cost = accounting.formatNumber(cost);
+      this.refs.txtCost.setValue(cost);
+    }
+  },
+
+  onBlurCost(){
+    var cost = this.refs.txtCost.getValue().trim();
+    if(cost.length == 0){
+      this.setState({
+        errorCost: true,
+        errorCostText: "This field is required"
+      });
+    }
+    else {
+      cost = this.replaceAll(",","",cost);
+      if(isNaN(Number(cost))){
+        this.setState({
+          errorCost: true,
+          errorCostText: "Cost must be a number."
+        });
+      }
+      else {
+        this.setState({
+          errorCost: false
+        });
+      }
     }
   },
 
@@ -86,29 +146,41 @@ TaskInput = React.createClass({
   onContactInfo(){
     var description = this.refs.txtDescription.getValue().trim();
     var cost = this.refs.txtCost.getValue().trim();
+    cost = this.replaceAll(",","",cost);
     if(description.length == 0 || cost.length == 0 || isNaN(Number(cost))){
       if(description.length == 0){
         this.setState({
-          errorDescription: true
+          errorDescription: true,
+          textDescriptionLimit: "This field is required."
         });
       }
       else {
-        this.setState({
-          errorDescription: false
-        });
+        var numOfCharacter = descriptionLimit - description.length;
+        if(numOfCharacter < 0){
+          this.setState({
+            errorDescription: true,
+            textDescriptionLimit: "Description must be less than 200 character."
+          });
+        }
+        else {
+          this.setState({
+            errorDescription: false,
+            textDescription: "Description (" + numOfCharacter + ")"
+          });
+        }
       }
 
       if(cost.length == 0){
         this.setState({
           errorCost: true,
-          errorCostText: "Thông tin bắt buộc"
+          errorCostText: "This field is required"
         });
       }
       else {
         if(isNaN(Number(cost))){
           this.setState({
             errorCost: true,
-            errorCostText: "Giá tiền chỉ nhập số"
+            errorCostText: "Cost must be a number."
           });
         }else {
           this.setState({
@@ -118,26 +190,40 @@ TaskInput = React.createClass({
       }
     }
     else {
-      this.setState({
-        errorDescription: false,
-        errorCost: false
-      },function(){
-        if(!this.state.errorDescription && !this.state.errorCost){
-          React.render(<ContactInfo
-            serviceId={this.props.serviceId}
-            serviceText={this.props.serviceText}
-            description={description}
-            date={this.refs.dpDate.getDate()}
-            time={this.refs.dpTime.getTime()}
-            duration={duration}
-            cost={this.refs.txtCost.getValue().trim()}/>, document.getElementById("container"));
-          }
+      var numOfCharacter = descriptionLimit - description.length;
+      if(numOfCharacter < 0){
+        this.setState({
+          errorDescription: true,
+          textDescriptionLimit: "Description must be less than 200 character."
         });
+      }
+      else {
+        this.setState({
+          errorDescription: false,
+          errorCost: false
+        },function(){
+          if(!this.state.errorDescription && !this.state.errorCost){
+            React.render(<ContactInfo
+              serviceId={this.props.serviceId}
+              serviceText={this.props.serviceText}
+              description={description}
+              date={this.refs.dpDate.getDate()}
+              time={this.refs.dpTime.getTime()}
+              duration={duration}
+              cost={this.refs.txtCost.getValue().trim()}/>, document.getElementById("container"));
+            }
+          });
+        }
       }
     },
 
     componentDidMount: function() {
-      //this.refs.txtDescription.focus();
+      if(this.props.description){
+        var numOfCharacter = descriptionLimit - this.props.description.length;
+        this.setState({
+          textDescription: "Description (" + numOfCharacter + ")"
+        });
+      }
 
       var date = new Date();
 
@@ -178,62 +264,64 @@ TaskInput = React.createClass({
                 <IconButton iconClassName="icon-help" />
                 <IconButton iconClassName="icon-back" onClick={this.onBack} />
               </div>
-            } />
-            <div className="main padding-left-right">
-              <TextField
-                id="txtDescription"
-                ref="txtDescription"
-                className="txtDescription"
-                multiLine={true}
-                floatingLabelText={this.state.textDescription}
-                errorText={this.state.errorDescription ? "Thông tin bắt buộc" : ""}
-                defaultValue={this.props.description != "" ? this.props.description : ""}
-                onChange={this.onDescriptionChange}
-                fullWidth={true} />
-              <DatePicker
-                ref="dpDate"
-                hintText="Ngày"
-                autoOk={true}
-                formatDate={this.onFormatDate}
-                fullWidth={true} />
+          } />
+          <div className="main padding-left-right">
+            <TextField
+              id="txtDescription"
+              ref="txtDescription"
+              className="txtDescription"
+              multiLine={true}
+              floatingLabelText={this.state.textDescription}
+              errorText={this.state.errorDescription ? this.state.textDescriptionLimit : ""}
+              defaultValue={this.props.description != "" ? this.props.description : ""}
+              onChange={this.onDescriptionChange}
+              onBlur={this.onBlurDescription}
+              fullWidth={true} />
+            <DatePicker
+              ref="dpDate"
+              hintText="Date"
+              autoOk={true}
+              formatDate={this.onFormatDate}
+              fullWidth={true} />
               <TimePicker
-                ref="dpTime"
-                format="24hr"
-                hintText="Giờ"
-                fullWidth={true} />
-              <br/>
-              <div>
-                <span id="hoursNumber">2h</span>
-              </div>
-              <Slider
-                id="sliderDuration"
-                ref="sliderDuration"
-                name="sliderDuration"
-                min={0.5}
-                max={10}
-                step={0.5}
-                value={2}
-                fullWidth={true}
-                onChange={this.onChangeSliderDuration} />
-              <TextField
-                id="txtCost"
-                ref="txtCost"
-                floatingLabelText="Giá tiền (VND)"
-                errorText={this.state.errorCost ? this.state.errorCostText : ""}
-                defaultValue={this.props.cost != "" ? this.props.cost : ""}
-                onChange={this.onCostChange}
-                fullWidth={true}/>
-              <br/>
-              <div className="button-secondary padding-bottom">
-                <RaisedButton
-                  id="btnNext"
-                  label="Tiếp theo"
-                  secondary={true}
-                  fullWidth={true}
-                  onClick={this.onContactInfo} />
-              </div>
-            </div>
+              ref="dpTime"
+              format="24hr"
+              hintText="Time"
+              fullWidth={true} />
+            <br/>
+          <div>
+            <span id="hoursNumber">2h</span>
           </div>
-        );
-      }
-    });
+          <Slider
+            id="sliderDuration"
+            ref="sliderDuration"
+            name="sliderDuration"
+            min={0.5}
+            max={10}
+            step={0.5}
+            value={2}
+            fullWidth={true}
+            onChange={this.onChangeSliderDuration} />
+          <TextField
+            id="txtCost"
+            ref="txtCost"
+            floatingLabelText="Cost (VND)"
+            errorText={this.state.errorCost ? this.state.errorCostText : ""}
+            defaultValue={this.props.cost != "" ? this.props.cost : ""}
+            onChange={this.onCostChange}
+            onBlur={this.onBlurCost}
+            fullWidth={true}/>
+          <br/>
+          <div className="button-secondary padding-bottom">
+            <RaisedButton
+              id="btnNext"
+              label="Next"
+              secondary={true}
+              fullWidth={true}
+              onClick={this.onContactInfo} />
+          </div>
+          </div>
+        </div>
+      );
+    }
+  });

@@ -56,9 +56,11 @@ ListTask_Tasker = React.createClass({
   },
 
   onClickNotification(e) {
+    console.log("click notification");
     this.setState({
       viewNotification: !this.state.viewNotification
     });
+
   },
 
   onPostTask(){
@@ -82,7 +84,7 @@ ListTask_Tasker = React.createClass({
       <div>
         <div className="appbar">
           <AppBar
-            title="Danh sách công việc"
+            title="Task List"
             iconElementRight={
               <div>
                 <IconButton id="btnNotification"
@@ -92,27 +94,30 @@ ListTask_Tasker = React.createClass({
                 <IconButton iconClassName="icon-back" onClick={this.onBack} />
               </div>
             } />
-            {this.state.viewNotification? <ListTaskNotification />:{}}
-          </div>
-          <div className="main">
-            <div>
-              <Tabs
-                tabItemContainerStyle={tabStyle}
-                inkBarStyle={inkStyle}
-                contentContainerStyle={contentStyle}>
-                <Tab label="Accepted" onActive={this.onActiveTab}>
-                  <TaskItem status={['accepted']} />
-                </Tab>
-                <Tab label="Confirmed" onActive={this.onActiveTab}>
-                  <TaskItem status={['confirmed']} />
-                </Tab>
-              </Tabs>
+            {this.state.viewNotification?
+              <ListTaskNotification
+                onClickOutside={this.onClickNotification}
+                />:{}}
+              </div>
+              <div className="main">
+                <div>
+                  <Tabs
+                    tabItemContainerStyle={tabStyle}
+                    inkBarStyle={inkStyle}
+                    contentContainerStyle={contentStyle}>
+                    <Tab label="Accepted" onActive={this.onActiveTab}>
+                      <TaskItem status={['accepted']} />
+                    </Tab>
+                    <Tab label="Confirmed" onActive={this.onActiveTab}>
+                      <TaskItem status={['confirmed']} />
+                    </Tab>
+                  </Tabs>
+                </div>
+              </div>
+              <FloatingActionButton secondary={true} className="floatingPoint" onClick={this.onPostTask}>
+                <b>+</b>
+              </FloatingActionButton>
             </div>
-          </div>
-          <FloatingActionButton secondary={true} className="floatingPoint" onClick={this.onPostTask}>
-            <b>+</b>
-          </FloatingActionButton>
-        </div>
-      );
-    }
-  });
+          );
+        }
+      });
