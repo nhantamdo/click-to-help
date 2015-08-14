@@ -22,7 +22,7 @@ const ThemeManager = new mui.Styles.ThemeManager();
 //ThemeManager.setPalette(customPalette);
 
 var duration = 2;
-var descriptionLimit = 10;
+var descriptionLimit = 200;
 
 TaskInput = React.createClass({
   childContextTypes: {

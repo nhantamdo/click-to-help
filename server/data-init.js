@@ -1,52 +1,52 @@
 Service.upsert({
   id: "001",
   icon: "icons/img/house-cleanning.png",
-  text: "Dọn dẹp nhà"
+  text: "House Cleaning"
 }, {
   $set: {
     icon: "icons/img/house-cleanning.png",
-    text: "Dọn dẹp nhà"
+    text: "House Cleaning"
   }
 });
 Service.upsert({
   id: "002",
   icon: "icons/img/home-massage.png",
-  text: "Massage tại nhà"
+  text: "Home Massage"
 }, {
   $set: {
     icon: "icons/img/home-massage.png",
-    text: "Massage tại nhà"
+    text: "Home Massage"
   }
 });
 Service.upsert({
   id: "003",
   icon: "icons/img/shopping-help.png",
-  text: "Đi chợ giúp"
+  text: "Help Shopping"
 }, {
   $set: {
     icon: "icons/img/shopping-help.png",
-    text: "Đi chợ giúp"
+    text: "Help Shopping"
   }
 });
 Service.upsert({
   id: "004",
   icon: "icons/img/baby-care.png",
-  text: "Chăm sóc trẻ"
+  text: "Child care"
 },
   {
     $set: {
       icon: "icons/img/baby-care.png",
-      text: "Chăm sóc trẻ"
+      text: "Child care"
     }
   });
 Service.upsert({
   id: "005",
   icon: "icons/img/text-translate.png",
-  text: "Dịch thuật"
+  text: "Text Translate"
 }, {
   $set: {
     icon: "icons/img/text-translate.png",
-    text: "Dịch thuật"
+    text: "Text Translate"
   }
 });
 
@@ -120,15 +120,15 @@ TaskStatus.upsert({
   createdAt: "2015-08-10T12:00:00",
   updatedAt: "2015-08-10T12:00:00"
 },
-{
-  $set: {
-    taskId: task1.insertedId,
-    taskerId: tasker1.insertedId,
-    status: "accepted",
-    createdAt: "2015-08-10T12:00:00",
-    updatedAt: "2015-08-10T12:00:00"
-  }
-});
+  {
+    $set: {
+      taskId: task1.insertedId,
+      taskerId: tasker1.insertedId,
+      status: "accepted",
+      createdAt: "2015-08-10T12:00:00",
+      updatedAt: "2015-08-10T12:00:00"
+    }
+  });
 
 task2 = Task.upsert({
   serviceId: "002",
@@ -190,22 +190,22 @@ TaskStatus.upsert({
       updatedAt: "2015-08-10T12:00:00"
     }
   });
-  TaskStatus.upsert({
-    taskId: task1.insertedId,
-    taskerId: tasker2.insertedId,
-    status: "unread",
-    createdAt: "2015-08-10T12:00:00",
-    updatedAt: "2015-08-10T12:00:00"
-  },
-    {
-      $set: {
-        taskId: task1.insertedId,
-        taskerId: tasker2.insertedId,
-        status: "unread",
-        createdAt: "2015-08-10T12:00:00",
-        updatedAt: "2015-08-10T12:00:00"
-      }
-    });
+TaskStatus.upsert({
+  taskId: task1.insertedId,
+  taskerId: tasker2.insertedId,
+  status: "unread",
+  createdAt: "2015-08-10T12:00:00",
+  updatedAt: "2015-08-10T12:00:00"
+},
+  {
+    $set: {
+      taskId: task1.insertedId,
+      taskerId: tasker2.insertedId,
+      status: "unread",
+      createdAt: "2015-08-10T12:00:00",
+      updatedAt: "2015-08-10T12:00:00"
+    }
+  });
 
 
 TaskStatus.upsert({
