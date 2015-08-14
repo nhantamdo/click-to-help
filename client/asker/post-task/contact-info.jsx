@@ -57,6 +57,7 @@ ContactInfo = React.createClass({
 
     var nameRegex = /^[A-z ]+$/;
     var emailRegex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    var illegalRegex = /\W/;
 
     addressValid = (address==""? "This field is required.":"");
 
@@ -133,7 +134,7 @@ ContactInfo = React.createClass({
                 <div id= "Main2" className="main button-secondary">
                   <div>
                     <TextField ref="address"
-                      floatingLabelText="Địa chỉ"
+                      floatingLabelText="Your address"
                       fullWidth={true}
                       defaultValue={this.props.address}
                       errorText={this.state.addressValid}
@@ -141,7 +142,7 @@ ContactInfo = React.createClass({
                   </div>
                   <div>
                     <TextField ref="phoneNumber"
-                      floatingLabelText="Số điện thoại"
+                      floatingLabelText="Your phone number"
                       fullWidth={true}
                       defaultValue={this.props.phone}
                       errorText={this.state.phoneValid}
@@ -149,7 +150,7 @@ ContactInfo = React.createClass({
                   </div>
                   <div>
                     <TextField ref="name"
-                      floatingLabelText="Họ tên"
+                      floatingLabelText="Your fullname"
                       fullWidth={true}
                       defaultValue={this.props.name}
                       errorText={this.state.nameValid}
@@ -157,7 +158,7 @@ ContactInfo = React.createClass({
                   </div>
                   <div>
                     <TextField ref="email"
-                      floatingLabelText="Email (optional)"
+                      floatingLabelText="Your email (optional)"
                       fullWidth={true}
                       defaultValue={this.props.email}
                       errorText={this.state.emailValid}
