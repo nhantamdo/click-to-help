@@ -37,11 +37,16 @@ TaskerAppBAr = React.createClass({
 
   getInitialState () {
     return {
-      viewNotification: false
+      viewNotification: false,
+      numNotifi: this.count()
     };
   },
   propTypes: {
     onBack: React.PropTypes.func
+  },
+  count() {
+    var tasker = Tasker.find({email:"toanpp@twin.vn"}).fetch()[0];
+    return TaskStatus.find({taskerId:tasker._id , status:"new"}).fetch().length;
   },
 
   onClickNotification(e) {
@@ -51,8 +56,10 @@ TaskerAppBAr = React.createClass({
   },
   onCloseNotification() {
     this.setState({
-      viewNotification: false
+      viewNotification: false,
+      numNotifi: 0
     });
+    Meteor.call("changeToUnread",Tasker.find({email:"toanpp@twin.vn"}).fetch()[0]);
   },
 
   render() {
@@ -66,6 +73,7 @@ TaskerAppBAr = React.createClass({
                 <IconButton id="btnNotification"
                   iconClassName="icon-notification"
                   onClick={this.onClickNotification}/>
+                <span className="numNotification">{this.state.numNotifi}</span>
                 <IconButton iconClassName="icon-help" />
                 <IconButton iconClassName="icon-back"
                   onClick={this.props.onBack} />

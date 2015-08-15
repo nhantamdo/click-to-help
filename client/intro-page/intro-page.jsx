@@ -66,6 +66,7 @@ HomePage = React.createClass({
         </div>
         <div className="button-secondary">
           <RaisedButton
+            id="btnLogin"
             label="Login"
             secondary={true}
             fullWidth={true}

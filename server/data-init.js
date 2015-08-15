@@ -33,12 +33,12 @@ Service.upsert({
   icon: "icons/img/baby-care.png",
   text: "Child care"
 },
-  {
-    $set: {
-      icon: "icons/img/baby-care.png",
-      text: "Child care"
-    }
-  });
+{
+  $set: {
+    icon: "icons/img/baby-care.png",
+    text: "Child care"
+  }
+});
 Service.upsert({
   id: "005",
   icon: "icons/img/text-translate.png",
@@ -98,20 +98,20 @@ task1 = Task.upsert({
   cost: 200000,
   createdAt: "2015-08-10T12:00:00"
 },
-  {
-    $set: {
-      serviceId: "001",
-      description: "Lau dọn nhà trong ngày 15/08/2015, bao gồm 2 phòng ngủ, 1 phòng khách",
-      date: new Date(),
-      time: new Date(),
-      duration: 4.0,
-      address: "104 Mai Thị Lựu, Đakao, Quận 1, TP.HCM",
-      phone: "01228833055",
-      email: "toanpp@twin.vn",
-      cost: 200000,
-      createdAt: "2015-08-10T12:00:00"
-    }
-  });
+{
+  $set: {
+    serviceId: "001",
+    description: "Lau dọn nhà trong ngày 15/08/2015, bao gồm 2 phòng ngủ, 1 phòng khách",
+    date: new Date(),
+    time: new Date(),
+    duration: 4.0,
+    address: "104 Mai Thị Lựu, Đakao, Quận 1, TP.HCM",
+    phone: "01228833055",
+    email: "toanpp@twin.vn",
+    cost: 200000,
+    createdAt: "2015-08-10T12:00:00"
+  }
+});
 
 TaskStatus.upsert({
   taskId: task1.insertedId,
@@ -120,15 +120,15 @@ TaskStatus.upsert({
   createdAt: "2015-08-10T12:00:00",
   updatedAt: "2015-08-10T12:00:00"
 },
-  {
-    $set: {
-      taskId: task1.insertedId,
-      taskerId: tasker1.insertedId,
-      status: "accepted",
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }
-  });
+{
+  $set: {
+    taskId: task1.insertedId,
+    taskerId: tasker1.insertedId,
+    status: "accepted",
+    createdAt: new Date(),
+    updatedAt: new Date()
+  }
+});
 
 task2 = Task.upsert({
   serviceId: "002",
@@ -142,20 +142,20 @@ task2 = Task.upsert({
   cost: 300000,
   createdAt: "2015-08-10T12:00:00"
 },
-  {
-    $set: {
-      serviceId: "002",
-      description: "Massage tai nha",
-      date: new Date(),
-      time: new Date(),
-      duration: 1,
-      address: "104 Mai Thị Lựu, Đakao, Quận 1, TP.HCM",
-      phone: "01228833055",
-      email: "linhnh@twin.vn",
-      cost: 300000,
-      createdAt: "2015-08-10T12:00:00"
-    }
-  });
+{
+  $set: {
+    serviceId: "002",
+    description: "Massage tai nha",
+    date: new Date(),
+    time: new Date(),
+    duration: 1,
+    address: "104 Mai Thị Lựu, Đakao, Quận 1, TP.HCM",
+    phone: "01228833055",
+    email: "linhnh@twin.vn",
+    cost: 300000,
+    createdAt: "2015-08-10T12:00:00"
+  }
+});
 
 TaskStatus.upsert({
   taskId: task2.insertedId,
@@ -164,32 +164,32 @@ TaskStatus.upsert({
   createdAt: new Date(),
   updatedAt: new Date()
 },
-  {
-    $set: {
-      taskId: task2.insertedId,
-      taskerId: tasker1.insertedId,
-      status: "accepted",
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }
-  });
+{
+  $set: {
+    taskId: task2.insertedId,
+    taskerId: tasker1.insertedId,
+    status: "accepted",
+    createdAt: new Date(),
+    updatedAt: new Date()
+  }
+});
 
 TaskStatus.upsert({
   taskId: task1.insertedId,
   taskerId: tasker1.insertedId,
-  status: "unread",
   createdAt: new Date(),
-  updatedAt: new Date()
+  updatedAt: new Date(),
+  status: "new"
 },
-  {
-    $set: {
-      taskId: task1.insertedId,
-      taskerId: tasker1.insertedId,
-      status: "unread",
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }
-  });
+{
+  $set: {
+    taskId: task1.insertedId,
+    taskerId: tasker1.insertedId,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    status: "new"
+  }
+});
 TaskStatus.upsert({
   taskId: task1.insertedId,
   taskerId: tasker2.insertedId,
@@ -197,33 +197,33 @@ TaskStatus.upsert({
   createdAt: new Date(),
   updatedAt: new Date()
 },
-  {
-    $set: {
-      taskId: task1.insertedId,
-      taskerId: tasker2.insertedId,
-      status: "unread",
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }
-  });
+{
+  $set: {
+    taskId: task1.insertedId,
+    taskerId: tasker2.insertedId,
+    status: "unread",
+    createdAt: new Date(),
+    updatedAt: new Date()
+  }
+});
 
 
 TaskStatus.upsert({
   taskId: task2.insertedId,
   taskerId: tasker1.insertedId,
-  status: "read",
   createdAt: new Date(),
-  updatedAt: new Date()
+  updatedAt: new Date(),
+  status: "unread"
 },
-  {
-    $set: {
-      taskId: task2.insertedId,
-      taskerId: tasker1.insertedId,
-      status: "read",
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }
-  });
+{
+  $set: {
+    taskId: task2.insertedId,
+    taskerId: tasker1.insertedId,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    status: "unread"
+  }
+});
 
 TaskStatus.upsert({
   taskId: task2.insertedId,
@@ -232,15 +232,15 @@ TaskStatus.upsert({
   createdAt: new Date(),
   updatedAt: new Date()
 },
-  {
-    $set: {
-      taskId: task2.insertedId,
-      taskerId: tasker1.insertedId,
-      status: "read",
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }
-  });
+{
+  $set: {
+    taskId: task2.insertedId,
+    taskerId: tasker1.insertedId,
+    status: "read",
+    createdAt: new Date(),
+    updatedAt: new Date()
+  }
+});
 TaskStatus.upsert({
   taskId: task2.insertedId,
   taskerId: tasker1.insertedId,
@@ -248,15 +248,15 @@ TaskStatus.upsert({
   createdAt: new Date(),
   updatedAt: new Date()
 },
-  {
-    $set: {
-      taskId: task2.insertedId,
-      taskerId: tasker1.insertedId,
-      status: "read",
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }
-  });
+{
+  $set: {
+    taskId: task2.insertedId,
+    taskerId: tasker1.insertedId,
+    status: "read",
+    createdAt: new Date(),
+    updatedAt: new Date()
+  }
+});
 TaskStatus.upsert({
   taskId: task2.insertedId,
   taskerId: tasker1.insertedId,
@@ -264,12 +264,12 @@ TaskStatus.upsert({
   createdAt: new Date(),
   updatedAt: new Date()
 },
-  {
-    $set: {
-      taskId: task2.insertedId,
-      taskerId: tasker1.insertedId,
-      status: "read",
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }
-  });
+{
+  $set: {
+    taskId: task2.insertedId,
+    taskerId: tasker1.insertedId,
+    status: "read",
+    createdAt: new Date(),
+    updatedAt: new Date()
+  }
+});
