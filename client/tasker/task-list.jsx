@@ -83,7 +83,7 @@ ListTask_Tasker = React.createClass({
     };
     return (
       <div>
-        <TaskerAppBAr onBack={this.onBack}/>
+        <TaskerAppBAr title="Task List" onBack={this.onBack}/>
           <div className="main">
             <div>
               <Tabs
