@@ -24,7 +24,7 @@ const{
 const ThemeManager = new mui.Styles.ThemeManager();
 //ThemeManager.setPalette(customPalette);
 
-TaskerAppBAr = React.createClass({
+AskerAppBAr = React.createClass({
   childContextTypes: {
     muiTheme: React.PropTypes.object
   },
@@ -45,16 +45,15 @@ TaskerAppBAr = React.createClass({
     onBack: React.PropTypes.func
   },
   count() {
-    var tasker = Tasker.find({email:"toanpp@twin.vn"}).fetch()[0];
-    return TaskStatus.find({taskerId:tasker._id , status:"new"}).fetch().length;
+    return 0;
   },
 
   onClickNotification(e) {
     this.setState({
       viewNotification: !this.state.viewNotification,
       numNotifi: 0
+
     });
-    Meteor.call("changeToUnread",Tasker.find({email:"toanpp@twin.vn"}).fetch()[0]);
   },
   onCloseNotification() {
     this.setState({
@@ -79,7 +78,7 @@ TaskerAppBAr = React.createClass({
                   onClick={this.props.onBack} />
               </div>
             } />
-            {this.state.viewNotification? <ListTaskNotification/>:{}}
+          {this.state.viewNotification? <ListAskerNotification/>:{}}
           </div>
           <Overlay
             ref="overlay"

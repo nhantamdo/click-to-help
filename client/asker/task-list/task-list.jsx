@@ -49,18 +49,7 @@ ListTask_Asker = React.createClass({
   render() {
     return (
       <div>
-        <AppBar
-          className="appbar"
-          title="Ask List"
-          iconElementRight={
-            <div>
-              <IconButton id="btnNotification"
-                iconClassName="icon-notification"
-                onClick={this.onClickNotification}/>
-              <IconButton iconClassName="icon-help" />
-              <IconButton iconClassName="icon-back" onClick={this.onBack} />
-            </div>
-          } />
+        <AskerAppBAr title="Ask List"/>
           <div className="main">
             <Tabs>
               <Tab label="Waiting">
