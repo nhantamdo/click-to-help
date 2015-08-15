@@ -53,7 +53,7 @@ TaskerAppBAr = React.createClass({
     this.setState({
       viewNotification: false
     });
-  },
+  },  
 
   render() {
     return (

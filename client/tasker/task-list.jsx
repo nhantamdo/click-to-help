@@ -43,10 +43,6 @@ ListTask_Tasker = React.createClass({
   propTypes: {
   },
 
-  onBack(){
-    React.render(<HomePage />, document.getElementById("container"));
-  },
-
   onActiveTab(tab){
     if(tab.props.tabIndex == 0){
 
@@ -68,6 +64,10 @@ ListTask_Tasker = React.createClass({
     React.render(<PostTask />, document.getElementById("container"));
   },
 
+  onBack(){
+    React.render(<HomePage />, document.getElementById("container"));
+  },
+
   render() {
     let tabStyle = {
       position: 'fixed',
@@ -83,7 +83,7 @@ ListTask_Tasker = React.createClass({
     };
     return (
       <div>
-        <TaskerAppBAr />
+        <TaskerAppBAr onBack={this.onBack}/>
           <div className="main">
             <div>
               <Tabs
