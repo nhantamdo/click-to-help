@@ -13,7 +13,9 @@ const{
   Card,
   Paper,
   Overlay,
-  List
+  List,
+  ListItem,
+  ListDivider
 } = mui;
 
 const ThemeManager = new mui.Styles.ThemeManager();
@@ -88,8 +90,7 @@ ListAskerNotification = React.createClass({
               var date = d + "/" + m + "/" + y;
 
               let styleItem = {};
-              styleItem["height"] = "75px";
-
+              
               return [
               <ListItem
                 id={notif.key}
