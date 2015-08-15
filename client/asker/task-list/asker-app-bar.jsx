@@ -45,14 +45,13 @@ AskerAppBAr = React.createClass({
     onBack: React.PropTypes.func
   },
   count() {
-    return 0;
+    return TaskStatus.find({status:"accepted"}).fetch().length;
   },
 
   onClickNotification(e) {
     this.setState({
       viewNotification: !this.state.viewNotification,
       numNotifi: 0
-
     });
   },
   onCloseNotification() {
