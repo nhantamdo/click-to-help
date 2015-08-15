@@ -80,6 +80,7 @@ TaskDetail = React.createClass({
   },
 
   onBack(){
+    console.log("this is onBack");
     React.render(<ListTask_Tasker/>, document.getElementById("container"));
   },
 
@@ -127,16 +128,8 @@ TaskDetail = React.createClass({
     if (this.data.taskLoading || this.data.taskStatusLoading) {
       return (
         <div id="taskDetailContainer">
-          <AppBar title="Task detail"
-            iconElementRight={
-              <div>
-                <IconButton iconClassName="icon-notification"
-                  onClick={this.onClickNotification}/>
-                <IconButton iconClassName="icon-help" />
-                <IconButton iconClassName="icon-back" onClick={this.onBack} />
-              </div>
-            } />
-          </div>
+          <TaskerAppBAr title="Task information" onBack={this.onBack} />
+        </div>
         );
       }
       var isShow = this.showAcceptButton();
