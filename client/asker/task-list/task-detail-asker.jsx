@@ -35,7 +35,8 @@ TaskDetailAsker = React.createClass({
   },
   getInitialState () {
     return {
-      viewNotification: false
+      viewNotification: false,
+      lstTasker:[]
     };
   },
 
@@ -50,13 +51,16 @@ TaskDetailAsker = React.createClass({
   getMeteorData() {
     var handle = Meteor.subscribe("task");
     var taskStatusHandle = Meteor.subscribe("taskStatus");
-
+    this.chooseTaskerId = null;
+    this.accepted = false;
+    this.chooseTaskerObject = null;
+    this.lstTasker = [];
     return {
       taskLoading:! handle.ready(),
       taskStatusLoading:! taskStatusHandle.ready(),
       tasks:Task.find({_id:this.props.taskKey}).fetch(),
       taskStatus:TaskStatus.find({taskId:this.props.taskKey, status:"accepted", taskerId:{$ne:null}}).fetch(),
-      taskStatusConfirm:TaskStatus.find({taskId:this.props.taskKey, status:"confirmed", taskerId:{$ne:null}}).fetch()
+      taskConfirmed:TaskStatus.find({taskId:this.props.taskKey, status:"confirmed", taskerId:{$ne:null}}).fetch()
     }
   },
 
@@ -70,24 +74,38 @@ TaskDetailAsker = React.createClass({
   },
 
   onBack(){
-    React.render(<ListTask_Tasker/>, document.getElementById("container"));
+    React.render(<ListTask_Asker />, document.getElementById("container"));
   },
 
   onBackClick(){
     React.render(<ListTask_Tasker/>, document.getElementById("container"));
   },
 
-  onSkipClick(){
-    React.render(<ListTask_Tasker/>, document.getElementById("container"));
+  onCancelClick(){
+    this.refs.cancelConfirmSnackbar.show();
   },
 
   onAcceptClick(){
-
+    if(this.chooseTaskerId != null){
+      var task  = this.data.tasks[0];
+      var taskS = TaskStatus.find({taskId:task._id, taskerId:this.chooseTaskerId}).fetch()[0];
+      Meteor.call("changeTaskStatus", taskS, "confirmed");
+      this.refs.AcceptSuccess.show();
+    }else{
+      this.refs.errorAccept.show();
+    }
 
   },
+
   _handleAction() {
     //We can add more code to this function, but for now we'll just include an alert.
-    React.render(<ListTask_Tasker/>, document.getElementById("container"));
+    console.log("Cancel task in this task.");
+    this.refs.cancelConfirmSnackbar.dismiss();
+  },
+  _handleActionClose() {
+    //We can add more code to this function, but for now we'll just include an alert.
+    this.refs.errorAccept.dismiss();
+    this.refs.AcceptSuccess.dismiss();
   },
 
   onClickNotification(e) {
@@ -95,10 +113,25 @@ TaskDetailAsker = React.createClass({
       viewNotification: !this.state.viewNotification
     });
   },
+
+  onCheckClick(event, checked){
+    var taskerId = event.target.value;
+    if(checked==true){
+      this.chooseTaskerId = taskerId;
+    }
+    this.lstTasker
+    .forEach(function (tasker){
+      if(tasker.tasker._id != taskerId && checked == true){
+        this.refs[tasker.tasker._id].setChecked(false);
+      }
+    });
+
+  },
   componentDidMount: function() {
     //this.refs.txtDescription.focus();
 
   },
+
 
   render() {
     if (this.data.taskLoading || this.data.taskStatusLoading) {
@@ -120,10 +153,32 @@ TaskDetailAsker = React.createClass({
     var task  = this.data.tasks[0];
     TaskStatus.find({taskId:task._id, status:"accepted", taskerId:{$ne:null}})
     .forEach(function (taskStatus){
-      var Acceptedtasker = Tasker.find({_id:taskStatus.taskerId}).fetch()[0];
+      var Acceptedtasker = {}
+      Acceptedtasker["tasker"] = Tasker.find({_id:taskStatus.taskerId}).fetch()[0];
+      var aH = taskStatus.updatedAt.getHours();
+      var aM = taskStatus.updatedAt.getMinutes();
+      var aTime = aH + ":" + aM;
+      var aD = taskStatus.updatedAt.getDate();
+      var aMonth = taskStatus.updatedAt.getMonth();
+      var aY = taskStatus.updatedAt.getFullYear();
+      var ADate = aD + "/" + aMonth + "/" + aY;
+      Acceptedtasker["acceptedAt"] = "Accepted at " + aTime + " " + ADate;
       lstTasker.push(Acceptedtasker);
     });
-
+    this.lstTasker = lstTasker;
+    var choosedTasker = null;
+    var choosedAt = null;
+    if(this.data.taskConfirmed.length > 0){
+      choosedTasker = Tasker.find({_id:this.data.taskConfirmed[0].taskerId}).fetch()[0];
+      var aH = this.data.taskConfirmed[0].updatedAt.getHours();
+      var aM = this.data.taskConfirmed[0].updatedAt.getMinutes();
+      var aTime = aH + ":" + aM;
+      var aD = this.data.taskConfirmed[0].updatedAt.getDate();
+      var aMonth = this.data.taskConfirmed[0].updatedAt.getMonth();
+      var aY = this.data.taskConfirmed[0].updatedAt.getFullYear();
+      var ADate = aD + "/" + aMonth + "/" + aY;
+      choosedAt = "Confirmed at " + aTime + " " + ADate;
+    }
 
 
     var service = Service.findOne({id:task.serviceId});
@@ -173,11 +228,23 @@ TaskDetailAsker = React.createClass({
       {this.state.viewNotification? <ListTaskNotification />:{}}
       </div>
       <div className="main">
-      <Snackbar ref="thissnackbar"
-      message="Accept succesful"
-      action="Back to Tasks list"
+      <Snackbar ref="cancelConfirmSnackbar"
+      message="Are you sure?"
+      action="Cancel now"
       autoHideDuration={0}
       onActionTouchTap={this._handleAction}/>
+      <Snackbar ref="errorAccept"
+      message="Please choose one tasker!"
+      action="Close"
+      autoHideDuration={0}
+      onActionTouchTap={this._handleActionClose}
+      />
+      <Snackbar ref="AcceptSuccess"
+      message="Accept succesful!"
+      action="Close"
+      autoHideDuration={0}
+      onActionTouchTap={this._handleActionClose}
+      />
       <Card zDepth={0}>
       <div className="taskDescription">
 
@@ -191,35 +258,52 @@ TaskDetailAsker = React.createClass({
       <div>At: {time} &nbsp; {date} - Duration {task.duration}h</div>
       <div>Cost: {cost} VND - Location: {task.address}</div>
       </CardText>
+      <div id="listOfTasker">
+      {this.data.taskConfirmed.length > 0?
+        <div>
+        <CardHeader style={taskerStyle}
+        title={choosedTasker.username}
+        subtitle={choosedAt}
+        avatar={choosedTasker.avatar}/>
+        <div id="checkAccept">
+        <span>Confirmed</span>
+        </div>
+        </div>:<span></span>
+      }
       {lstTasker.map((Acceptedtasker) => {
         return [
           <div>
           <CardHeader style={taskerStyle}
-          title={Acceptedtasker.username}
-          subtitle="Accepted at ****"
-          avatar={Acceptedtasker.avatar}/>
+          title={Acceptedtasker.tasker.username}
+          subtitle={Acceptedtasker.acceptedAt}
+          avatar={Acceptedtasker.tasker.avatar}/>
           <div id="checkAccept">
           <Checkbox
+          ref={Acceptedtasker.tasker._id}
           name="checkboxName1"
-          value="checkboxValue1"/>
+          value={Acceptedtasker.tasker._id}
+          onCheck={this.onCheckClick.bind(Acceptedtasker.tasker._id)}/>
           </div>
           </div>
         ]
       })
     }
+    </div>
     <div id="functionButton">
-      <CardActions>
-      <RaisedButton
-      id="btnCancel"
-      label="Cancel task"
-      secondary={true}
-      onClick={this.onCancelClick} />
-      <RaisedButton
-      id="btnAccept"
-      label="Accept"
-      primary={true}
-      onClick={this.onAcceptClick}/>
-      </CardActions>
+    <CardActions>
+    <RaisedButton
+    id="btnCancel"
+    label="Cancel task"
+    secondary={true}
+    onClick={this.onCancelClick} />
+    {this.data.taskConfirmed.length <= 0?
+    <RaisedButton
+    id="btnAccept"
+    label="Accept"
+    primary={true}
+    onClick={this.onAcceptClick}/>:<div></div>
+    }
+    </CardActions>
     </div>
     </Card>
     </div>

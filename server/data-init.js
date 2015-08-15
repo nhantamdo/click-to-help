@@ -125,8 +125,8 @@ TaskStatus.upsert({
       taskId: task1.insertedId,
       taskerId: tasker1.insertedId,
       status: "accepted",
-      createdAt: "2015-08-10T12:00:00",
-      updatedAt: "2015-08-10T12:00:00"
+      createdAt: new Date(),
+      updatedAt: new Date()
     }
   });
 
@@ -161,16 +161,16 @@ TaskStatus.upsert({
   taskId: task2.insertedId,
   taskerId: tasker1.insertedId,
   status: "accepted",
-  createdAt: "2015-08-10T12:00:00",
-  updatedAt: "2015-08-10T12:00:00"
+  createdAt: new Date(),
+  updatedAt: new Date()
 },
   {
     $set: {
       taskId: task2.insertedId,
       taskerId: tasker1.insertedId,
       status: "accepted",
-      createdAt: "2015-08-10T12:00:00",
-      updatedAt: "2015-08-10T12:00:00"
+      createdAt: new Date(),
+      updatedAt: new Date()
     }
   });
 
@@ -178,32 +178,32 @@ TaskStatus.upsert({
   taskId: task1.insertedId,
   taskerId: tasker1.insertedId,
   status: "unread",
-  createdAt: "2015-08-10T12:00:00",
-  updatedAt: "2015-08-10T12:00:00"
+  createdAt: new Date(),
+  updatedAt: new Date()
 },
   {
     $set: {
       taskId: task1.insertedId,
       taskerId: tasker1.insertedId,
       status: "unread",
-      createdAt: "2015-08-10T12:00:00",
-      updatedAt: "2015-08-10T12:00:00"
+      createdAt: new Date(),
+      updatedAt: new Date()
     }
   });
 TaskStatus.upsert({
   taskId: task1.insertedId,
   taskerId: tasker2.insertedId,
   status: "unread",
-  createdAt: "2015-08-10T12:00:00",
-  updatedAt: "2015-08-10T12:00:00"
+  createdAt: new Date(),
+  updatedAt: new Date()
 },
   {
     $set: {
       taskId: task1.insertedId,
       taskerId: tasker2.insertedId,
       status: "unread",
-      createdAt: "2015-08-10T12:00:00",
-      updatedAt: "2015-08-10T12:00:00"
+      createdAt: new Date(),
+      updatedAt: new Date()
     }
   });
 
@@ -212,16 +212,16 @@ TaskStatus.upsert({
   taskId: task2.insertedId,
   taskerId: tasker1.insertedId,
   status: "read",
-  createdAt: "2015-08-10T12:00:00",
-  updatedAt: "2015-08-10T12:00:00"
+  createdAt: new Date(),
+  updatedAt: new Date()
 },
   {
     $set: {
       taskId: task2.insertedId,
       taskerId: tasker1.insertedId,
       status: "read",
-      createdAt: "2015-08-10T12:00:00",
-      updatedAt: "2015-08-10T12:00:00"
+      createdAt: new Date(),
+      updatedAt: new Date()
     }
   });
 
@@ -229,47 +229,47 @@ TaskStatus.upsert({
   taskId: task2.insertedId,
   taskerId: tasker1.insertedId,
   status: "read",
-  createdAt: "2015-07-10T12:00:00",
-  updatedAt: "2015-08-10T12:00:00"
+  createdAt: new Date(),
+  updatedAt: new Date()
 },
   {
     $set: {
       taskId: task2.insertedId,
       taskerId: tasker1.insertedId,
       status: "read",
-      createdAt: "2015-07-10T12:00:00",
-      updatedAt: "2015-08-10T12:00:00"
+      createdAt: new Date(),
+      updatedAt: new Date()
     }
   });
 TaskStatus.upsert({
   taskId: task2.insertedId,
   taskerId: tasker1.insertedId,
   status: "read",
-  createdAt: "2015-06-10T12:00:00",
-  updatedAt: "2015-08-10T12:00:00"
+  createdAt: new Date(),
+  updatedAt: new Date()
 },
   {
     $set: {
       taskId: task2.insertedId,
       taskerId: tasker1.insertedId,
       status: "read",
-      createdAt: "2015-06-10T12:00:00",
-      updatedAt: "2015-08-10T12:00:00"
+      createdAt: new Date(),
+      updatedAt: new Date()
     }
   });
 TaskStatus.upsert({
   taskId: task2.insertedId,
   taskerId: tasker1.insertedId,
   status: "read",
-  createdAt: "2015-05-10T12:00:00",
-  updatedAt: "2015-08-10T12:00:00"
+  createdAt: new Date(),
+  updatedAt: new Date()
 },
   {
     $set: {
       taskId: task2.insertedId,
       taskerId: tasker1.insertedId,
       status: "read",
-      createdAt: "2015-05-10T12:00:00",
-      updatedAt: "2015-08-10T12:00:00"
+      createdAt: new Date(),
+      updatedAt: new Date()
     }
   });
