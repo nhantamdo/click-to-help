@@ -49,7 +49,7 @@ ListTaskNotification = React.createClass({
     return (
       <Paper zDepth={1} className="notification">
         <div id="notification">
-          <TaskItem subheader="notification" status={['read','unread']}/>
+          <TaskItem subheader="notification" status={['read','unread','new']}/>
         </div>
       </Paper>
     );

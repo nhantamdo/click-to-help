@@ -53,8 +53,8 @@ body{
 }
 
 .button-secondary{
-    text-align: center;
-    padding: 1% 5% 1% 5%;
+  text-align: center;
+  padding: 1% 5% 1% 5%;
 }
 
 .padding-top {
@@ -76,6 +76,13 @@ body{
 
 .title{
   font-weight: bold;
+}
+
+.numNotification {
+  top: -15px;
+  left: -29px;
+  position: relative;
+  color: red;
 }
 
 #Cost,#hoursNumber{

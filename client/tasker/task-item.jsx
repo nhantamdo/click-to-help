@@ -100,7 +100,7 @@ TaskItem = React.createClass({
         return [
           <ListItem
           id={task.key}
-          style={task.status=="unread"? unreadStyle:readStyle}
+          style={(task.status=="unread" || task.status=="new")? unreadStyle:readStyle}
           key={task.key}
           primaryText={ <p style={primaryTextStyle}>
           {task.description}

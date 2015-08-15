@@ -177,7 +177,7 @@ TaskStatus.upsert({
 TaskStatus.upsert({
   taskId: task1.insertedId,
   taskerId: tasker1.insertedId,
-  status: "unread",
+  status: "new",
   createdAt: "2015-08-10T12:00:00",
   updatedAt: "2015-08-10T12:00:00"
 },
@@ -185,7 +185,7 @@ TaskStatus.upsert({
     $set: {
       taskId: task1.insertedId,
       taskerId: tasker1.insertedId,
-      status: "unread",
+      status: "new",
       createdAt: "2015-08-10T12:00:00",
       updatedAt: "2015-08-10T12:00:00"
     }
@@ -211,7 +211,7 @@ TaskStatus.upsert({
 TaskStatus.upsert({
   taskId: task2.insertedId,
   taskerId: tasker1.insertedId,
-  status: "read",
+  status: "unread",
   createdAt: "2015-08-10T12:00:00",
   updatedAt: "2015-08-10T12:00:00"
 },
@@ -219,7 +219,7 @@ TaskStatus.upsert({
     $set: {
       taskId: task2.insertedId,
       taskerId: tasker1.insertedId,
-      status: "read",
+      status: "unread",
       createdAt: "2015-08-10T12:00:00",
       updatedAt: "2015-08-10T12:00:00"
     }
