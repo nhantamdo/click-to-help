@@ -1,6 +1,6 @@
 # Description: This is test case of task information
 # Author: toanpp
-Feature: Task information test
+Feature: Task confirming test
   As a new comer
   I am a Tasker
 

@@ -137,15 +137,7 @@ TaskDetailAsker = React.createClass({
     if (this.data.taskLoading || this.data.taskStatusLoading) {
       return (
         <div id="taskDetailContainer">
-        <AppBar title="Task detail"
-        iconElementRight={
-          <div>
-          <IconButton iconClassName="icon-notification"
-          onClick={this.onClickNotification}/>
-          <IconButton iconClassName="icon-help" />
-          <IconButton iconClassName="icon-back" onClick={this.onBack} />
-          </div>
-        } />
+        <AskerAppBAr title="Confirming" onBack={this.onBack} />
         </div>
       );
     }
@@ -216,17 +208,10 @@ TaskDetailAsker = React.createClass({
 
       <div id="taskDetailContainer">
       <div className="appbar">
-      <AppBar title="Confirming"
-      iconElementRight={
-        <div>
-        <IconButton iconClassName="icon-notification"
-        onClick={this.onClickNotification}/>
-        <IconButton iconClassName="icon-help" />
-        <IconButton iconClassName="icon-back" onClick={this.onBack} />
-        </div>
-      } />
-      {this.state.viewNotification? <ListTaskNotification />:{}}
+      <AskerAppBAr title="Confirming" onBack={this.onBack} />
       </div>
+      {this.state.viewNotification? <ListTaskNotification />:{}}
+
       <div className="main">
       <Snackbar ref="cancelConfirmSnackbar"
       message="Are you sure?"
@@ -278,7 +263,7 @@ TaskDetailAsker = React.createClass({
           subtitle={Acceptedtasker.acceptedAt}
           avatar={Acceptedtasker.tasker.avatar}/>
           <div id="checkAccept">
-          <Checkbox
+          <Checkbox id={Acceptedtasker.tasker.username}
           ref={Acceptedtasker.tasker._id}
           name="checkboxName1"
           value={Acceptedtasker.tasker._id}
@@ -297,11 +282,11 @@ TaskDetailAsker = React.createClass({
     secondary={true}
     onClick={this.onCancelClick} />
     {this.data.taskConfirmed.length <= 0?
-    <RaisedButton
-    id="btnAccept"
-    label="Accept"
-    primary={true}
-    onClick={this.onAcceptClick}/>:<div></div>
+      <RaisedButton
+      id="btnAccept"
+      label="Accept"
+      primary={true}
+      onClick={this.onAcceptClick}/>:<div></div>
     }
     </CardActions>
     </div>

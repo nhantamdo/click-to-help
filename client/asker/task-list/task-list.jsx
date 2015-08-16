@@ -49,7 +49,7 @@ ListTask_Asker = React.createClass({
   render() {
     return (
       <div>
-        <AskerAppBAr title="Ask List"/>
+        <AskerAppBAr title="Ask List" onBack={this.onBack}/>
           <div className="main">
             <Tabs>
               <Tab label="Waiting">

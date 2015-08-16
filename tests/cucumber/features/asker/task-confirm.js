@@ -12,6 +12,7 @@
 
     this.Given(/^I am an Asker$/, function(callback) {
       // Write code here that turns the phrase above into concrete actions
+      this.server.call("resetDataConfriming");
       this.client
       .url(process.env.ROOT_URL)
       .waitForExist('body *')
@@ -24,16 +25,18 @@
       .click('#btnLogin')
       .waitForExist('div=Waiting')
       .waitForVisible('div=Waiting')
+      .waitForExist('span=Massage tai nha')
+      .waitForVisible('span=Massage tai nha')
       .call(callback);
     });
 
-    this.When(/^I click the task "([^"]*)"$/, function (taskName,callback) {
+    this.When(/^I click the task "([^"]*)" in waiting list$/, function (arg1, callback) {
       this.client
-      .click('p='.concat(taskName))
-
+      .click('span='.concat(arg1))
       .call(callback);
     });
-    this.Then(/^I see "([^"]*)" and "([^"]*)"$/, function (arg1, arg2, callback) {
+
+    this.Then(/^I see "([^"]*)" and "([^"]*)" in confirming$/, function (arg1, arg2, callback) {
       this.client
       .waitForExist('h1='.concat(arg1))
       .waitForVisible('h1='.concat(arg1))
@@ -44,42 +47,28 @@
 
     this.When(/^I click check box$/, function (callback) {
       this.client
-      .click('#btnSkip')
+      .click('#toanpp')
       .call(callback);
     });
 
-    this.Then(/^I see task list page$/, function (callback) {
+    this.When(/^I click accept button to confirm$/, function (callback) {
       this.client
-      .waitForExist('div=Accepted')
-      .waitForVisible('div=Accepted')
+      .click('#btnAccept')
       .call(callback);
     });
-
-    this.Then(/^I click Accept button$/, function (callback) {
-      this.client
-      .click('#btnGetIt')
-      .call(callback);
-    });
-
-    this.Then(/^I see "([^"]*)"$/, function (arg1, callback) {
+    this.Then(/^I see result "([^"]*)"$/, function (arg1, callback) {
       this.client
       .waitForExist('span='.concat(arg1))
       .waitForVisible('span='.concat(arg1))
       .call(callback);
     });
 
-    this.Then(/^I click "([^"]*)"$/, function (arg1, callback) {
-      this.client
-      .click('span='.concat(arg1))
-      .call(callback);
-    });
 
-    this.Then(/^I see Tab Accepted in Taks list$/, function (callback) {
-      this.client
-      .waitForExist('div=Accepted')
-      .waitForVisible('div=Accepted')
-      .call(callback);
-    });
+
+
+
+
+
 
 
 

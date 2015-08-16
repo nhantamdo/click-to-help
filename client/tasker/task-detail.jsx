@@ -127,9 +127,7 @@ TaskDetail = React.createClass({
   render() {
     if (this.data.taskLoading || this.data.taskStatusLoading) {
       return (
-        <div id="taskDetailContainer">
           <TaskerAppBAr title="Task information" onBack={this.onBack} />
-        </div>
         );
       }
       var isShow = this.showAcceptButton();
@@ -168,7 +166,7 @@ TaskDetail = React.createClass({
       return (
 
         <div id="taskDetailContainer">
-          <TaskerAppBAr />
+          <TaskerAppBAr title="Task information" onBack={this.onBack} />
           <div className="main">
             <Snackbar ref="thissnackbar"
               message="Accept succesful"
