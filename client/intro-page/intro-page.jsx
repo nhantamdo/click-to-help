@@ -29,12 +29,17 @@ HomePage = React.createClass({
     };
   },
 
+  onLeftIconButtonTouchTap(){
+    React.render(<ListTask_Asker />,document.getElementById("container"));
+  },
+
   onLoginClick(){
-    
+
   },
 
   onTaskerClick() {
-    React.render(<ListTask_Tasker />,document.getElementById("container"));
+    //React.render(<ListTask_Tasker />,document.getElementById("container"));
+    React.render(<Activation_Tasker />,document.getElementById("container"));
   },
 
   onPostTask(){
@@ -47,9 +52,10 @@ HomePage = React.createClass({
       "padding": "40% 0 40% 0"
     };
     return (
-      <div>
+      <div className="padding-bottom">
         <AppBar
           title="Click To Help"
+          onLeftIconButtonTouchTap={this.onLeftIconButtonTouchTap}
           iconElementRight={
             <div>
               <IconButton iconClassName="icon-help" />
