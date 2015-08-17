@@ -48,6 +48,13 @@ ContactInfo = React.createClass({
       email: "",
     };
   },
+  geoAutocomplete () {
+    // Wait for API to be loaded
+    if (GoogleMaps.loaded()) {
+      // Example 1 - Autocomplete only
+      $('#Address').geocomplete();
+    }
+  },
 
   postTask () {
     var address = this.refs.address.getValue();
@@ -135,10 +142,11 @@ ContactInfo = React.createClass({
                   <div>
                     <TextField ref="address"
                       floatingLabelText="Your address"
-                      fullWidth={true}
                       defaultValue={this.props.address}
                       errorText={this.state.addressValid}
-                      id="Address"/>
+                      onChange={this.geoAutocomplete}
+                      id="Address"
+                      fullWidth={true}/>
                   </div>
                   <div>
                     <TextField ref="phoneNumber"
