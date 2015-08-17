@@ -248,6 +248,7 @@ TaskInput = React.createClass({
 
       // Set value Slider
       if(this.props.duration > 0){
+        console.log(this.props.duration);
         this.refs.sliderDuration.setValue(this.props.duration);
         $("#hoursNumber").text(this.props.duration + "h");
       }
@@ -299,7 +300,7 @@ TaskInput = React.createClass({
             min={0.5}
             max={10}
             step={0.5}
-            value={2}
+            value={duration}
             fullWidth={true}
             onChange={this.onChangeSliderDuration} />
           <TextField

@@ -29,8 +29,8 @@ HomePage = React.createClass({
     };
   },
 
-  onAskerClick(){
-    React.render(<ListTask_Asker />, document.getElementById("container"));
+  onLoginClick(){
+    
   },
 
   onTaskerClick() {
@@ -70,7 +70,7 @@ HomePage = React.createClass({
             label="Login"
             secondary={true}
             fullWidth={true}
-            onClick={this.onAskerClick} />
+            onClick={this.onLoginClick} />
         </div>
         <div className="button-secondary">
           <RaisedButton
