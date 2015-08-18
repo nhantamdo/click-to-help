@@ -115,15 +115,17 @@ ContactInfo = React.createClass({
         }
       },
 
-      onBack(){
-        React.render(<TaskInput
-          serviceId={this.props.serviceId}
-          serviceText={this.props.serviceText}
-          description={this.props.description}
-          date={this.props.date}
-          time={this.props.time}
-          duration={this.props.duration}
-          cost={this.props.cost}/>, document.getElementById("container"));
+      onBack(){        
+        let queryParams = {
+          Id: this.props.Id,
+          Text: this.props.Text,
+          description: this.props.description,
+          date: this.props.date,
+          time: this.props.time,
+          duration: this.props.duration,
+          cost: this.props.cost
+        };
+        FlowRouter.go("/list-service/post-task","", queryParams);
         },
 
         render() {
@@ -131,7 +133,7 @@ ContactInfo = React.createClass({
             <div>
               <AppBar
                 className="appbar"
-                title={this.props.serviceText}
+                title={this.props.Text}
                 iconElementRight={
                   <div>
                     <IconButton iconClassName="icon-help" />
