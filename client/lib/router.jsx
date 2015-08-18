@@ -12,7 +12,12 @@ FlowRouter.route('/list-service', {
 
 FlowRouter.route('/list-service/:postId', {
     action: function(params, queryParams) {
-      ReactLayout.render(TaskInput);
+      if(params.postId == "post-task"){
+        ReactLayout.render(TaskInput, queryParams);
+      }
+      else if(params.postId == "fill-info"){
+        ReactLayout.render(ContactInfo, queryParams);
+      }
     }
 });
 

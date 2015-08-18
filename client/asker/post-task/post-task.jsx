@@ -39,7 +39,11 @@ PostTask = React.createClass({
     this.setState({
       selectedServiceId: [serviceId]
     });
-    FlowRouter.go("/list-service/post-task?Id="+serviceId+"&Text="+serviceText);    
+    let queryParams = {
+      Id: serviceId,
+      Text: serviceText
+    };
+    FlowRouter.go("/list-service/post-task","", queryParams);
     },
 
     onBack(){

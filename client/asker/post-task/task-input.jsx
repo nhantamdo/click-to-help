@@ -52,6 +52,14 @@ TaskInput = React.createClass({
     return d + "/" + m + "/" + y;
   },
 
+  onFormatTime(date){
+    var h = date.getHours();
+    h = h < 10 ? "0" + h : h;
+    var mm = date.getMinutes();
+    mm = mm < 10 ? "0" + mm : mm;
+    return h + ":" + mm;
+  },
+
   onValidateDescription(description){
     if(description.length == 0){
       this.setState({
@@ -197,14 +205,18 @@ TaskInput = React.createClass({
           errorCost: false
         },function(){
           if(!this.state.errorDescription && !this.state.errorCost){
-            React.render(<ContactInfo
-              serviceId={this.props.serviceId}
-              serviceText={this.props.serviceText}
-              description={description}
-              date={this.refs.dpDate.getDate()}
-              time={this.refs.dpTime.getTime()}
-              duration={duration}
-              cost={this.refs.txtCost.getValue().trim()}/>, document.getElementById("container"));
+            let date = this.onFormatDate(this.refs.dpDate.getDate());
+            let time = this.onFormatTime(this.refs.dpTime.getTime());
+            let queryParams = {
+              Id: this.props.Id,
+              Text: this.props.Text,
+              description: description,
+              date: date,
+              time: time,
+              duration: duration,
+              cost: this.refs.txtCost.getValue().trim()
+            };
+            FlowRouter.go("/list-service/fill-info","", queryParams);
             }
           });
         }
@@ -222,39 +234,45 @@ TaskInput = React.createClass({
       var date = new Date();
 
       // Default Date is Tomorrow
-      if(this.props.date == null){
+      if(this.props.date == null || this.props.date == ""){
         date.setDate(date.getDate() + 1);
         this.refs.dpDate.setDate(date);
       }
       else {
-        this.refs.dpDate.setDate(this.props.date);
+        var date = this.props.date;
+        date = date.split('/');
+        date = new Date(date[2],date[1] - 1,date[0]);
+        this.refs.dpDate.setDate(date);
       }
 
       // Default Time is 08:00 AM
-      if(this.props.time == null){
+      if(this.props.time == null || this.props.time == ""){
         date.setHours(8);
         date.setMinutes(0);
         this.refs.dpTime.setTime(date);
       }
       else {
-        this.refs.dpTime.setTime(this.props.time);
+        var time = this.props.time;
+        time = time.split(':');
+        date.setHours(time[0]);
+        date.setMinutes(time[1]);
+        this.refs.dpTime.setTime(date);
       }
 
       // Set value Slider
       if(this.props.duration > 0){
-        console.log(this.props.duration);
+        duration = this.props.duration;
         this.refs.sliderDuration.setValue(this.props.duration);
         $("#hoursNumber").text(this.props.duration + "h");
       }
     },
 
     render() {
-      let title = FlowRouter.getQueryParam("Text");
       return (
         <div>
           <AppBar
             className="appbar"
-            title={title}
+            title={this.props.Text}
             iconElementRight={
               <div>
                 <IconButton iconClassName="icon-help" />
@@ -274,16 +292,16 @@ TaskInput = React.createClass({
               onBlur={this.onBlurDescription}
               fullWidth={true} />
             <DatePicker
+              className="dpDate"
               ref="dpDate"
               hintText="Date"
               autoOk={true}
-              formatDate={this.onFormatDate}
-              fullWidth={true} />
-              <TimePicker
+              formatDate={this.onFormatDate}/>
+            <TimePicker
+              className="dpTime"
               ref="dpTime"
               format="24hr"
-              hintText="Time"
-              fullWidth={true} />
+              hintText="Time"/>
             <br/>
           <div>
             <span id="hoursNumber">2h</span>
@@ -310,10 +328,13 @@ TaskInput = React.createClass({
           <br/>
           <div className="button-secondary padding-bottom">
             <RaisedButton
+              label="Back"
+              primary={true}
+              onClick={this.onBack} />
+            <RaisedButton
               id="btnNext"
               label="Next"
               secondary={true}
-              fullWidth={true}
               onClick={this.onContactInfo} />
           </div>
           </div>
