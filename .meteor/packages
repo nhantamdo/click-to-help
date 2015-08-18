@@ -16,3 +16,5 @@ npm-container
 lepozepo:accounting
 dburles:google-maps
 jeremy:geocomplete
+kadira:flow-router
+kadira:react-layout

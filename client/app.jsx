@@ -3,15 +3,10 @@
 * @Author: truongtk,linhnh
 */
 
-const {
-  AppBar,
-  IconButton
-} = mui;
-
 App = React.createClass({
   render() {
     return (
-      <HomePage />
+      <IntroPage />
     )
   }
 });

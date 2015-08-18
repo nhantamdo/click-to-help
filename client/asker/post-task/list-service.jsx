@@ -37,7 +37,7 @@ ListService = React.createClass({
   },
 
   render() {
-    return <List subheader="Service List">{
+    return <List>{
       this.data.services.map((service) => {
         let style = {};
         if (this.props.selectedServiceId.indexOf(service.id) != -1) {
