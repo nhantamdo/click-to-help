@@ -40,18 +40,20 @@ TaskPostConfirm = React.createClass({
   },
 
   onBack(){
-    React.render(<ContactInfo
-      serviceId={this.props.serviceId}
-      serviceText={this.props.serviceText}
-      description={this.props.description}
-      date={this.props.date}
-      time={this.props.time}
-      duration={this.props.duration}
-      cost={this.props.cost}
-      address={this.props.address}
-      phone={this.props.phone}
-      name={this.props.name}
-      email={this.props.email}/>, document.getElementById("container"));
+    let queryParams = {
+      serviceId: this.props.serviceId,
+      serviceText: this.props.serviceText,
+      description: this.props.description,
+      date: this.props.date,
+      time: this.props.time,
+      duration: this.props.duration,
+      cost: this.props.cost,
+      address: this.props.address,
+      phone: this.props.phone,
+      name: this.props.name,
+      email: this.props.email
+    };
+    FlowRouter.go("/list-service/fill-info","", queryParams);
     },
 
     confirm(){
@@ -66,33 +68,19 @@ TaskPostConfirm = React.createClass({
     },
 
     onClickConfirm() {
-      React.render(<ListTask_Asker />, document.getElementById("container"));
+      FlowRouter.go("/ask-list");      
     },
 
     render() {
-      var date = this.props.date;
-      var d = date.getDate();
-      d = d < 10 ? "0" + d : d;
-      var m = date.getMonth() + 1;
-      m = m < 10 ? "0" + m : m;
-      var y = date.getFullYear();
-      var fdate = d + "/" + m + "/" + y;
-      var time = this.props.time;
-      var h = time.getHours();
-      h = h < 10 ? "0" + h : h;
-      var m = time.getMinutes();
-      m = m < 10 ? "0" + m : m;
-      var ftime=h+":"+m;
+      var fdate = this.props.date;
+      var ftime = this.props.time;
       return (
         <div>
           <AppBar
             className="appbar"
             title={this.props.serviceText}
             iconElementRight={
-              <div>
-                <IconButton iconClassName="icon-help" />
-                <IconButton iconClassName="icon-back" onClick={this.onBack} />
-              </div>
+              <IconButton iconClassName="icon-help" />
             } />
             <div className="main padding-left-right">
               <div className=" padding-top" id="discription">
@@ -129,12 +117,15 @@ TaskPostConfirm = React.createClass({
                   <span className="title">Email:</span>
                   <span className="text-right">{this.props.email}</span>
                 </div>}
-                <div className="padding-top padding-bottom">
+                <div className="padding-top padding-bottom button-secondary">
+                  <RaisedButton
+                    label="Back"
+                    primary={true}
+                    onClick={this.onBack} />
                   <RaisedButton
                     id="Post"
-                    label="Xác nhận"
+                    label="OK"
                     secondary={true}
-                    fullWidth={true}
                     onClick={this.confirm}/>
                 </div>
                 <Dialog

@@ -1,5 +1,5 @@
 /**
-* @Description: Home Page
+* @Description: Intro Page
 * @Author: linhnh
 */
 
@@ -30,7 +30,11 @@ IntroPage = React.createClass({
   },
 
   onLeftIconButtonTouchTap(){
-    React.render(<ListTask_Asker />,document.getElementById("container"));
+    FlowRouter.go('/ask-list');
+  },
+
+  onPostATask(){
+    FlowRouter.go('/list-service');
   },
 
   onLoginClick(){
@@ -38,14 +42,16 @@ IntroPage = React.createClass({
   },
 
   onTaskerClick() {
-    //React.render(<ListTask_Tasker />,document.getElementById("container"));
-    React.render(<Activation_Tasker />,document.getElementById("container"));
+
   },
 
   render() {
     let stylePostTask = {
       "textAlign": "center",
       "padding": "40% 0 40% 0"
+    };
+    let styleContent = {
+      "paddingTop": "45%"
     };
     return (
       <div className="padding-bottom">
@@ -57,30 +63,29 @@ IntroPage = React.createClass({
               <IconButton iconClassName="icon-help" />
             </div>
           } />
-        <div style={stylePostTask} id="btnPostTask">
-          <a href="/list-service">
-            <Avatar
-              color="#fff"
-              backgroundColor="#00bcd4"
-              size={120}>
-              +
-            </Avatar>
-          </a>
-        </div>
-        <div className="button-secondary">
-          <RaisedButton
-            id="btnLogin"
-            label="Login"
-            secondary={true}
-            fullWidth={true}
-            onClick={this.onLoginClick} />
-        </div>
-        <div className="button-secondary">
-          <RaisedButton
-            label="Become a Tasker"
-            primary={true}
-            fullWidth={true}
-            onClick={this.onTaskerClick}/>
+        <div style={styleContent}>
+          <div className="button-secondary">
+            <RaisedButton
+              id="btnPostTask"
+              label="Post a task"
+              secondary={true}
+              fullWidth={true}
+              onClick={this.onPostATask} />
+          </div>
+          <div className="button-secondary">
+            <RaisedButton
+              label="Become a Tasker"
+              primary={true}
+              fullWidth={true}
+              onClick={this.onTaskerClick}/>
+          </div>
+          <div className="button-secondary">
+            <RaisedButton
+              id="btnLogin"
+              label="Login"
+              fullWidth={true}
+              onClick={this.onLoginClick} />
+          </div>
         </div>
       </div>
     );

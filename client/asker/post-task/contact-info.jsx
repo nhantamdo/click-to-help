@@ -80,6 +80,10 @@ ContactInfo = React.createClass({
 
     if (name == "") {
       nameValid = "This field is required.";
+    } else if ((name.length < 5) || (name.length > 20)) {
+      nameValid = "The name is the wrong length.";
+    } else if (!nameRegex.test(name)) {
+      nameValid = "The name is not valid.";
     } else {
       nameValid = "";
     }
@@ -87,19 +91,21 @@ ContactInfo = React.createClass({
     var emailValid = "";
     if (email!="") emailValid = (emailRegex.test(email)? "":"Email is not valid.");
     if (addressValid=="" && phoneValid=="" &&
-      nameValid=="" && emailValid=="") {
-        React.render(<TaskPostConfirm
-          serviceId={this.props.serviceId}
-          serviceText={this.props.serviceText}
-          description={this.props.description}
-          date={this.props.date}
-          time={this.props.time}
-          duration={this.props.duration}
-          cost={this.props.cost}
-          address={address}
-          phone={phone}
-          name={name}
-          email={email}/>, document.getElementById("container"));
+        nameValid=="" && emailValid=="") {
+          let queryParams = {
+            serviceId: this.props.serviceId,
+            serviceText: this.props.serviceText,
+            description: this.props.description,
+            date: this.props.date,
+            time: this.props.time,
+            duration: this.props.duration,
+            cost: this.props.cost,
+            address: address,
+            phone: phone,
+            name: name,
+            email: email
+          };
+          FlowRouter.go("/list-service/post-task-confirm","", queryParams);
         }
         else {
           this.setState({
@@ -111,10 +117,10 @@ ContactInfo = React.createClass({
         }
       },
 
-      onBack(){        
+      onBack(){
         let queryParams = {
-          Id: this.props.Id,
-          Text: this.props.Text,
+          serviceId: this.props.serviceId,
+          serviceText: this.props.serviceText,
           description: this.props.description,
           date: this.props.date,
           time: this.props.time,
@@ -129,12 +135,9 @@ ContactInfo = React.createClass({
             <div>
               <AppBar
                 className="appbar"
-                title={this.props.Text}
+                title={this.props.serviceText}
                 iconElementRight={
-                  <div>
-                    <IconButton iconClassName="icon-help" />
-                    <IconButton iconClassName="icon-back" onClick={this.onBack} />
-                  </div>
+                  <IconButton iconClassName="icon-help" />
                 } />
                 <div id= "Main2" className="main button-secondary">
                   <div>
@@ -156,7 +159,7 @@ ContactInfo = React.createClass({
                   </div>
                   <div>
                     <TextField ref="name"
-                      floatingLabelText="Your name"
+                      floatingLabelText="Your fullname"
                       fullWidth={true}
                       defaultValue={this.props.name}
                       errorText={this.state.nameValid}
@@ -172,10 +175,13 @@ ContactInfo = React.createClass({
                   </div>
                   <div className="padding-top padding-bottom">
                     <RaisedButton
+                      label="Back"
+                      primary={true}
+                      onClick={this.onBack} />
+                    <RaisedButton
                       id="Post"
                       label="Post Task"
                       secondary={true}
-                      fullWidth={true}
                       onClick={this.postTask}/>
                   </div>
                 </div>

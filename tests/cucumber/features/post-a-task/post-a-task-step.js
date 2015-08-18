@@ -32,24 +32,24 @@
     this.When(/^I choose a service$/, function(callback) {
       // Write code here that turns the phrase above into concrete actions
       this.client
-        .click('#itemService')
-        .call(callback);
+          .waitForExist('#itemService')
+          .waitForVisible('#itemService')
+          .click('#itemService')
+          .call(callback);
     });
 
-    this.When(/^I fill information "([^"]*)" in TextField Description$/, function(arg1, callback) {
-      // Write code here that turns the phrase above into concrete actions
-
+    this.When(/^I fill information "([^"]*)" in TextField Description and "([^"]*)" in TextField Cost$/, function (arg1, arg2, callback) {
       this.client
         .setValue('#txtDescription', arg1)
-        //.setValue('#sliderDuration', 3)
-        .setValue('#txtCost', 500)
+        .setValue('#txtCost', arg2)
         .call(callback);
     });
 
     this.When(/^I click Next button$/, function(callback) {
       this.client
-        .click('#btnNext')
-        .call(callback);
+          .pause(3000)
+          .click('#btnNext')
+          .call(callback);
     });
 
     this.When(/^I fill "([^"]*)" in TextField Address$/, function(arg1, callback) {
@@ -65,7 +65,7 @@
         .call(callback);
     });
 
-    this.When(/^I fill "([^"]*)" in TextField FullName$/, function(arg1, callback) {
+    this.When(/^I fill "([^"]*)" in TextField Name$/, function (arg1, callback) {
       this.client
         .setValue('#name', arg1)
         .call(callback);
@@ -73,15 +73,26 @@
 
     this.When(/^I click Post a task button$/, function(callback) {
       this.client
-        .click('#Post')
-        .call(callback);
+          .pause(3000)
+          .click('#Post')
+          .call(callback);
     });
 
-    this.Then(/^have that task "([^"]*)" "([^"]*)" "([^"]*)" "([^"]*)" in database$/, function(arg1, arg2, arg3, arg4, callback) {
-      // Write code here that turns the phrase above into concrete actions
+    this.When(/^display Confirm Infomation Screen$/, function (callback) {
       this.client
-        .pause(5000)
-        .call(callback)
+          .call(callback);
+    });
+
+    this.When(/^I click button OK$/, function (callback) {
+      this.client
+          .pause(3000)
+          .click("#Post")
+          .call(callback);
+    });
+
+    this.Then(/^I have a task in database$/, function (callback) {
+      this.client
+          .call(callback);
     });
 
   };

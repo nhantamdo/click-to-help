@@ -208,8 +208,8 @@ TaskInput = React.createClass({
             let date = this.onFormatDate(this.refs.dpDate.getDate());
             let time = this.onFormatTime(this.refs.dpTime.getTime());
             let queryParams = {
-              Id: this.props.Id,
-              Text: this.props.Text,
+              serviceId: this.props.serviceId,
+              serviceText: this.props.serviceText,
               description: description,
               date: date,
               time: time,
@@ -272,12 +272,9 @@ TaskInput = React.createClass({
         <div>
           <AppBar
             className="appbar"
-            title={this.props.Text}
+            title={this.props.serviceText}
             iconElementRight={
-              <div>
-                <IconButton iconClassName="icon-help" />
-                <IconButton iconClassName="icon-back" onClick={this.onBack} />
-              </div>
+              <IconButton iconClassName="icon-help" />
           } />
           <div className="main padding-left-right">
             <TextField

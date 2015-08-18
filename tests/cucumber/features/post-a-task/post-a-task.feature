@@ -15,10 +15,12 @@ Feature: Post a task test
     When I click button Post a Task in Intro page
     And display Post Task Screen
     And I choose a service
-    And I fill information "Description" in TextField Description
+    And I fill information "Description Demo" in TextField Description and "500000" in TextField Cost
     And I click Next button
-    And I fill "Address" in TextField Address
-    And I fill "Phone number" in TextField Phone
-    And I fill "Full Name" in TextField FullName
+    And I fill "104 Mai Thi Luu" in TextField Address
+    And I fill "0903727390" in TextField Phone
+    And I fill "Nguyen Linh" in TextField Name
     And I click Post a task button
-    Then have that task "Description" "Address" "Phone number" "Full Name" in database
+    And display Confirm Infomation Screen
+    And I click button OK
+    Then I have a task in database

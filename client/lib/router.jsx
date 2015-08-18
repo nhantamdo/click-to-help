@@ -18,5 +18,14 @@ FlowRouter.route('/list-service/:postId', {
       else if(params.postId == "fill-info"){
         ReactLayout.render(ContactInfo, queryParams);
       }
+      else if (params.postId == "post-task-confirm") {
+        ReactLayout.render(TaskPostConfirm, queryParams);
+      }
+    }
+});
+
+FlowRouter.route('/ask-list', {
+    action: function(params, queryParams) {
+      ReactLayout.render(ListTask_Asker);
     }
 });
