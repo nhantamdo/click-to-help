@@ -15,7 +15,6 @@ const{
   CardActions,
   FlatButton,
   CardText,
-  Paper,
   Card,
   CardHeader,
   Avatar,
@@ -27,12 +26,14 @@ const ThemeManager = new mui.Styles.ThemeManager();
 //ThemeManager.setPalette(customPaletteAsker);
 
 TaskDetailAsker = React.createClass({
-  propTypes: {
-    taskKey: React.PropTypes.string.isRequired
-  },
+
   childContextTypes: {
     muiTheme: React.PropTypes.object
   },
+  propTypes: {
+    taskKey: React.PropTypes.string.isRequired
+  },
+
   getInitialState () {
     return {
       viewNotification: false,
@@ -49,8 +50,13 @@ TaskDetailAsker = React.createClass({
 
   mixins: [ReactMeteorData],
   getMeteorData() {
+    //Subcribe data need in this page.
+
     var handle = Meteor.subscribe("task");
     var taskStatusHandle = Meteor.subscribe("taskStatus");
+    var serviceHandle = Meteor.subscribe("service");
+    var taskerHandle = Meteor.subscribe("tasker");
+
     this.chooseTaskerId = null;
     this.accepted = false;
     this.chooseTaskerObject = null;
@@ -58,6 +64,8 @@ TaskDetailAsker = React.createClass({
     return {
       taskLoading:! handle.ready(),
       taskStatusLoading:! taskStatusHandle.ready(),
+      serviceLoading:!serviceHandle.ready(),
+      taskerLoading:!taskerHandle.ready(),
       tasks:Task.find({_id:this.props.taskKey}).fetch(),
       taskStatus:TaskStatus.find({taskId:this.props.taskKey, status:"accepted", taskerId:{$ne:null}}).fetch(),
       taskConfirmed:TaskStatus.find({taskId:this.props.taskKey, status:"confirmed", taskerId:{$ne:null}}).fetch()
@@ -74,11 +82,12 @@ TaskDetailAsker = React.createClass({
   },
 
   onBack(){
-    React.render(<ListTask_Asker />, document.getElementById("container"));
+    FlowRouter.go('/list-task-asker');
+    //React.render(<ListTask_Asker />, document.getElementById("container"));
   },
 
   onBackClick(){
-    React.render(<ListTask_Tasker/>, document.getElementById("container"));
+    FlowRouter.go('/list-task-asker');
   },
 
   onCancelClick(){
@@ -134,7 +143,7 @@ TaskDetailAsker = React.createClass({
 
 
   render() {
-    if (this.data.taskLoading || this.data.taskStatusLoading) {
+    if (this.data.taskLoading || this.data.taskStatusLoading || this.data.taskerLoading, this.data.serviceLoading) {
       return (
         <div id="taskDetailContainer">
         <AskerAppBAr title="Confirming" onBack={this.onBack} />
