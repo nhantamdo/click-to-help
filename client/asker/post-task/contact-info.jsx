@@ -80,10 +80,6 @@ ContactInfo = React.createClass({
 
     if (name == "") {
       nameValid = "This field is required.";
-    } else if ((name.length < 5) || (name.length > 20)) {
-      nameValid = "The name is the wrong length.";
-    } else if (!nameRegex.test(name)) {
-      nameValid = "The name is not valid.";
     } else {
       nameValid = "";
     }
@@ -158,7 +154,7 @@ ContactInfo = React.createClass({
                   </div>
                   <div>
                     <TextField ref="name"
-                      floatingLabelText="Your fullname"
+                      floatingLabelText="Your name"
                       fullWidth={true}
                       defaultValue={this.props.name}
                       errorText={this.state.nameValid}
