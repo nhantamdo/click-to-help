@@ -26,6 +26,7 @@ ListService = React.createClass({
 
   mixins: [ReactMeteorData],
   getMeteorData() {
+    Meteor.subscribe("service");
     return {
       services: Service.find().fetch()
     }

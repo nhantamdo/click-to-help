@@ -2,6 +2,8 @@
 * @Description: Task Item of Task List Asker
 * @Author: linhnh
 */
+
+
 const{
   List,
   ListItem,
@@ -12,6 +14,7 @@ const{
 } = mui;
 
 TaskItem_Asker = React.createClass({
+
   getInitialState () {
     return {
     };
@@ -22,7 +25,11 @@ TaskItem_Asker = React.createClass({
 
   mixins: [ReactMeteorData],
   getMeteorData() {
-    var handle = Meteor.subscribe("tasker");
+    var taskerHandle = Meteor.subscribe("tasker");
+    var taskHandle = Meteor.subscribe("task");
+    var taskStatusHandle = Meteor.subscribe("taskStatus");
+    var serviceHandle = Meteor.subscribe("service");
+
     var status = this.props.status;
     var result=[];
     TaskStatus.find({status: {$in: status}},{sort: {updatedAt: -1}})
@@ -30,11 +37,11 @@ TaskItem_Asker = React.createClass({
       task = Task.findOne({_id:taskStatus.taskId});
       service = Service.findOne({id:task.serviceId});
       tasker = [];
-      TaskStatus.find({taskId: taskStatus.taskId,status: {$in: status}}).forEach(function(itemTaskStatus){
+      TaskStatus.find({taskId: taskStatus.taskId, status: {$in: status}}).forEach(function(itemTaskStatus){
         tasker.push(Tasker.findOne({_id: itemTaskStatus.taskerId}));
       });
+
       result.push({
-        taskerLoading: !handle.ready(),
         key: task._id,
         serviceIcon: service.icon,
         description: task.description,
@@ -48,7 +55,12 @@ TaskItem_Asker = React.createClass({
       });
     });
     return {
-      tasks: result,
+      taskerLoading: !taskerHandle.ready(),
+      taskLoading: !taskHandle.ready(),
+      serviceLoading: !serviceHandle.ready(),
+      // taskStatusLoading: !taskStatusHandle.ready(),
+      // serviceLoading: !serviceHandle.ready(),
+      tasks: result
     }
   },
 
@@ -64,14 +76,14 @@ TaskItem_Asker = React.createClass({
   },
 
   onClickTaskerAvatar(taskerId){
-    console.log(taskerId);
   },
 
   render() {
-    if(this.data.taskerLoading){
-      return <RefreshIndicator size={40} left={80} top={5} status="loading" />;
+    if(this.data.taskerLoading || this.data.taskLoading || this.data.serviceLoading){
+      return (<div></div>);
     }
-    return <List subheader= {this.props.subheader}>{
+    else{
+      return <List subheader= {this.props.subheader}>{
         this.data.tasks.map((task,index) => {
           var h = task.time.getHours();
           h = h < 10 ? "0" + h : h;
@@ -97,25 +109,27 @@ TaskItem_Asker = React.createClass({
             ]
           });
           return [
-          <ListItem
+            <ListItem
             id={task.key}
             className={task.status=="unread"? "unread-task":"task"}
             key={task.key}
             primaryText={
               <span onClick={this.onDetailClick.bind(this, task.key)}>
-                {task.description}
+              {task.description}
               </span>
             }
             secondaryText={
               <p style={styleItem}>
-                <span>{cost} VND</span><br/>
-                {time} &nbsp; {date} - làm trong {task.duration}h<br/>
-                {listTasker}
+              <span>{cost} VND</span><br/>
+              {time} &nbsp; {date} - làm trong {task.duration}h<br/>
+              {listTasker}
               </p>
-          }
-          leftAvatar={ <Avatar src={task.serviceIcon} onClick={this.onDetailClick.bind(this, task.key)}/> }/>,
-        ]
-      })
-    }</List>
+            }
+            leftAvatar={ <Avatar src={task.serviceIcon} onClick={this.onDetailClick.bind(this, task.key)}/> }/>,
+          ]
+        })
+      }</List>
+    }
+
   }
 });
