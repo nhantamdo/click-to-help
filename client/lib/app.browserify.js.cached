@@ -93,6 +93,13 @@ process.umask = function() { return 0; };
 },{}],2:[function(require,module,exports){
 mui = require('material-ui');
 injectTapEventPlugin = require('react-tap-event-plugin');
+// Load the Google Maps API on startup
+Meteor.startup(function() {
+  GoogleMaps.load({
+    key: 'AIzaSyAq2jszIdxHcJGxhVgun74FhF-cocyIyVM',
+    libraries: 'places'
+  });
+});
 
 },{"material-ui":35,"react-tap-event-plugin":135}],3:[function(require,module,exports){
 (function (process,global){
