@@ -15,3 +15,15 @@ FlowRouter.route('/list-service/:postId', {
       ReactLayout.render(TaskInput);
     }
 });
+
+FlowRouter.route('/task-detail-asker/:taskStatusId',{
+  action: function(params, queryParams){
+    ReactLayout.render(TaskDetailAsker, queryParams);
+  }
+});
+
+FlowRouter.route('/list-task-asker',{
+  action: function(params, queryParams){
+    ReactLayout.render(ListTask_Asker);
+  }
+});
