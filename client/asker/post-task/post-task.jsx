@@ -5,7 +5,7 @@
 
 const{
   AppBar,
-  IconButton,
+  IconButton
 } = mui;
 
 // var customPalette = {
@@ -39,20 +39,20 @@ PostTask = React.createClass({
     this.setState({
       selectedServiceId: [serviceId]
     });
-    React.render(<TaskInput
-      serviceId={serviceId}
-      serviceText={serviceText}/>, document.getElementById("container"));
+    FlowRouter.go("/list-service/post-task?Id="+serviceId+"&Text="+serviceText);    
     },
 
     onBack(){
-      React.render(<HomePage />, document.getElementById("container"));
+      FlowRouter.go('/');
     },
 
     render() {
+      let styleLoading = {
+        textAlign: "center"
+      };
       return (
         <div id="mainPostTask">
           <AppBar
-            className="appbar"
             title="Service"
             iconElementRight={
               <div>
@@ -60,7 +60,7 @@ PostTask = React.createClass({
                 <IconButton iconClassName="icon-back" onClick={this.onBack} />
               </div>
             } />
-            <div className="main">
+            <div>
               <ListService
                 selectedServiceId={this.state.selectedServiceId}
                 onServiceSelected={this.selectService}/>

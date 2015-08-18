@@ -13,13 +13,7 @@ const{
   RaisedButton
 } = mui;
 
-// var customPalette = {
-//   primary1Color: "#ff6666",
-//   accent1Color: "#c0c0c0"
-// };
-
 const ThemeManager = new mui.Styles.ThemeManager();
-//ThemeManager.setPalette(customPalette);
 
 var duration = 2;
 var descriptionLimit = 200;
@@ -140,7 +134,7 @@ TaskInput = React.createClass({
   },
 
   onBack(){
-    React.render(<PostTask />, document.getElementById("container"));
+    FlowRouter.go('/list-service');
   },
 
   onContactInfo(){
@@ -255,11 +249,12 @@ TaskInput = React.createClass({
     },
 
     render() {
+      let title = FlowRouter.getQueryParam("Text");
       return (
         <div>
           <AppBar
             className="appbar"
-            title={this.props.serviceText}
+            title={title}
             iconElementRight={
               <div>
                 <IconButton iconClassName="icon-help" />

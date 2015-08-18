@@ -18,7 +18,7 @@ const{
 const ThemeManager = new mui.Styles.ThemeManager();
 //ThemeManager.setPalette(customPalette);
 
-HomePage = React.createClass({
+IntroPage = React.createClass({
   childContextTypes: {
     muiTheme: React.PropTypes.object
   },
@@ -42,10 +42,6 @@ HomePage = React.createClass({
     React.render(<Activation_Tasker />,document.getElementById("container"));
   },
 
-  onPostTask(){
-    React.render(<PostTask />, document.getElementById("container"));
-  },
-
   render() {
     let stylePostTask = {
       "textAlign": "center",
@@ -62,13 +58,14 @@ HomePage = React.createClass({
             </div>
           } />
         <div style={stylePostTask} id="btnPostTask">
-          <Avatar
-            color="#fff"
-            backgroundColor="#00bcd4"
-            size={120}
-            onClick={this.onPostTask}>
-            +
-          </Avatar>
+          <a href="/list-service">
+            <Avatar
+              color="#fff"
+              backgroundColor="#00bcd4"
+              size={120}>
+              +
+            </Avatar>
+          </a>
         </div>
         <div className="button-secondary">
           <RaisedButton

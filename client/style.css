@@ -105,3 +105,7 @@ body{
 #functionButton{
   display: inline-table;
 }
+
+.hide{
+  display: none;
+}
