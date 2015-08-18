@@ -8,6 +8,7 @@ const{
   ListDivider,
   Avatar,
   subheader,
+  RefreshIndicator
 } = mui;
 
 TaskItem_Asker = React.createClass({
@@ -21,6 +22,7 @@ TaskItem_Asker = React.createClass({
 
   mixins: [ReactMeteorData],
   getMeteorData() {
+    var handle = Meteor.subscribe("tasker");
     var status = this.props.status;
     var result=[];
     TaskStatus.find({status: {$in: status}},{sort: {updatedAt: -1}})
@@ -32,6 +34,7 @@ TaskItem_Asker = React.createClass({
         tasker.push(Tasker.findOne({_id: itemTaskStatus.taskerId}));
       });
       result.push({
+        taskerLoading: !handle.ready(),
         key: task._id,
         serviceIcon: service.icon,
         description: task.description,
@@ -65,6 +68,9 @@ TaskItem_Asker = React.createClass({
   },
 
   render() {
+    if(this.data.taskerLoading){
+      return <RefreshIndicator size={40} left={80} top={5} status="loading" />;
+    }
     return <List subheader= {this.props.subheader}>{
         this.data.tasks.map((task,index) => {
           var h = task.time.getHours();

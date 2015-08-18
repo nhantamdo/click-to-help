@@ -74,6 +74,12 @@ body{
   padding-right: 5%;
 }
 
+.padding-left-right-top{
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 4%;
+}
+
 .title{
   font-weight: bold;
 }
@@ -104,4 +110,13 @@ body{
 }
 #functionButton{
   display: inline-table;
+}
+#userInformation{
+  margin-top: 20px;
+}
+.itemCenter{
+  margin-left: auto;
+  margin-right: auto;
+  display:inherit;
+  margin-top: 4%;
 }

@@ -30,7 +30,7 @@ HomePage = React.createClass({
   },
 
   onLoginClick(){
-    
+    React.render(<SignUp />,document.getElementById("container"));
   },
 
   onTaskerClick() {
