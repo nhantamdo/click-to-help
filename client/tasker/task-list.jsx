@@ -28,6 +28,15 @@ ListTask_Tasker = React.createClass({
   childContextTypes: {
     muiTheme: React.PropTypes.object
   },
+  mixins: [ReactMeteorData],
+  getMeteorData() {
+    var taskerHandle = Meteor.subscribe("tasker");
+    var taskStatusHandle = Meteor.subscribe("taskStatus");
+    return {
+      taskerLoading: !taskerHandle.ready(),
+      taskStatusLoading: !taskStatusHandle.ready()
+    }
+  },
 
   getChildContext: function() {
     return {
@@ -61,11 +70,11 @@ ListTask_Tasker = React.createClass({
   },
 
   onPostTask(){
-    React.render(<PostTask />, document.getElementById("container"));
+    FlowRouter.go('/list-service');
   },
 
   onBack(){
-    React.render(<HomePage />, document.getElementById("container"));
+    FlowRouter.go('/');
   },
 
   render() {
@@ -81,6 +90,10 @@ ListTask_Tasker = React.createClass({
     let contentStyle ={
       padding: "40px 0px 0px 0px",
     };
+    console.log("begin load task list tasker");
+    if(this.data.taskerLoading || this.data.taskStatusLoading){
+      return (<div></div>);
+    }
     return (
       <div>
         <TaskerAppBAr title="Task List" onBack={this.onBack}/>

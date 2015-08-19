@@ -60,10 +60,14 @@ TaskDetail = React.createClass({
   getMeteorData() {
     var handle = Meteor.subscribe("task");
     var taskStatusHandle = Meteor.subscribe("taskStatus");
+    var serviceHandle = Meteor.subscribe("service");
+    var taskerHandle = Meteor.subscribe("tasker");
 
     return {
       taskLoading:! handle.ready(),
       taskStatusLoading:! taskStatusHandle.ready(),
+      serviceLoading: !serviceHandle.ready(),
+      taskerLoading: !taskerHandle.ready(),
       tasks:Task.find({_id:this.props.taskKey}).fetch(),
       taskStatus:TaskStatus.find({taskId:this.props.taskKey, status:"accepted", taskerId:{$ne:null}}).fetch(),
       taskStatusConfirm:TaskStatus.find({taskId:this.props.taskKey, status:"confirmed", taskerId:{$ne:null}}).fetch()
@@ -80,16 +84,15 @@ TaskDetail = React.createClass({
   },
 
   onBack(){
-    console.log("this is onBack");
-    React.render(<ListTask_Tasker/>, document.getElementById("container"));
+    FlowRouter.go('/list-task-tasker');
   },
 
   onBackClick(){
-    React.render(<ListTask_Tasker/>, document.getElementById("container"));
+    FlowRouter.go('/list-task-tasker');
   },
 
   onSkipClick(){
-    React.render(<ListTask_Tasker/>, document.getElementById("container"));
+    FlowRouter.go('/list-task-tasker');
   },
 
   onAcceptClick(){
@@ -107,7 +110,7 @@ TaskDetail = React.createClass({
   },
   _handleAction() {
     //We can add more code to this function, but for now we'll just include an alert.
-    React.render(<ListTask_Tasker/>, document.getElementById("container"));
+    FlowRouter.go('/list-task-tasker');
   },
 
   onClickNotification(e) {
@@ -125,7 +128,7 @@ TaskDetail = React.createClass({
   },
 
   render() {
-    if (this.data.taskLoading || this.data.taskStatusLoading) {
+    if (this.data.taskLoading || this.data.taskStatusLoading || this.data.serviceLoading || this.data.taskerLoading) {
       return (
           <TaskerAppBAr title="Task information" onBack={this.onBack} />
         );

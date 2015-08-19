@@ -45,8 +45,6 @@ TaskItem_Asker = React.createClass({
     .forEach(function (taskStatus){
       var task = Task.findOne({_id:taskStatus.taskId});
       var service = Service.findOne({id:task.serviceId});
-      console.log("the service");
-      console.log(service);
       var tasker = [];
       TaskStatus.find({taskId: taskStatus.taskId, status: {$in: status}, taskerId:{$ne:null}})
       .forEach(function(itemTaskStatus){
@@ -115,7 +113,6 @@ TaskItem_Asker = React.createClass({
         let cost = task.cost;
         cost = this.formatMoney(Number(cost));
         var  listTasker = task.tasker.map((item) => {
-          console.log(item);
           return [
             <Avatar src={item.avatar} onClick={this.onClickTaskerAvatar.bind(this,item._id)} />
           ]

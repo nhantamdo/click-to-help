@@ -43,7 +43,7 @@ IntroPage = React.createClass({
   },
 
   onTaskerClick() {
-
+    FlowRouter.go('/list-task-tasker');
   },
 
   render() {

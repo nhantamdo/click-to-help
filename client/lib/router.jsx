@@ -41,3 +41,15 @@ FlowRouter.route('/list-task-asker',{
     ReactLayout.render(ListTask_Asker);
   }
 });
+
+FlowRouter.route('/list-task-tasker',{
+  action: function(params, queryParams){
+    ReactLayout.render(ListTask_Tasker);
+  }
+});
+
+FlowRouter.route('/task-detail-tasker/:taskStatusId',{
+  action: function(params, queryParams){
+    ReactLayout.render(TaskDetail, queryParams);
+  }
+});

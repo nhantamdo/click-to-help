@@ -1,6 +1,6 @@
 /**
 * @Description: Task Item Notification
-* @Author: truongtk,linhnh
+* @Author: truongtk,linhnh, toanpp
 */
 const{
   List,
@@ -21,6 +21,18 @@ TaskItem = React.createClass({
 
   mixins: [ReactMeteorData],
   getMeteorData() {
+    var taskerHandle = Meteor.subscribe("tasker");
+    var taskStatusHandle = Meteor.subscribe("taskStatus");
+    var taskHandle = Meteor.subscribe("task");
+    var serviceHandle = Meteor.subscribe("service");
+    if(!taskerHandle.ready() || !taskStatusHandle.ready() || !taskHandle.ready() || !serviceHandle.ready()){
+        return {
+          taskerLoading: true,
+          taskStatusLoading: true,
+          taskLoading: true,
+          serviceLoading: true
+        }
+    }
     var result=[];
     var tasker = Tasker.find({email:"linhnh@twin.vn"}).fetch();
     TaskStatus.find({status: {$in: this.props.status}, taskerId:tasker[0]._id},{sort: {updatedAt: -1}})
@@ -40,7 +52,11 @@ TaskItem = React.createClass({
       });
     });
     return {
-      tasks: result,
+      taskerLoading: !taskerHandle.ready(),
+      taskStatusLoading: !taskStatusHandle.ready(),
+      taskLoading: !taskHandle.ready(),
+      serviceLoading: !serviceHandle.ready(),
+      tasks: result
     }
   },
 
@@ -52,7 +68,8 @@ TaskItem = React.createClass({
   },
 
   onDetailClick(taskKey){
-    React.render(<TaskDetail taskKey={taskKey}/>, document.getElementById("container"));
+    FlowRouter.go('/task-detail-tasker/show-detail?taskKey='+taskKey);
+    //React.render(<TaskDetail taskKey={taskKey}/>, document.getElementById("container"));
   },
 
   listDivider(index,length) {
@@ -63,6 +80,9 @@ TaskItem = React.createClass({
   },
 
   render() {
+    if(this.data.taskerLoading || this.data.taskLoading || this.data.serviceLoading || this.data.taskStatusLoading){
+      return (<div></div>);
+    }
     let primaryTextStyle = {
       overflow: 'hidden',
       whiteSpace: 'pre-line',
