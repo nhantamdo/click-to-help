@@ -136,6 +136,18 @@ body{
   width: 45% !important
 }
 
+.backButton {
+  width: 40%;
+  margin-left: 5%;
+  float: left;
+}
+
+.nextButton {
+  width: 40%;
+  margin-right:5%;
+  float:right;
+}
+
 #btnLogin{
   background-color: #dfdfdf !important;
 }

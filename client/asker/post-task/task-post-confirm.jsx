@@ -78,7 +78,7 @@ TaskPostConfirm = React.createClass({
     var ftime = this.props.time;
     let rootStyle = {
       paddingBottom: 0,
-      paddingTop:  15
+      paddingTop:  10
     };
     let titleStyle = {
       fontSize: 16,
@@ -86,7 +86,7 @@ TaskPostConfirm = React.createClass({
       lineHeight: '20px'
     };
     let subtitleStyle = {
-      fontSize: 22,
+      fontSize: 20,
       color: 'rgba(0, 0, 0, 0.87)'
     };
     return (
@@ -98,66 +98,72 @@ TaskPostConfirm = React.createClass({
             <IconButton iconClassName="icon-help" />
           } />
           <div className="main">
+            <CardTitle
+              style={rootStyle}
+              title="Description"
+              titleStyle={titleStyle}
+              subtitle={this.props.description}
+              subtitleStyle={subtitleStyle}/>
+            <CardTitle
+              style={rootStyle}
+              title="Start Date"
+              titleStyle={titleStyle}
+              subtitle={ftime + " " +fdate}
+              subtitleStyle={subtitleStyle}/>
+            <CardTitle
+              style={rootStyle}
+              title="Duration"
+              titleStyle={titleStyle}
+              subtitle={this.props.duration + "h"}
+              subtitleStyle={subtitleStyle}/>
+            <CardTitle
+              style={rootStyle}
+              title="Price"
+              titleStyle={titleStyle}
+              subtitle={this.props.cost +" VND"}
+              subtitleStyle={subtitleStyle}/>
+            <CardTitle
+              style={rootStyle}
+              title="Address"
+              titleStyle={titleStyle}
+              subtitle={this.props.address}
+              subtitleStyle={subtitleStyle}/>
+            <CardTitle
+              style={rootStyle}
+              title="Phone Number"
+              titleStyle={titleStyle}
+              subtitle={this.props.phone}
+              subtitleStyle={subtitleStyle}/>
+            <CardTitle
+              style={rootStyle}
+              title="Name"
+              titleStyle={titleStyle}
+              subtitle={this.props.name}
+              subtitleStyle={subtitleStyle}/>
+            {(this.props.email)?
               <CardTitle
                 style={rootStyle}
-                title="Description"
+                title="Email"
                 titleStyle={titleStyle}
-                subtitle={this.props.description}
-                subtitleStyle={subtitleStyle}/>
-              <CardTitle
-                style={rootStyle}
-                title="Start Date"
-                titleStyle={titleStyle}
-                subtitle={ftime + " " +fdate}
-                subtitleStyle={subtitleStyle}/>
-              <CardTitle
-                style={rootStyle}
-                title="Duration"
-                titleStyle={titleStyle}
-                subtitle={this.props.duration + "h"}
-                subtitleStyle={subtitleStyle}/>
-              <CardTitle
-                style={rootStyle}
-                title="Price"
-                titleStyle={titleStyle}
-                subtitle={this.props.cost +" VND"}
-                subtitleStyle={subtitleStyle}/>
-              <CardTitle
-                style={rootStyle}
-                title="Address"
-                titleStyle={titleStyle}
-                subtitle={this.props.address}
-                subtitleStyle={subtitleStyle}/>
-              <CardTitle
-                style={rootStyle}
-                title="Phone Number"
-                titleStyle={titleStyle}
-                subtitle={this.props.phone}
-                subtitleStyle={subtitleStyle}/>
-              <CardTitle
-                style={rootStyle}
-                title="Name"
-                titleStyle={titleStyle}
-                subtitle={this.props.name}
-                subtitleStyle={subtitleStyle}/>
-              {(this.props.email)?
-                <CardTitle
-                  style={rootStyle}
-                  title="Email"
-                  titleStyle={titleStyle}
-                  subtitle={this.props.email}
-                  subtitleStyle={subtitleStyle}/>:<div></div>}
-                  <div className="padding-top padding-bottom button-secondary">
+                subtitle={this.props.email}
+                subtitleStyle={subtitleStyle}/>:<div></div>}
+                <div className="padding-top">
+                  <div className="backButton">
                     <RaisedButton
                       label="Back"
                       primary={true}
+                      fullWidth={true}
                       onClick={this.onBack} />
+                  </div>
+                  <div className="nextButton">
                     <RaisedButton
                       id="Post"
-                      label="OK"
+                      label="Confirm"
                       secondary={true}
+                      fullWidth={true}
                       onClick={this.confirm}/>
                   </div>
+                </div>
                 <Dialog
                   ref="dialog"
                   title="Thông báo"

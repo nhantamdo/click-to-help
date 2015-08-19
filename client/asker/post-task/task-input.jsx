@@ -217,123 +217,129 @@ TaskInput = React.createClass({
               cost: this.refs.txtCost.getValue().trim()
             };
             FlowRouter.go("/list-service/fill-info","", queryParams);
-            }
-          });
-        }
-      }
-    },
-
-    componentDidMount: function() {
-      if(this.props.description){
-        var numOfCharacter = descriptionLimit - this.props.description.length;
-        this.setState({
-          textDescription: "Description (" + numOfCharacter + ")"
+          }
         });
       }
+    }
+  },
 
-      var date = new Date();
+  componentDidMount: function() {
+    if(this.props.description){
+      var numOfCharacter = descriptionLimit - this.props.description.length;
+      this.setState({
+        textDescription: "Description (" + numOfCharacter + ")"
+      });
+    }
 
-      // Default Date is Tomorrow
-      if(this.props.date == null || this.props.date == ""){
-        date.setDate(date.getDate() + 1);
-        this.refs.dpDate.setDate(date);
-      }
-      else {
-        var date = this.props.date;
-        date = date.split('/');
-        date = new Date(date[2],date[1] - 1,date[0]);
-        this.refs.dpDate.setDate(date);
-      }
+    var date = new Date();
 
-      // Default Time is 08:00 AM
-      if(this.props.time == null || this.props.time == ""){
-        date.setHours(8);
-        date.setMinutes(0);
-        this.refs.dpTime.setTime(date);
-      }
-      else {
-        var time = this.props.time;
-        time = time.split(':');
-        date.setHours(time[0]);
-        date.setMinutes(time[1]);
-        this.refs.dpTime.setTime(date);
-      }
+    // Default Date is Tomorrow
+    if(this.props.date == null || this.props.date == ""){
+      date.setDate(date.getDate() + 1);
+      this.refs.dpDate.setDate(date);
+    }
+    else {
+      var date = this.props.date;
+      date = date.split('/');
+      date = new Date(date[2],date[1] - 1,date[0]);
+      this.refs.dpDate.setDate(date);
+    }
 
-      // Set value Slider
-      if(this.props.duration > 0){
-        duration = this.props.duration;
-        this.refs.sliderDuration.setValue(this.props.duration);
-        $("#hoursNumber").text(this.props.duration + "h");
-      }
-    },
+    // Default Time is 08:00 AM
+    if(this.props.time == null || this.props.time == ""){
+      date.setHours(8);
+      date.setMinutes(0);
+      this.refs.dpTime.setTime(date);
+    }
+    else {
+      var time = this.props.time;
+      time = time.split(':');
+      date.setHours(time[0]);
+      date.setMinutes(time[1]);
+      this.refs.dpTime.setTime(date);
+    }
 
-    render() {
-      return (
-        <div>
-          <AppBar
-            className="appbar"
-            title={this.props.serviceText}
-            iconElementRight={
-              <IconButton iconClassName="icon-help" />
+    // Set value Slider
+    if(this.props.duration > 0){
+      duration = this.props.duration;
+      this.refs.sliderDuration.setValue(this.props.duration);
+      $("#hoursNumber").text(this.props.duration + "h");
+    }
+  },
+
+  render() {
+    return (
+      <div>
+        <AppBar
+          className="appbar"
+          title={this.props.serviceText}
+          iconElementRight={
+            <IconButton iconClassName="icon-help" />
           } />
-          <div className="main padding-left-right">
-            <TextField
-              id="txtDescription"
-              ref="txtDescription"
-              className="txtDescription"
-              multiLine={true}
-              floatingLabelText={this.state.textDescription}
-              errorText={this.state.errorDescription ? this.state.textDescriptionLimit : ""}
-              defaultValue={this.props.description != "" ? this.props.description : ""}
-              onChange={this.onDescriptionChange}
-              onBlur={this.onBlurDescription}
-              fullWidth={true} />
-            <DatePicker
-              className="dpDate"
-              ref="dpDate"
-              hintText="Date"
-              autoOk={true}
-              formatDate={this.onFormatDate}/>
-            <TimePicker
-              className="dpTime"
-              ref="dpTime"
-              format="24hr"
-              hintText="Time"/>
-            <br/>
-          <div>
-            <span id="hoursNumber">2h</span>
-          </div>
-          <Slider
-            id="sliderDuration"
-            ref="sliderDuration"
-            name="sliderDuration"
-            min={0.5}
-            max={10}
-            step={0.5}
-            value={duration}
-            fullWidth={true}
-            onChange={this.onChangeSliderDuration} />
-          <TextField
-            id="txtCost"
-            ref="txtCost"
-            floatingLabelText="Cost (VND)"
-            errorText={this.state.errorCost ? this.state.errorCostText : ""}
-            defaultValue={this.props.cost != "" ? this.props.cost : ""}
-            onChange={this.onCostChange}
-            onBlur={this.onBlurCost}
-            fullWidth={true}/>
-          <br/>
-          <div className="button-secondary padding-bottom">
-            <RaisedButton
-              label="Back"
-              primary={true}
-              onClick={this.onBack} />
-            <RaisedButton
-              id="btnNext"
-              label="Next"
-              secondary={true}
-              onClick={this.onContactInfo} />
-          </div>
+          <div className="main">
+            <div className="padding-left-right">
+              <TextField
+                id="txtDescription"
+                ref="txtDescription"
+                className="txtDescription"
+                multiLine={true}
+                floatingLabelText={this.state.textDescription}
+                errorText={this.state.errorDescription ? this.state.textDescriptionLimit : ""}
+                defaultValue={this.props.description != "" ? this.props.description : ""}
+                onChange={this.onDescriptionChange}
+                onBlur={this.onBlurDescription}
+                fullWidth={true} />
+              <DatePicker
+                className="dpDate"
+                ref="dpDate"
+                hintText="Date"
+                autoOk={true}
+                formatDate={this.onFormatDate}/>
+              <TimePicker
+                className="dpTime"
+                ref="dpTime"
+                format="24hr"
+                hintText="Time"/>
+              <br/>
+              <div>
+                <span id="hoursNumber">2h</span>
+              </div>
+              <Slider
+                id="sliderDuration"
+                ref="sliderDuration"
+                name="sliderDuration"
+                min={0.5}
+                max={10}
+                step={0.5}
+                value={duration}
+                fullWidth={true}
+                onChange={this.onChangeSliderDuration} />
+              <TextField
+                id="txtCost"
+                ref="txtCost"
+                floatingLabelText="Cost (VND)"
+                errorText={this.state.errorCost ? this.state.errorCostText : ""}
+                defaultValue={this.props.cost != "" ? this.props.cost : ""}
+                onChange={this.onCostChange}
+                onBlur={this.onBlurCost}
+                fullWidth={true}/>
+              <br/>
+            </div>
+            <div className="backButton">
+              <RaisedButton
+                label="Back"
+                primary={true}
+                fullWidth={true}
+                onClick={this.onBack} />
+            </div>
+            <div className="nextButton">
+              <RaisedButton
+                id="btnNext"
+                label="Next"
+                secondary={true}
+                fullWidth={true}
+                onClick={this.onContactInfo} />
+            </div>
           </div>
         </div>
       );

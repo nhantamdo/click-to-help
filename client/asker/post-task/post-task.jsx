@@ -5,7 +5,8 @@
 
 const{
   AppBar,
-  IconButton
+  IconButton,
+  RaisedButton
 } = mui;
 
 // var customPalette = {
@@ -44,32 +45,39 @@ PostTask = React.createClass({
       serviceText: serviceText
     };
     FlowRouter.go("/list-service/post-task","", queryParams);
-    },
+  },
 
-    onBack(){
-      FlowRouter.go('/');
-    },
+  onBack(){
+    FlowRouter.go('/');
+  },
 
-    render() {
-      let styleLoading = {
-        textAlign: "center"
-      };
-      return (
-        <div id="mainPostTask">
-          <AppBar
-            title="Service"
-            iconElementRight={
-              <div>
-                <IconButton iconClassName="icon-help" />
-                <IconButton iconClassName="icon-back" onClick={this.onBack} />
-              </div>
-            } />
+  render() {
+    let styleLoading = {
+      textAlign: "center"
+    };
+    return (
+      <div id="mainPostTask">
+        <AppBar
+          title="Service"
+          iconElementRight={
             <div>
-              <ListService
-                selectedServiceId={this.state.selectedServiceId}
-                onServiceSelected={this.selectService}/>
+              <IconButton iconClassName="icon-help" />
+              <IconButton iconClassName="icon-back" onClick={this.onBack} />
             </div>
+          } />
+          <div>
+            <ListService
+              selectedServiceId={this.state.selectedServiceId}
+              onServiceSelected={this.selectService}/>
           </div>
-        );
-      }
-    });
+          <div className="backButton">
+            <RaisedButton
+              label="Back"
+              primary={true}
+              onClick={this.onBack}
+              fullWidth={true} />
+          </div>
+        </div>
+      );
+    }
+  });
