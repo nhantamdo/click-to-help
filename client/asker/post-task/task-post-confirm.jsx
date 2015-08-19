@@ -10,7 +10,9 @@ const{
   RaisedButton,
   Dialog,
   CardText,
-  CardHeader
+  CardHeader,
+  CardTitle,
+  Card
 } = mui;
 
 // var customPalette = {
@@ -54,80 +56,108 @@ TaskPostConfirm = React.createClass({
       email: this.props.email
     };
     FlowRouter.go("/list-service/fill-info","", queryParams);
-    },
+  },
 
-    confirm(){
-      Meteor.call("addTask",this.props,function (error, result) {
-        if (error) {
-          console.log("Error");
-        } else {
-          console.log("Accepted");
-        }
-      });
-      this.refs.dialog.show();
-    },
+  confirm(){
+    Meteor.call("addTask",this.props,function (error, result) {
+      if (error) {
+        console.log("Error");
+      } else {
+        console.log("Accepted");
+      }
+    });
+    this.refs.dialog.show();
+  },
 
-    onClickConfirm() {
-      FlowRouter.go("/ask-list");      
-    },
+  onClickConfirm() {
+    FlowRouter.go("/ask-list");
+  },
 
-    render() {
-      var fdate = this.props.date;
-      var ftime = this.props.time;
-      return (
-        <div>
-          <AppBar
-            className="appbar"
-            title={this.props.serviceText}
-            iconElementRight={
-              <IconButton iconClassName="icon-help" />
-            } />
-            <div className="main padding-left-right">
-              <div className=" padding-top" id="discription">
-                <span className="title">Mô tả công việc:</span>
-                <br/>
-                <span className="text">{this.props.description}</span>
-              </div>
-              <div className=" padding-top" id="time-work">
-                <span className="title">Bắt đầu:</span>
-                <span className="text-right">{ftime} {fdate}</span>
-              </div>
-              <div className=" padding-top" id="duration">
-                <span className="title">Thời gian:</span>
-                <span className="text-right">{this.props.duration}h</span>
-              </div>
-              <div className=" padding-top" id="price">
-                <span className="title">Giá:</span>
-                <span className="text-right">{this.props.cost} VND</span>
-              </div>
-              <div className=" padding-top" id="location">
-                <span className="title">Địa điểm:</span>
-                <span className="text-right">{this.props.address}</span>
-              </div>
-              <div className=" padding-top" id="phone">
-                <span className="title">Số liên lạc:</span>
-                <span className="text-right">{this.props.phone}</span>
-              </div>
-              <div className=" padding-top" id="name">
-                <span className="title">Họ Tên:</span>
-                <span className="text-right">{this.props.name}</span>
-              </div>
-              {(this.props.email=="")? "" :
-                <div className=" padding-top" id="Email">
-                  <span className="title">Email:</span>
-                  <span className="text-right">{this.props.email}</span>
-                </div>}
-                <div className="padding-top padding-bottom button-secondary">
-                  <RaisedButton
-                    label="Back"
-                    primary={true}
-                    onClick={this.onBack} />
-                  <RaisedButton
-                    id="Post"
-                    label="OK"
-                    secondary={true}
-                    onClick={this.confirm}/>
-                </div>
+  render() {
+    var fdate = this.props.date;
+    var ftime = this.props.time;
+    let rootStyle = {
+      paddingBottom: 0,
+      paddingTop:  15
+    };
+    let titleStyle = {
+      fontSize: 16,
+      color: 'rgba(0, 0, 0, 0.54)',
+      lineHeight: '20px'
+    };
+    let subtitleStyle = {
+      fontSize: 22,
+      color: 'rgba(0, 0, 0, 0.87)'
+    };
+    return (
+      <div>
+        <AppBar
+          className="appbar"
+          title={this.props.serviceText}
+          iconElementRight={
+            <IconButton iconClassName="icon-help" />
+          } />
+          <div className="main">
+              <CardTitle
+                style={rootStyle}
+                title="Description"
+                titleStyle={titleStyle}
+                subtitle={this.props.description}
+                subtitleStyle={subtitleStyle}/>
+              <CardTitle
+                style={rootStyle}
+                title="Start Date"
+                titleStyle={titleStyle}
+                subtitle={ftime + " " +fdate}
+                subtitleStyle={subtitleStyle}/>
+              <CardTitle
+                style={rootStyle}
+                title="Duration"
+                titleStyle={titleStyle}
+                subtitle={this.props.duration + "h"}
+                subtitleStyle={subtitleStyle}/>
+              <CardTitle
+                style={rootStyle}
+                title="Price"
+                titleStyle={titleStyle}
+                subtitle={this.props.cost +" VND"}
+                subtitleStyle={subtitleStyle}/>
+              <CardTitle
+                style={rootStyle}
+                title="Address"
+                titleStyle={titleStyle}
+                subtitle={this.props.address}
+                subtitleStyle={subtitleStyle}/>
+              <CardTitle
+                style={rootStyle}
+                title="Phone Number"
+                titleStyle={titleStyle}
+                subtitle={this.props.phone}
+                subtitleStyle={subtitleStyle}/>
+              <CardTitle
+                style={rootStyle}
+                title="Name"
+                titleStyle={titleStyle}
+                subtitle={this.props.name}
+                subtitleStyle={subtitleStyle}/>
+              {(this.props.email)?
+                <CardTitle
+                  style={rootStyle}
+                  title="Email"
+                  titleStyle={titleStyle}
+                  subtitle={this.props.email}
+                  subtitleStyle={subtitleStyle}/>:<div></div>}
+                  <div className="padding-top padding-bottom button-secondary">
+                    <RaisedButton
+                      label="Back"
+                      primary={true}
+                      onClick={this.onBack} />
+                    <RaisedButton
+                      id="Post"
+                      label="OK"
+                      secondary={true}
+                      onClick={this.confirm}/>
+                  </div>
                 <Dialog
                   ref="dialog"
                   title="Thông báo"
