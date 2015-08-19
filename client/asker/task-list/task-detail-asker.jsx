@@ -82,12 +82,7 @@ TaskDetailAsker = React.createClass({
   },
 
   onBack(){
-    FlowRouter.go('/list-task-asker');
-    //React.render(<ListTask_Asker />, document.getElementById("container"));
-  },
-
-  onBackClick(){
-    FlowRouter.go('/list-task-asker');
+    FlowRouter.go('/ask-list');
   },
 
   onCancelClick(){
@@ -273,6 +268,7 @@ TaskDetailAsker = React.createClass({
           avatar={Acceptedtasker.tasker.avatar}/>
           <div id="checkAccept">
           <Checkbox id={Acceptedtasker.tasker.username}
+          className="cbSelectTasker"
           ref={Acceptedtasker.tasker._id}
           name="checkboxName1"
           value={Acceptedtasker.tasker._id}

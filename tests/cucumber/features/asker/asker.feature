@@ -11,8 +11,9 @@ Feature: tasker test
   # This scenario will run as part of the Meteor dev cycle because it has the @dev tag
   #@dev
   Scenario:
-    When I click button Login(test, this flow will change later) in Intro page
-    Then display Task List(status: accepted) in Screen Asker
+    When I click Service Icon or Description in Ask List Screen
+    And display Task Detail include Taskers who accepted this task.
 
-    When I click Comfirmed Tab
-    Then display Task List(status: comfirmed) in Screen Asker
+    When I choose one Tasker
+    And I click button Accept
+    Then Task Status will change to confirmed

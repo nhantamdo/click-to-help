@@ -37,9 +37,8 @@ IntroPage = React.createClass({
     FlowRouter.go('/list-service');
   },
 
-  onLoginClick(){
-    //React.render(<ListTask_Asker />,document.getElementById("container"));
-    FlowRouter.go('/list-task-asker');
+  onLoginClick(){    
+    FlowRouter.go('/ask-list');
   },
 
   onTaskerClick() {
