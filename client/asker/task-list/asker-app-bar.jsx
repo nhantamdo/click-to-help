@@ -49,10 +49,8 @@ AskerAppBAr = React.createClass({
     var taskStatusHandle = Meteor.subscribe("taskStatus");
     if (taskStatusHandle.ready()) {
       var count = TaskStatus.find({status:"accepted"}).fetch().length;
-      this.setState({
-        numNotifi: count
-      });
       return {
+        notifCount: count
       }
     }
     return {
@@ -69,6 +67,13 @@ AskerAppBAr = React.createClass({
     this.setState({
       viewNotification: false,
     });
+  },
+  componentDidMount() {
+    console.log("message");
+    if (this.data.notifCount)
+      this.setState({
+        numNotifi: this.data.notifCount
+      });
   },
 
   render() {
@@ -88,7 +93,7 @@ AskerAppBAr = React.createClass({
                   onClick={this.props.onBack} />
               </div>
             } />
-          {this.state.viewNotification? <ListAskerNotification/>:{}}
+            {this.state.viewNotification? <ListAskerNotification/>:{}}
           </div>
           <Overlay
             ref="overlay"
