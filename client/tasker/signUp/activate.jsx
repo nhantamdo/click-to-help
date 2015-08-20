@@ -100,7 +100,6 @@ Activation_Tasker = React.createClass({
         password: false
       }, function(){
         if(Number(activationCode) === activationCodeGenerate){
-          console.log("Next");
         }
         else {
           this.refs.dialogMessage.show();

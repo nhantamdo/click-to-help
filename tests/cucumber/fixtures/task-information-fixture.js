@@ -4,9 +4,15 @@
 
   Meteor.methods({
     resetDataConfriming: function(){
-      console.log("resetData");
       TaskStatus.update({
         status: "confirmed"
+      }, {
+        $set: {
+          status: "accepted"
+        }
+      });
+      TaskStatus.update({
+        status: "cancel"
       }, {
         $set: {
           status: "accepted"
