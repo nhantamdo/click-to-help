@@ -20,7 +20,7 @@
       .call(callback);
     });
 
-    this.When(/^I click the task "([^"]*)" in waiting list$/, function (arg1, callback) {
+    this.When(/^I click the task "([^"]*)" in waiting list.$/, function (arg1, callback) {
       this.client
       .click('span='.concat(arg1))
       .call(callback);
