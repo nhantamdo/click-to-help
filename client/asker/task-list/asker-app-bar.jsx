@@ -37,7 +37,6 @@ AskerAppBAr = React.createClass({
   getInitialState () {
     return {
       viewNotification: false,
-      numNotifi: 0
     };
   },
   propTypes: {
@@ -68,13 +67,6 @@ AskerAppBAr = React.createClass({
       viewNotification: false,
     });
   },
-  componentDidMount() {
-    console.log("message");
-    if (this.data.notifCount)
-      this.setState({
-        numNotifi: this.data.notifCount
-      });
-  },
 
   render() {
     return (
@@ -87,7 +79,7 @@ AskerAppBAr = React.createClass({
                 <IconButton id="btnNotification"
                   iconClassName="icon-notification"
                   onClick={this.onClickNotification}/>
-                <span className="numNotification">{this.state.numNotifi}</span>
+                <span className="numNotification">{this.data.notifCount? this.data.notifCount:0}</span>
                 <IconButton iconClassName="icon-help" />
                 <IconButton iconClassName="icon-back"
                   onClick={this.props.onBack} />
