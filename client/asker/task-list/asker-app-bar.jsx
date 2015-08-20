@@ -28,7 +28,6 @@ AskerAppBAr = React.createClass({
   childContextTypes: {
     muiTheme: React.PropTypes.object
   },
-
   getChildContext: function() {
     return {
       muiTheme: ThemeManager.getCurrentTheme()
@@ -38,14 +37,24 @@ AskerAppBAr = React.createClass({
   getInitialState () {
     return {
       viewNotification: false,
-      numNotifi: this.count()
+      numNotifi: 0
     };
   },
   propTypes: {
     onBack: React.PropTypes.func
   },
-  count() {
-    return TaskStatus.find({status:"accepted"}).fetch().length;
+
+  mixins: [ReactMeteorData],
+  getMeteorData() {
+    var taskStatusHandle = Meteor.subscribe("taskStatus");
+    if (taskStatusHandle.ready()) {
+      var count = TaskStatus.find({status:"accepted"}).fetch().length;
+      return {
+        notifCount: count
+      }
+    }
+    return {
+    };
   },
 
   onClickNotification(e) {
@@ -58,6 +67,13 @@ AskerAppBAr = React.createClass({
     this.setState({
       viewNotification: false,
     });
+  },
+  componentDidMount() {
+    console.log("message");
+    if (this.data.notifCount)
+      this.setState({
+        numNotifi: this.data.notifCount
+      });
   },
 
   render() {
@@ -77,7 +93,7 @@ AskerAppBAr = React.createClass({
                   onClick={this.props.onBack} />
               </div>
             } />
-          {this.state.viewNotification? <ListAskerNotification/>:{}}
+            {this.state.viewNotification? <ListAskerNotification/>:{}}
           </div>
           <Overlay
             ref="overlay"

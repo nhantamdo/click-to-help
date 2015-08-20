@@ -46,19 +46,21 @@
       .click('#btnAccept')
       .call(callback);
     });
-    
+
     this.Then(/^I see result "([^"]*)"$/, function (arg1, callback) {
       this.client
       .waitForExist('span='.concat(arg1))
       .waitForVisible('span='.concat(arg1))
       .call(callback);
     });
-
-
-
-
-
-
+    
+    this.Then(/^I go back to Comfirmed list$/, function (callback) {
+      this.client
+      .url(process.env.ROOT_URL + 'list-task-asker')
+      .waitForExist('body *')
+      .waitForVisible('body *')
+      .call(callback);
+    });
 
 
 

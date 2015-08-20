@@ -42,7 +42,6 @@ ListTaskNotification = React.createClass({
   },
   //
   // onClickOutside() {
-  //   console.log("Hide");
   // },
 
   render() {
