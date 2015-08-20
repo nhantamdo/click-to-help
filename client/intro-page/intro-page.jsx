@@ -37,7 +37,7 @@ IntroPage = React.createClass({
     FlowRouter.go('/list-service');
   },
 
-  onLoginClick(){    
+  onLoginClick(){
     FlowRouter.go('/ask-list');
   },
 
@@ -74,6 +74,7 @@ IntroPage = React.createClass({
           </div>
           <div className="button-secondary">
             <RaisedButton
+              id="btnBecomeTasker"
               label="Become a Tasker"
               primary={true}
               fullWidth={true}

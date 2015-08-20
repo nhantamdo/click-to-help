@@ -119,6 +119,7 @@ TaskItem = React.createClass({
         cost = this.formatMoney(Number(cost));
         return [
           <ListItem
+          className="itemTask"
           id={task.key}
           style={(task.status=="unread" || task.status=="new")? unreadStyle:readStyle}
           key={task.key}
