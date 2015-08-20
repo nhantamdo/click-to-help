@@ -53,7 +53,6 @@ ListAskerNotification = React.createClass({
           acceptedAt: taskStatus.updatedAt
         });
       });
-     console.log(result);
      return {
        notif: result,
      };

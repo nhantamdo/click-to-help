@@ -31,12 +31,12 @@ Service.upsert({
 Service.upsert({
   id: "004",
   icon: "icons/img/baby-care.png",
-  text: "Child care"
+  text: "Baby Care"
 },
 {
   $set: {
     icon: "icons/img/baby-care.png",
-    text: "Child care"
+    text: "Baby Care"
   }
 });
 Service.upsert({
