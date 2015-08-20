@@ -62,7 +62,7 @@ ListTask_Tasker = React.createClass({
   },
 
   onClickNotification(e) {
-    console.log("click notification");
+    //console.log("click notification");
     this.setState({
       viewNotification: !this.state.viewNotification
     });
@@ -90,7 +90,7 @@ ListTask_Tasker = React.createClass({
     let contentStyle ={
       padding: "40px 0px 0px 0px",
     };
-    console.log("begin load task list tasker");
+    //console.log("begin load task list tasker");
     if(this.data.taskerLoading || this.data.taskStatusLoading){
       return (<div></div>);
     }

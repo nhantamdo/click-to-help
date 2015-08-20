@@ -14,20 +14,12 @@
       // Write code here that turns the phrase above into concrete actions
       this.server.call('changeAllToRead');
       this.client
-      .url(process.env.ROOT_URL)
+      .url(process.env.ROOT_URL+'list-task-tasker')
       .waitForExist('body *')
       .waitForVisible('body *')
       .call(callback);
     });
-
-    this.When(/^I click the button Become a Takser$/, function (callback) {
-      this.client
-      .click('div=Become a Tasker')
-      .waitForExist('div=Accepted')
-      .waitForVisible('div=Accepted')
-      .call(callback);
-    });
-
+ 
     this.When(/^I click the notification button$/, function (callback) {
       this.client
       .click('.icon-notification')

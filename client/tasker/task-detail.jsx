@@ -100,7 +100,6 @@ TaskDetail = React.createClass({
     var task  = this.data.tasks[0];
     var taskFind = TaskStatus.find({taskId:task._id, taskerId:tasker[0]._id}).fetch();
     if(taskFind.length <= 0){
-      console.log("Something wrong!");
     }
     else{
       Meteor.call("changeToAccepted", taskFind[0]);
