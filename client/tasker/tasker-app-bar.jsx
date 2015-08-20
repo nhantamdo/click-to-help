@@ -70,9 +70,11 @@ TaskerAppBAr = React.createClass({
             title={this.props.title}
             iconElementRight={
               <div>
-                <IconButton id="btnNotification"
-                  iconClassName="icon-notification"
-                  onClick={this.onClickNotification}/>
+                <span id="btnNotification">
+                  <IconButton
+                    iconClassName="icon-notification"
+                    onClick={this.onClickNotification}/>
+                </span>
                 <span className="numNotification">{this.state.numNotifi}</span>
                 <IconButton iconClassName="icon-help" />
                 <IconButton iconClassName="icon-back"

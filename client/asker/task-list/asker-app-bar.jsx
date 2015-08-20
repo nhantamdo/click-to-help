@@ -28,7 +28,6 @@ AskerAppBAr = React.createClass({
   childContextTypes: {
     muiTheme: React.PropTypes.object
   },
-
   getChildContext: function() {
     return {
       muiTheme: ThemeManager.getCurrentTheme()
@@ -38,14 +37,26 @@ AskerAppBAr = React.createClass({
   getInitialState () {
     return {
       viewNotification: false,
-      numNotifi: this.count()
+      numNotifi: 0
     };
   },
   propTypes: {
     onBack: React.PropTypes.func
   },
-  count() {
-    return TaskStatus.find({status:"accepted"}).fetch().length;
+
+  mixins: [ReactMeteorData],
+  getMeteorData() {
+    var taskStatusHandle = Meteor.subscribe("taskStatus");
+    if (taskStatusHandle.ready()) {
+      var count = TaskStatus.find({status:"accepted"}).fetch().length;
+      this.setState({
+        numNotifi: count
+      });
+      return {
+      }
+    }
+    return {
+    };
   },
 
   onClickNotification(e) {
