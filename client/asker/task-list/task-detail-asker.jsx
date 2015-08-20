@@ -6,20 +6,17 @@
 const{
   AppBar,
   IconButton,
-  TextField,
-  DatePicker,
-  TimePicker,
-  Slider,
   RaisedButton,
-  CardTitle,
-  CardActions,
   FlatButton,
-  CardText,
-  Card,
-  CardHeader,
   Avatar,
   Snackbar,
-  Checkbox
+  List,
+  ListItem,
+  Checkbox,
+  Card,
+  CardHeader,
+  CardText,
+  CardTitle
 } = mui;
 
 const ThemeManager = new mui.Styles.ThemeManager();
@@ -103,8 +100,9 @@ TaskDetailAsker = React.createClass({
 
   _handleAction() {
     //We can add more code to this function, but for now we'll just include an alert.
-    console.log("Cancel task in this task.");
+    Meteor.call("cancelTask", this.data.tasks[0]._id);
     this.refs.cancelConfirmSnackbar.dismiss();
+    FlowRouter.go('/list-task-asker');
   },
   _handleActionClose() {
     //We can add more code to this function, but for now we'll just include an alert.
@@ -122,6 +120,8 @@ TaskDetailAsker = React.createClass({
     var taskerId = event.target.value;
     if(checked==true){
       this.chooseTaskerId = taskerId;
+    }else{
+      this.chooseTaskerId = null;
     }
     this.lstTasker
     .forEach(function (tasker){
@@ -247,40 +247,45 @@ TaskDetailAsker = React.createClass({
       <div>At: {time} &nbsp; {date} - Duration {task.duration}h</div>
       <div>Cost: {cost} VND - Location: {task.address}</div>
       </CardText>
+      </Card>
       <div id="listOfTasker">
       {this.data.taskConfirmed.length > 0?
-        <div>
-        <CardHeader style={taskerStyle}
-        title={choosedTasker.username}
-        subtitle={choosedAt}
-        avatar={choosedTasker.avatar}/>
-        <div id="checkAccept">
-        <span>Confirmed</span>
-        </div>
-        </div>:<span></span>
+        <List>
+        <ListItem
+        leftAvatar={<Avatar src={choosedTasker.avatar}/>}
+        primaryText={choosedTasker.username}
+        secondaryText={choosedAt}
+        secondaryTextLines={1}
+        disabled={true}
+        rightAvatar={<span className='backgroundAccepted'>Confirmed</span>}
+        />
+
+        </List>:<span></span>
       }
+      <List>
       {lstTasker.map((Acceptedtasker) => {
         return [
-          <div>
-          <CardHeader style={taskerStyle}
-          title={Acceptedtasker.tasker.username}
-          subtitle={Acceptedtasker.acceptedAt}
-          avatar={Acceptedtasker.tasker.avatar}/>
-          <div id="checkAccept">
-          <Checkbox id={Acceptedtasker.tasker.username}
-          className="cbSelectTasker"
+          <ListItem
+          leftAvatar={<Avatar src={Acceptedtasker.tasker.avatar}/>}
+          primaryText={Acceptedtasker.tasker.username}
+          secondaryText={Acceptedtasker.acceptedAt}
+          secondaryTextLines={1}
+          rightToggle=
+          {
+            <Checkbox id={Acceptedtasker.tasker.username}
           ref={Acceptedtasker.tasker._id}
           name="checkboxName1"
           value={Acceptedtasker.tasker._id}
           onCheck={this.onCheckClick.bind(Acceptedtasker.tasker._id)}/>
-          </div>
-          </div>
+          }
+          />
+
         ]
       })
     }
+    </List>
     </div>
     <div id="functionButton">
-    <CardActions>
     <RaisedButton
     id="btnCancel"
     label="Cancel task"
@@ -293,9 +298,8 @@ TaskDetailAsker = React.createClass({
       primary={true}
       onClick={this.onAcceptClick}/>:<div></div>
     }
-    </CardActions>
     </div>
-    </Card>
+
     </div>
     </div>
   );

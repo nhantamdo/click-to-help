@@ -15,3 +15,4 @@ Feature: Task information test
     When I click check box
     And I click accept button to confirm
     Then I see result "Accept succesful!"
+    And I go back to Comfirmed list

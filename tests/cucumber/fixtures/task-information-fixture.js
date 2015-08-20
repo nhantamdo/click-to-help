@@ -12,6 +12,13 @@
           status: "accepted"
         }
       });
+      TaskStatus.update({
+        status: "cancel"
+      }, {
+        $set: {
+          status: "accepted"
+        }
+      });
     },
     changeAllToRead: function () {
       TaskStatus.find({status: "accepted"})

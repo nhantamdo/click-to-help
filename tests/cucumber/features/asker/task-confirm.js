@@ -46,7 +46,7 @@
       .click('#btnAccept')
       .call(callback);
     });
-    
+
     this.Then(/^I see result "([^"]*)"$/, function (arg1, callback) {
       this.client
       .waitForExist('span='.concat(arg1))
@@ -54,12 +54,13 @@
       .call(callback);
     });
 
-
-
-
-
-
-
+    this.Then(/^I click "([^"]*)" in Snackbar$/, function (arg1, callback) {
+      this.client
+      .waitForExist('span='.concat(arg1))
+      .waitForVisible('span='.concat(arg1))
+      .click('span='.concat(arg1))
+      .call(callback);
+    });
 
 
 
