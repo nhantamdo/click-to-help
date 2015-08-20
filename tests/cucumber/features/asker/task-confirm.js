@@ -53,7 +53,7 @@
       .waitForVisible('span='.concat(arg1))
       .call(callback);
     });
-    
+
     this.Then(/^I go back to Comfirmed list$/, function (callback) {
       this.client
       .url(process.env.ROOT_URL + 'list-task-asker')
