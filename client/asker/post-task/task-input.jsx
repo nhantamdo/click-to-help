@@ -294,6 +294,7 @@ TaskInput = React.createClass({
                 ref="dpDate"
                 hintText="Date"
                 autoOk={true}
+                minDate={new Date()}
                 formatDate={this.onFormatDate}/>
               <TimePicker
                 className="dpTime"

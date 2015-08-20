@@ -10,23 +10,13 @@
   module.exports = function() {
     var url = require('url');
 
-    this.Given(/^I am an Asker$/, function(callback) {
+    this.Given(/^I am an Asker in Waiting list of task$/, function(callback) {
       // Write code here that turns the phrase above into concrete actions
       this.server.call("resetDataConfriming");
       this.client
-      .url(process.env.ROOT_URL)
+      .url(process.env.ROOT_URL + 'list-task-asker')
       .waitForExist('body *')
       .waitForVisible('body *')
-      .call(callback);
-    });
-
-    this.When(/^I click the button Login$/, function (callback) {
-      this.client
-      .click('#btnLogin')
-      .waitForExist('div=Waiting')
-      .waitForVisible('div=Waiting')
-      .waitForExist('span=Massage tai nha')
-      .waitForVisible('span=Massage tai nha')
       .call(callback);
     });
 
@@ -56,6 +46,7 @@
       .click('#btnAccept')
       .call(callback);
     });
+    
     this.Then(/^I see result "([^"]*)"$/, function (arg1, callback) {
       this.client
       .waitForExist('span='.concat(arg1))

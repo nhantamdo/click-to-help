@@ -43,7 +43,7 @@ ListTask_Asker = React.createClass({
   },
 
   onPostTask(){
-    React.render(<PostTask />, document.getElementById("container"));
+    FlowRouter.go('/list-service');
   },
 
   render() {

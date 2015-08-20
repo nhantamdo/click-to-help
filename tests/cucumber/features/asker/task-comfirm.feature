@@ -5,13 +5,12 @@ Feature: Task information test
 
   # The background will be run for every scenario
   Background:
-    Given I am an Asker
+    Given I am an Asker in Waiting list of task
 
   # This scenario will run as part of the Meteor dev cycle because it has the @dev tag
-  #dev
+  @dev
   Scenario:
-    When I click the button Login
-    And I click the task "Massage tai nha" in waiting list
+    When I click the task "Massage tai nha" in waiting list
     Then I see "Confirming" and "Massage tai nha" in confirming
     When I click check box
     And I click accept button to confirm

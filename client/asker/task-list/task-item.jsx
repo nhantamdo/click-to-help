@@ -81,8 +81,7 @@ TaskItem_Asker = React.createClass({
   },
 
   onDetailClick(taskKey){
-    FlowRouter.go('/task-detail-asker/show-detail?taskKey='+taskKey);
-    //React.render(<TaskDetailAsker taskKey={taskKey}/>, document.getElementById("container"));
+    FlowRouter.go('/task-detail-asker/show-detail?taskKey='+taskKey);    
   },
 
   onClickTaskerAvatar(taskerId){
@@ -123,7 +122,7 @@ TaskItem_Asker = React.createClass({
           className={task.status=="unread"? "unread-task":"task"}
           key={task.key}
           primaryText={
-            <span onClick={this.onDetailClick.bind(this, task.key)}>
+            <span id="itemDescription" onClick={this.onDetailClick.bind(this, task.key)}>
             {task.description}
             </span>
           }
