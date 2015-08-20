@@ -9,7 +9,7 @@ Feature: tasker test
     Given I am a Tasker in IntroPage
 
   # This scenario will run as part of the Meteor dev cycle because it has the @dev tag
-  @dev
+  #@dev
   Scenario:
     When I click button Become a Tasker in Intro page
     And display Task List Screen

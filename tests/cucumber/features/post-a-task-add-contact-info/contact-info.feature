@@ -11,7 +11,7 @@ Feature: Post a task step 3 - add contact info
     And I want to add contact info
 
   # This scenario will run as part of the Meteor dev cycle because it has the @dev tag
-  @dev
+  #@dev
   Scenario:
     When I fill address "104 Mai Thi Luu Q.1 TP.HCM"
     And I fill phone number "0123456789"

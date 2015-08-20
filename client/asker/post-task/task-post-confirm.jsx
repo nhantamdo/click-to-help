@@ -99,42 +99,49 @@ TaskPostConfirm = React.createClass({
           } />
           <div className="main">
             <CardTitle
+              id="description"
               style={rootStyle}
               title="Description"
               titleStyle={titleStyle}
               subtitle={this.props.description}
               subtitleStyle={subtitleStyle}/>
             <CardTitle
+              id="startDate"
               style={rootStyle}
               title="Start Date"
               titleStyle={titleStyle}
               subtitle={ftime + " " +fdate}
               subtitleStyle={subtitleStyle}/>
             <CardTitle
+              id="duration"
               style={rootStyle}
               title="Duration"
               titleStyle={titleStyle}
               subtitle={this.props.duration + "h"}
               subtitleStyle={subtitleStyle}/>
             <CardTitle
+              id="price"
               style={rootStyle}
               title="Price"
               titleStyle={titleStyle}
               subtitle={this.props.cost +" VND"}
               subtitleStyle={subtitleStyle}/>
             <CardTitle
+              id="address"
               style={rootStyle}
               title="Address"
               titleStyle={titleStyle}
               subtitle={this.props.address}
               subtitleStyle={subtitleStyle}/>
             <CardTitle
+              id="phoneNumber"
               style={rootStyle}
               title="Phone Number"
               titleStyle={titleStyle}
               subtitle={this.props.phone}
               subtitleStyle={subtitleStyle}/>
             <CardTitle
+              id="name"
               style={rootStyle}
               title="Name"
               titleStyle={titleStyle}
@@ -142,6 +149,7 @@ TaskPostConfirm = React.createClass({
               subtitleStyle={subtitleStyle}/>
             {(this.props.email)?
               <CardTitle
+                id="email"
                 style={rootStyle}
                 title="Email"
                 titleStyle={titleStyle}
@@ -150,6 +158,7 @@ TaskPostConfirm = React.createClass({
                 <div className="padding-top">
                   <div className="backButton">
                     <RaisedButton
+                      id="Back"
                       label="Back"
                       primary={true}
                       fullWidth={true}
