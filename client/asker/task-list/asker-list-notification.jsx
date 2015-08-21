@@ -16,7 +16,8 @@ const{
   List,
   ListItem,
   ListDivider,
-  CircularProgress
+  CircularProgress,
+  FlatButton
 } = mui;
 
 const ThemeManager = new mui.Styles.ThemeManager();
@@ -110,7 +111,8 @@ ListAskerNotification = React.createClass({
                       {notif.taskerName} accepted at {time}  {date}
                     </p>
                   }
-                  leftAvatar={ <Avatar src={notif.avatar? notif.avatar : ""}/> }/>,
+                  leftAvatar={ <Avatar src={notif.avatar? notif.avatar : ""}/> }
+                  rightIconButton={<FlatButton label="X" />}/>,
                 this.listDivider(index,this.data.notif.length)
                 ]
               })):<CircularProgress mode="indeterminate" />

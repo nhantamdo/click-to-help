@@ -81,7 +81,7 @@ TaskItem_Asker = React.createClass({
   },
 
   onDetailClick(taskKey){
-    FlowRouter.go('/task-detail-asker/show-detail?taskKey='+taskKey);    
+    FlowRouter.go('/task-detail-asker/show-detail?taskKey='+taskKey);
   },
 
   onClickTaskerAvatar(taskerId){
@@ -133,7 +133,8 @@ TaskItem_Asker = React.createClass({
             {listTasker}
             </p>
           }
-          leftAvatar={ <Avatar src={task.serviceIcon} onClick={this.onDetailClick.bind(this, task.key)}/> }/>,
+          leftAvatar={ <Avatar src={task.serviceIcon} onClick={this.onDetailClick.bind(this, task.key)}/> }
+          />,
         ]
       })
     }</List>
