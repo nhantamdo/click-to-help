@@ -25,38 +25,38 @@ TaskItem = React.createClass({
     var taskStatusHandle = Meteor.subscribe("taskStatus");
     var taskHandle = Meteor.subscribe("task");
     var serviceHandle = Meteor.subscribe("service");
-    if(!taskerHandle.ready() || !taskStatusHandle.ready() || !taskHandle.ready() || !serviceHandle.ready()){
-        return {
-          taskerLoading: true,
-          taskStatusLoading: true,
-          taskLoading: true,
-          serviceLoading: true
-        }
-    }
-    var result=[];
-    var tasker = Tasker.find({email:"linhnh@twin.vn"}).fetch();
-    TaskStatus.find({status: {$in: this.props.status}, taskerId:tasker[0]._id},{sort: {updatedAt: -1}})
-    .forEach(function (taskStatus){
-      task = Task.findOne({_id:taskStatus.taskId});
-      service = Service.findOne({id:task.serviceId});
-      result.push({
-        key: task._id,
-        serviceIcon: service.icon,
-        description: task.description,
-        date: task.date,
-        time: task.time,
-        address: task.address,
-        cost: task.cost,
-        duration: task.duration,
-        status: taskStatus.status
+    if(taskerHandle.ready() || taskStatusHandle.ready() || taskHandle.ready() || serviceHandle.ready()){
+      var result=[];
+      var tasker = Tasker.find({email:"linhnh@twin.vn"}).fetch();
+      TaskStatus.find({status: {$in: this.props.status}, taskerId:tasker[0]._id},{sort: {updatedAt: -1}})
+      .forEach(function (taskStatus){
+        task = Task.findOne({_id:taskStatus.taskId});
+        service = Service.findOne({id:task.serviceId});
+        result.push({
+          key: task._id,
+          serviceIcon: service.icon,
+          description: task.description,
+          date: task.date,
+          time: task.time,
+          address: task.address,
+          cost: task.cost,
+          duration: task.duration,
+          status: taskStatus.status
+        });
       });
-    });
+      return {
+        taskerLoading: !taskerHandle.ready(),
+        taskStatusLoading: !taskStatusHandle.ready(),
+        taskLoading: !taskHandle.ready(),
+        serviceLoading: !serviceHandle.ready(),
+        tasks: result
+      }
+    }
     return {
-      taskerLoading: !taskerHandle.ready(),
-      taskStatusLoading: !taskStatusHandle.ready(),
-      taskLoading: !taskHandle.ready(),
-      serviceLoading: !serviceHandle.ready(),
-      tasks: result
+      taskerLoading: true,
+      taskStatusLoading: true,
+      taskLoading: true,
+      serviceLoading: true
     }
   },
 
@@ -118,26 +118,26 @@ TaskItem = React.createClass({
         let cost = task.cost;
         cost = this.formatMoney(Number(cost));
         return [
-          <ListItem
+        <ListItem
           className="itemTask"
           id={task.key}
           style={(task.status=="unread" || task.status=="new")? unreadStyle:readStyle}
           key={task.key}
           primaryText={ <p style={primaryTextStyle}>
           {task.description}
-          </p> }
-          secondaryText={
-            <p style={styleItem}>
+        </p> }
+        secondaryText={
+          <p style={styleItem}>
             <span>{time} &nbsp; {date} - làm trong {task.duration}h</span><br/>
             {cost} VND<br/>
-            {task.address}
-            </p>
-          }
-          leftAvatar={ <Avatar src={task.serviceIcon}/> }
-          onClick={this.onDetailClick.bind(this, task.key)}/>,
-          this.listDivider(index,this.data.tasks.length)
-        ]
-      })
-    }</List>
-  }
+          {task.address}
+        </p>
+      }
+      leftAvatar={ <Avatar src={task.serviceIcon}/> }
+      onClick={this.onDetailClick.bind(this, task.key)}/>,
+    this.listDivider(index,this.data.tasks.length)
+    ]
+  })
+}</List>
+}
 });
