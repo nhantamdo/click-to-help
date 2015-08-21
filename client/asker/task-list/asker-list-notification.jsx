@@ -72,10 +72,10 @@ ListAskerNotification = React.createClass({
     console.log("On skip button click");
     this.refs.confirmSkip.show();
   },
-
   onDetailClick(taskKey){
-    React.render(<TaskDetailAsker taskKey={taskKey}/>, document.getElementById("container"));
+    FlowRouter.go('/task-detail-asker/show-detail?taskKey='+taskKey);
   },
+
   listDivider(index,length) {
     let listDividerStyle = {
       marginTop: 0,
@@ -110,13 +110,13 @@ ListAskerNotification = React.createClass({
                   id={notif.key}
                   key={notif.key}
                   primaryText={notif.description}
+                  onClick ={this.onDetailClick.bind(this,notif.key)}
                   secondaryText={
                     <p style={styleItem}>
                       {notif.taskerName} accepted at {time}  {date}
                     </p>
                   }
-                  leftAvatar={ <Avatar src={notif.avatar? notif.avatar : ""}/> }
-                  rightIconButton={<FlatButton label="X" onClick={this.onSkipButton}/>}/>,
+                  leftAvatar={ <Avatar src={notif.avatar? notif.avatar : ""}/> }/>,
                 this.listDivider(index,this.data.notif.length)
                 ]
               })):<CircularProgress mode="indeterminate" />

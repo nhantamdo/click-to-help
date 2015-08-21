@@ -8,34 +8,34 @@ Meteor.startup(function () {
 
   Service.insert({
     id: "001",
-    icon: "icons/img/house-cleanning.png",
+    icon: "/icons/img/house-cleanning.png",
     text: "House Cleaning"
   });
   Service.insert({
     id: "002",
-    icon: "icons/img/home-massage.png",
+    icon: "/icons/img/home-massage.png",
     text: "Home Massage"
   });
   Service.insert({
     id: "003",
-    icon: "icons/img/shopping-help.png",
+    icon: "/icons/img/shopping-help.png",
     text: "Help Shopping"
   });
   Service.insert({
     id: "004",
-    icon: "icons/img/baby-care.png",
+    icon: "/icons/img/baby-care.png",
     text: "Baby Care"
   });
   Service.insert({
     id: "005",
-    icon: "icons/img/text-translate.png",
+    icon: "/icons/img/text-translate.png",
     text: "Text Translate"
   });
 
   tasker1 = Tasker.insert({
     username: "toanpp",
     email: "toanpp@twin.vn",
-    avatar: "avatars/toanpp.jpg"
+    avatar: "/avatars/toanpp.jpg"
   });
   ClickStatus.insert({
     type:1,//0:asker 1:Tasker
@@ -46,7 +46,7 @@ Meteor.startup(function () {
   tasker2 = Tasker.insert({
     username: "linhnh",
     email: "linhnh@twin.vn",
-    avatar: "avatars/linhnh.jpg"
+    avatar: "/avatars/linhnh.jpg"
   });
   ClickStatus.insert({
     type:1,//0:asker 1:Tasker
@@ -57,7 +57,7 @@ Meteor.startup(function () {
   tasker3 = Tasker.insert({
     username: "truongtt",
     email: "truongtt@twin.vn",
-    avatar: "avatars/truongtk.jpg"
+    avatar: "/avatars/truongtk.jpg"
   });
   ClickStatus.insert({
     type:1,//0:asker 1:Tasker
