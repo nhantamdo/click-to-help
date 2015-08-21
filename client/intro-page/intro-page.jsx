@@ -57,6 +57,7 @@ IntroPage = React.createClass({
       <div className="padding-bottom">
         <AppBar
           title="Click To Help"
+          className="appBarMenu"
           onLeftIconButtonTouchTap={this.onLeftIconButtonTouchTap}
           iconElementRight={
             <div>

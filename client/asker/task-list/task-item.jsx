@@ -133,7 +133,8 @@ TaskItem_Asker = React.createClass({
             {listTasker}
             </p>
           }
-          leftAvatar={ <Avatar src={task.serviceIcon} onClick={this.onDetailClick.bind(this, task.key)}/> }/>,
+          leftAvatar={ <Avatar src={task.serviceIcon} onClick={this.onDetailClick.bind(this, task.key)}/> }
+          />,
         ]
       })
     }</List>

@@ -11,7 +11,9 @@ Feature: tasker test
   # This scenario will run as part of the Meteor dev cycle because it has the @dev tag
   #@dev
   Scenario:
-    When I click Service Icon or Description in Ask List Screen
+    When I click on AppBar Menu in Intro Page
+    And display Ask List Screen
+    And I click Service Icon or Description of Item in Ask List
     And display Task Detail include Taskers who accepted this task.
 
     When I choose one Tasker
