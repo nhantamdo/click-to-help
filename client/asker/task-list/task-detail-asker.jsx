@@ -273,6 +273,7 @@ TaskDetailAsker = React.createClass({
           rightToggle=
           {
             <Checkbox id={Acceptedtasker.tasker.username}
+          className="cbSelectTasker"
           ref={Acceptedtasker.tasker._id}
           name="checkboxName1"
           value={Acceptedtasker.tasker._id}
