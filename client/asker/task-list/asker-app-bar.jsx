@@ -46,10 +46,12 @@ AskerAppBAr = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
     var taskStatusHandle = Meteor.subscribe("taskStatus");
-    if (taskStatusHandle.ready()) {
-      var count = TaskStatus.find({status:"accepted"}).fetch().length;
+    var clickStatusHandle = Meteor.subscribe("askerClickQuery","0123456789")
+    if (taskStatusHandle.ready() && clickStatusHandle.ready()) {
+      var lastClick = ClickStatus.find().fetch()[0].clickAt;
+      var notification = TaskStatus.find({updatedAt:{$gte : lastClick}}).fetch();
       return {
-        notifCount: count
+        notifCount: notification.length
       }
     }
     return {
@@ -57,10 +59,12 @@ AskerAppBAr = React.createClass({
   },
 
   onClickNotification(e) {
-    this.setState({
-      viewNotification: !this.state.viewNotification,
-      numNotifi: 0
-    });
+    if (this.data.notifCount !== undefined) {
+      if (!this.state.viewNotification) Meteor.call('askerUpdateClick',"0123456789");
+      this.setState({
+        viewNotification: !this.state.viewNotification,
+      });
+    }
   },
   onCloseNotification() {
     this.setState({

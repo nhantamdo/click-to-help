@@ -39,7 +39,7 @@ TaskItem_Asker = React.createClass({
       }
     }
 
-    var status = this.props.status;
+    var status = this.props.status; 
     var result=[];
     TaskStatus.find({status: {$in: status}, taskerId:{$ne:null}},{sort: {updatedAt: -1}})
     .forEach(function (taskStatus){
@@ -81,7 +81,7 @@ TaskItem_Asker = React.createClass({
   },
 
   onDetailClick(taskKey){
-    FlowRouter.go('/task-detail-asker/show-detail?taskKey='+taskKey);    
+    FlowRouter.go('/task-detail-asker/show-detail?taskKey='+taskKey);
   },
 
   onClickTaskerAvatar(taskerId){

@@ -14,3 +14,6 @@ Meteor.publish("tasker", function() {
   return Tasker.find({
   });
 });
+Meteor.publish("askerClickQuery", function(phone) {
+  return ClickStatus.find({userId : phone});
+});
