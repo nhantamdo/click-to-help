@@ -43,7 +43,6 @@ ListAskerNotification = React.createClass({
     if(serviceHandle.ready() || taskHandle.ready() || taskStatusHandle.ready() || taskerHandle.ready()){
       TaskStatus.find({status:"accepted"},{sort: {updatedAt: -1}})
       .forEach(function (taskStatus){
-        console.log(taskStatus);
         task = Task.findOne({_id:taskStatus.taskId});
         service = Service.findOne({id:task.serviceId});
         tasker=Tasker.findOne({_id:taskStatus.taskerId});
