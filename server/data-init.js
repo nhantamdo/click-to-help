@@ -37,15 +37,32 @@ Meteor.startup(function () {
     email: "toanpp@twin.vn",
     avatar: "avatars/toanpp.jpg"
   });
+  ClickStatus.insert({
+    type:1,//0:asker 1:Tasker
+    userId:tasker1,
+    clickAt: new Date()
+  });
+
   tasker2 = Tasker.insert({
     username: "linhnh",
     email: "linhnh@twin.vn",
     avatar: "avatars/linhnh.jpg"
   });
+  ClickStatus.insert({
+    type:1,//0:asker 1:Tasker
+    userId:tasker2,
+    clickAt: new Date()
+  });
+
   tasker3 = Tasker.insert({
     username: "truongtt",
     email: "truongtt@twin.vn",
     avatar: "avatars/truongtk.jpg"
+  });
+  ClickStatus.insert({
+    type:1,//0:asker 1:Tasker
+    userId:tasker3,
+    clickAt: new Date()
   });
 
   task1 = Task.insert({
@@ -91,13 +108,6 @@ Meteor.startup(function () {
   });
   TaskStatus.insert({
     taskId: task1,
-    taskerId: tasker1,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    status: "new"
-  });
-  TaskStatus.insert({
-    taskId: task1,
     taskerId: tasker2,
     status: "unread",
     createdAt: new Date(),
@@ -137,19 +147,14 @@ Meteor.startup(function () {
     name: "Toan",//phone number
     createAt: new Date()
   });
-  User.insert({
-    phone: "9876543210",
-    name: "Truong",//phone number
-    createAt: new Date()
-  });
 
   ClickStatus.insert({
-    type:0,//0:tasker 1:asker
+    type:0,//0:asker 1:Tasker
     userId:"0123456789",
     clickAt: new Date()
   });
   ClickStatus.insert({
-    type:0,//0:tasker 1:asker
+    type:0,//0:asker 1:Tasker
     userId:"9876543210",
     clickAt: new Date()
   });

@@ -48,7 +48,8 @@ AskerAppBAr = React.createClass({
     var taskStatusHandle = Meteor.subscribe("taskStatus");
     var clickStatusHandle = Meteor.subscribe("askerClickQuery","0123456789")
     if (taskStatusHandle.ready() && clickStatusHandle.ready()) {
-      var lastClick = ClickStatus.find().fetch()[0].clickAt;
+      var lastClick = ClickStatus.find({type:0}).fetch()[0].clickAt;
+      //UserId
       var notification = TaskStatus.find({updatedAt:{$gte : lastClick}}).fetch();
       return {
         notifCount: notification.length
