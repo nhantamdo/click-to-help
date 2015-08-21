@@ -20,7 +20,7 @@
       .call(callback);
     });
 
-    this.When(/^I click the task "([^"]*)" in waiting list$/, function (arg1, callback) {
+    this.When(/^I click the task "([^"]*)" in waiting list.$/, function (arg1, callback) {
       this.client
       .click('span='.concat(arg1))
       .call(callback);
@@ -53,14 +53,44 @@
       .waitForVisible('span='.concat(arg1))
       .call(callback);
     });
-    
+
     this.Then(/^I go back to Comfirmed list$/, function (callback) {
       this.client
       .url(process.env.ROOT_URL + 'list-task-asker')
       .waitForExist('body *')
       .waitForVisible('body *')
+      .click('div=Confirmed')
       .call(callback);
     });
+
+    this.Then(/^I click the task "([^"]*)" in confirmed list$/, function (arg1, callback) {
+      this.client
+      .click('span='.concat(arg1))
+      .call(callback);
+    });
+
+    this.Then(/^I click "([^"]*)" button$/, function (arg1, callback) {
+      this.client
+      .click('#btnCancel')
+      .call(callback);
+    });
+
+    this.Then(/^I click "([^"]*)" action in Snackbar$/, function (arg1, callback) {
+      this.client
+      .click('span='.concat(arg1))
+      .call(callback);
+    });
+
+    this.Then(/^I see "([^"]*)" screen$/, function (arg1, callback) {
+      this.client
+      .waitForExist('h1='+arg1)
+      .waitForVisible('h1='+arg1)
+      .call(callback);
+});
+
+
+
+
 
 
 
