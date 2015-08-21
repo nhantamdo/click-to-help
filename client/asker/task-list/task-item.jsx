@@ -38,10 +38,11 @@ TaskItem_Asker = React.createClass({
         serviceLoading: !serviceHandle.ready(),
       }
     }
-
     var status = this.props.status;
     var result=[];
-    TaskStatus.find({status: {$in: status}, taskerId:{$ne:null}},{sort: {updatedAt: -1}})
+    var taskArray = TaskStatus.find({status: {$in: status}, taskerId:{$ne:null}},{sort: {updatedAt: -1}}).fetch();
+    var distinctArray = _.uniq(taskArray, false, function(d) {return d.taskId});
+    distinctArray
     .forEach(function (taskStatus){
       var task = Task.findOne({_id:taskStatus.taskId});
       var service = Service.findOne({id:task.serviceId});

@@ -68,6 +68,10 @@ ListAskerNotification = React.createClass({
   },
   propTypes: {
   },
+  onSkipButton(){
+    console.log("On skip button click");
+    this.refs.confirmSkip.show();
+  },
 
   onDetailClick(taskKey){
     React.render(<TaskDetailAsker taskKey={taskKey}/>, document.getElementById("container"));
@@ -112,7 +116,7 @@ ListAskerNotification = React.createClass({
                     </p>
                   }
                   leftAvatar={ <Avatar src={notif.avatar? notif.avatar : ""}/> }
-                  rightIconButton={<FlatButton label="X" />}/>,
+                  rightIconButton={<FlatButton label="X" onClick={this.onSkipButton}/>}/>,
                 this.listDivider(index,this.data.notif.length)
                 ]
               })):<CircularProgress mode="indeterminate" />
