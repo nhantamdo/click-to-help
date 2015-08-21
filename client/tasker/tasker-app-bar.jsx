@@ -38,24 +38,39 @@ TaskerAppBAr = React.createClass({
   getInitialState () {
     return {
       viewNotification: false,
-      numNotifi: this.count()
     };
   },
   propTypes: {
     onBack: React.PropTypes.func
   },
-  count() {
-    var tasker = Tasker.find({email:"toanpp@twin.vn"}).fetch()[0];
-    return TaskStatus.find({taskerId:tasker._id , status:"new"}).fetch().length;
+
+  mixins: [ReactMeteorData],
+  getMeteorData() {
+    var taskerHandle = Meteor.subscribe("tasker");
+    var taskStatusHandle = Meteor.subscribe("taskStatus");
+    var clickStatusHandle = Meteor.subscribe("TaskerClickQuery")
+    if (taskerHandle.ready() && taskStatusHandle.ready() && clickStatusHandle.ready()) {
+      // transfer TaskerId
+      let taskerId = Tasker.find({email:"linhnh@twin.vn"}).fetch()[0]._id;
+      var lastClick = ClickStatus.find({type:1,userId:taskerId}).fetch()[0].clickAt;
+      var notification = TaskStatus.find({taskerId:taskerId , updatedAt:{$gte : lastClick} , status:'unread'}).fetch();
+      return {
+        notifCount: notification.length
+      }
+    }
+    return {
+    };
   },
 
   onClickNotification(e) {
-    this.setState({
-      viewNotification: !this.state.viewNotification,
-      numNotifi: 0
-    });
-    Meteor.call("changeToUnread",Tasker.find({email:"toanpp@twin.vn"}).fetch()[0]);
+    if (this.data.notifCount !== undefined) {
+      if (!this.state.viewNotification) Meteor.call('TaskerUpdateClick',Tasker.find({email:"linhnh@twin.vn"}).fetch()[0]._id);
+      this.setState({
+        viewNotification: !this.state.viewNotification,
+      });
+    }
   },
+
   onCloseNotification() {
     this.setState({
       viewNotification: false,
@@ -75,7 +90,7 @@ TaskerAppBAr = React.createClass({
                     iconClassName="icon-notification"
                     onClick={this.onClickNotification}/>
                 </span>
-                <span className="numNotification">{this.state.numNotifi}</span>
+                <span className="numNotification">{this.data.notifCount? this.data.notifCount:0}</span>
                 <IconButton iconClassName="icon-help" />
                 <IconButton iconClassName="icon-back"
                   onClick={this.props.onBack} />

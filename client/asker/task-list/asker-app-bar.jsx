@@ -37,7 +37,6 @@ AskerAppBAr = React.createClass({
   getInitialState () {
     return {
       viewNotification: false,
-      numNotifi: 0
     };
   },
   propTypes: {
@@ -47,10 +46,13 @@ AskerAppBAr = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
     var taskStatusHandle = Meteor.subscribe("taskStatus");
-    if (taskStatusHandle.ready()) {
-      var count = TaskStatus.find({status:"accepted"}).fetch().length;
+    var clickStatusHandle = Meteor.subscribe("askerClickQuery","0123456789")
+    if (taskStatusHandle.ready() && clickStatusHandle.ready()) {
+      var lastClick = ClickStatus.find({type:0}).fetch()[0].clickAt;
+      //UserId
+      var notification = TaskStatus.find({updatedAt:{$gte : lastClick}}).fetch();
       return {
-        notifCount: count
+        notifCount: notification.length
       }
     }
     return {
@@ -58,21 +60,17 @@ AskerAppBAr = React.createClass({
   },
 
   onClickNotification(e) {
-    this.setState({
-      viewNotification: !this.state.viewNotification,
-      numNotifi: 0
-    });
+    if (this.data.notifCount !== undefined) {
+      if (!this.state.viewNotification) Meteor.call('askerUpdateClick',"0123456789");
+      this.setState({
+        viewNotification: !this.state.viewNotification,
+      });
+    }
   },
   onCloseNotification() {
     this.setState({
       viewNotification: false,
     });
-  },
-  componentDidMount() {
-    if (this.data.notifCount)
-      this.setState({
-        numNotifi: this.data.notifCount
-      });
   },
 
   render() {
@@ -86,7 +84,7 @@ AskerAppBAr = React.createClass({
                 <IconButton id="btnNotification"
                   iconClassName="icon-notification"
                   onClick={this.onClickNotification}/>
-                <span className="numNotification">{this.state.numNotifi}</span>
+                <span className="numNotification">{this.data.notifCount? this.data.notifCount:0}</span>
                 <IconButton iconClassName="icon-help" />
                 <IconButton iconClassName="icon-back"
                   onClick={this.props.onBack} />
