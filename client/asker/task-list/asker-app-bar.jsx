@@ -69,7 +69,6 @@ AskerAppBAr = React.createClass({
     });
   },
   componentDidMount() {
-    console.log("message");
     if (this.data.notifCount)
       this.setState({
         numNotifi: this.data.notifCount

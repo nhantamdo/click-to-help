@@ -237,7 +237,7 @@ TaskDetailAsker = React.createClass({
       <Card zDepth={0}>
       <div className="taskDescription">
 
-      <Avatar src={service.icon} style={avatarStyle}/>
+      <Avatar src={"/"+service.icon} style={avatarStyle}/>
 
       <CardTitle style={boldStyle}
       title={task.description}
@@ -252,7 +252,7 @@ TaskDetailAsker = React.createClass({
       {this.data.taskConfirmed.length > 0?
         <List>
         <ListItem
-        leftAvatar={<Avatar src={choosedTasker.avatar}/>}
+        leftAvatar={<Avatar src={"/"+choosedTasker.avatar}/>}
         primaryText={choosedTasker.username}
         secondaryText={choosedAt}
         secondaryTextLines={1}
@@ -266,7 +266,7 @@ TaskDetailAsker = React.createClass({
       {lstTasker.map((Acceptedtasker) => {
         return [
           <ListItem
-          leftAvatar={<Avatar src={Acceptedtasker.tasker.avatar}/>}
+          leftAvatar={<Avatar src={"/"+Acceptedtasker.tasker.avatar}/>}
           primaryText={Acceptedtasker.tasker.username}
           secondaryText={Acceptedtasker.acceptedAt}
           secondaryTextLines={1}
