@@ -107,7 +107,7 @@ TaskDetail = React.createClass({
     }
 
   },
-  _handleAction() {
+  _handleActionBackToList() {
     //We can add more code to this function, but for now we'll just include an alert.
     FlowRouter.go('/list-task-tasker');
   },
@@ -174,7 +174,7 @@ TaskDetail = React.createClass({
               message="Accept succesful"
               action="Back to Tasks list"
               autoHideDuration={0}
-              onActionTouchTap={this._handleAction}/>
+              onActionTouchTap={this._handleActionBackToList}/>
             <Card zDepth={0}>
               <div className="taskDescription">
 

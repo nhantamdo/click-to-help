@@ -34,7 +34,9 @@ TaskDetailAsker = React.createClass({
   getInitialState () {
     return {
       viewNotification: false,
-      lstTasker:[]
+      lstTasker:[],
+      stateChooseTaskerId: null
+
     };
   },
 
@@ -112,25 +114,34 @@ TaskDetailAsker = React.createClass({
 
   onClickNotification(e) {
     this.setState({
-      viewNotification: !this.state.viewNotification
+      viewNotification: !this.state.viewNotification,
     });
   },
 
   onCheckClick(event, checked){
-    var taskerId = event.target.value;
-    if(checked==true){
-      this.chooseTaskerId = taskerId;
-    }else{
-      this.chooseTaskerId = null;
+    if(checked==false && event.target.value==this.state.stateChooseTaskerId){
+      this.setState({
+        stateChooseTaskerId: null
+      })
     }
-    this.lstTasker
-    .forEach(function (tasker){
-      if(tasker.tasker._id != taskerId && checked == true){
-        var x  = $(React.findDOMNode(this)).find();
-        console.log(x);
-        this.refs[tasker.tasker._id].setChecked(false);
-      }
-    });
+    else{
+      var taskerId = event.target.value;
+      this.setState({
+        stateChooseTaskerId: taskerId
+      })
+    }
+    // else{
+    //   this.setState({
+    //     stateChooseTaskerId: ""
+    //   })
+    // }
+    // this.lstTasker
+    // .forEach(function (tasker){
+    //   if(tasker.tasker._id != taskerId && checked == true){
+    //     console.log(this.refs);
+    //     //this.refs[tasker.tasker._id].setChecked(false);
+    //   }
+    // });
 
   },
   componentDidMount: function() {
@@ -279,6 +290,7 @@ TaskDetailAsker = React.createClass({
           ref={Acceptedtasker.tasker._id}
           name="checkboxName1"
           value={Acceptedtasker.tasker._id}
+          defaultChecked={Acceptedtasker.tasker._id==this.state.stateChooseTaskerId}
           onCheck={this.onCheckClick.bind(Acceptedtasker.tasker._id)}/>
           }
           />
