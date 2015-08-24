@@ -19,7 +19,7 @@
       .waitForVisible('body *')
       .call(callback);
     });
- 
+
     this.When(/^I click the notification button$/, function (callback) {
       this.client
       .click('.icon-notification')

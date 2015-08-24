@@ -6,6 +6,11 @@
 
 meteor-platform
 react
+accounts-password
+accounts-facebook
+service-configuration
+accounts-twitter
+accounts-google
 xolvio:cucumber
 
 cosmos:browserify

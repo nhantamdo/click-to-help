@@ -38,6 +38,7 @@ SignUp = React.createClass({
   },
 
   getInitialState () {
+    phoneErrorText:""
     return {
     };
   },
@@ -58,13 +59,27 @@ SignUp = React.createClass({
     FlowRouter.go('/login');
   },
   onChangePhone(){
-    if(this.refs.txtMobilePhone.getValue().length < 10){
-      console.log(this.refs.txtMobilePhone.getValue().length);
-      this.refs.txtMobilePhone.errorText="Mobile phone must be 10 or 11 charactors";
+    if(this.refs.txtMobilePhone.getValue().length != 10 && this.refs.txtMobilePhone.getValue().length != 11){
+      this.setState({
+        phoneErrorText: "The phone number should contain 10 or 11 digits",
+      });
+    }
+    else{
+      this.setState({
+        phoneErrorText: "",
+      });
     }
   },
   onCapture(){
     //Capture avatar picture
+  },
+  toActivationPage(){
+    var param = {
+      name: this.refs.txtYourName.getValue().trim(),
+      phone:this.refs.txtMobilePhone.getValue().trim(),
+      code:"12345"
+    };
+    FlowRouter.go('/activation', "", param);
   },
 
 
@@ -91,14 +106,17 @@ SignUp = React.createClass({
                 id="txtYourName"
                 ref="txtYourName"
                 hintText="Your name"
+                floatingLabelText="Your name"
                 />
               <TextField fullWidth={true}
                 id="txtMobilePhone"
                 ref="txtMobilePhone"
                 hintText="Mobile phone"
+                floatingLabelText="Mobile phone"
+                errorText={this.state.phoneErrorText}
                 onChange={this.onChangePhone}/>
               <div className="padding-top-bottom">
-                <RaisedButton fullWidth={true} label="Next >" primary={true} />
+                <RaisedButton id="btnToActivation" fullWidth={true} label="Next >" primary={true} onClick={this.toActivationPage}/>
               </div>
               <div className="backButton">
                 <RaisedButton secondary={true} label="Facebook" fullWidth={true}/>
