@@ -14,7 +14,7 @@
       // Write code here that turns the phrase above into concrete actions
       this.server.call("resetDataConfriming");
       this.client
-      .url(process.env.ROOT_URL + 'list-task-asker')
+      .url(process.env.ROOT_URL + 'ask-list')
       .waitForExist('body *')
       .waitForVisible('body *')
       .call(callback);
@@ -56,7 +56,7 @@
 
     this.Then(/^I go back to Comfirmed list$/, function (callback) {
       this.client
-      .url(process.env.ROOT_URL + 'list-task-asker')
+      .url(process.env.ROOT_URL + 'ask-list')
       .waitForExist('body *')
       .waitForVisible('body *')
       .click('div=Confirmed')

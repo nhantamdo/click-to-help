@@ -89,9 +89,10 @@ TaskDetailAsker = React.createClass({
   },
 
   onAcceptClick(){
-    if(this.chooseTaskerId != null){
+
+    if(this.state.stateChooseTaskerId != null){
       var task  = this.data.tasks[0];
-      var taskS = TaskStatus.find({taskId:task._id, taskerId:this.chooseTaskerId}).fetch()[0];
+      var taskS = TaskStatus.find({taskId:task._id, taskerId:this.state.stateChooseTaskerId}).fetch()[0];
       Meteor.call("changeTaskStatus", taskS, "confirmed");
       this.refs.AcceptSuccess.show();
     }else{
@@ -104,7 +105,7 @@ TaskDetailAsker = React.createClass({
     //We can add more code to this function, but for now we'll just include an alert.
     Meteor.call("cancelTask", this.data.tasks[0]._id);
     this.refs.cancelConfirmSnackbar.dismiss();
-    FlowRouter.go('/list-task-asker');
+    FlowRouter.go('/ask-list');
   },
   _handleActionClose() {
     //We can add more code to this function, but for now we'll just include an alert.
@@ -300,20 +301,24 @@ TaskDetailAsker = React.createClass({
     }
     </List>
     </div>
-    <div id="functionButton">
+    <div className="backButton">
     <RaisedButton
     id="btnCancel"
     label="Cancel task"
     secondary={true}
+    fullWidth={true}
     onClick={this.onCancelClick} />
+    </div>
     {this.data.taskConfirmed.length <= 0?
+      <div className="backButton">
       <RaisedButton
       id="btnAccept"
       label="Accept"
       primary={true}
-      onClick={this.onAcceptClick}/>:<div></div>
+      fullWidth={true}
+      onClick={this.onAcceptClick}/>
+      </div>:<div></div>
     }
-    </div>
 
     </div>
     </div>

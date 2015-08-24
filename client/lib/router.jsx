@@ -54,3 +54,9 @@ FlowRouter.route('/login',{
     ReactLayout.render(Login);
   }
 });
+
+FlowRouter.route('/sign-up',{
+  action: function(params, queryParams){
+    ReactLayout.render(SignUp);
+  }
+});
