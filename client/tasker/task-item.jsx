@@ -87,7 +87,7 @@ TaskItem = React.createClass({
       overflow: 'hidden',
       whiteSpace: 'pre-line',
       textOverflow: 'ellipsis',
-      height: '32px',
+      maxHeight: '32px',
     };
     let unreadStyle = {
       backgroundColor: "#eceff5",
