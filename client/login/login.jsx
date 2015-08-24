@@ -156,7 +156,7 @@ Login = React.createClass({
                 hasChannel = true;
                 return;
               }
-            });            
+            });
             if(hasChannel){ // Tasker
               FlowRouter.go('/list-task-tasker');
             }
@@ -193,6 +193,7 @@ Login = React.createClass({
           } />
         <div className="padding-left-right">
           <TextField
+            id="txtPhone"
             ref="phoneNumber"
             floatingLabelText="Phone"
             errorText={this.state.phoneValid}
