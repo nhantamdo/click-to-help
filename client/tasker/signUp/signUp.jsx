@@ -75,18 +75,28 @@ SignUp = React.createClass({
     //Capture avatar picture
   },
   toActivationPage(){
+    var validate = true;
     if(this.refs.txtYourName.getValue().trim() == ""){
       this.setState({
-        nameErrorText:""
+        nameErrorText:"This field is required."
       });
+      validate = false;
+    }
+    if(this.refs.txtMobilePhone.getValue().trim() == ""){
+      this.setState({
+        phoneErrorText:"This field is required."
+      });
+      validate = false;
+    }
+    if(validate == true){
+      var param = {
+        name: this.refs.txtYourName.getValue().trim(),
+        phone:this.refs.txtMobilePhone.getValue().trim(),
+        code:"12345"
+      };
+      FlowRouter.go('/activation', "", param);
     }
 
-    var param = {
-      name: this.refs.txtYourName.getValue().trim(),
-      phone:this.refs.txtMobilePhone.getValue().trim(),
-      code:"12345"
-    };
-    FlowRouter.go('/activation', "", param);
   },
 
 
@@ -114,6 +124,7 @@ SignUp = React.createClass({
                 ref="txtYourName"
                 hintText="Your name"
                 floatingLabelText="Your name"
+                errorText={this.state.nameErrorText}
                 />
               <TextField fullWidth={true}
                 id="txtMobilePhone"
