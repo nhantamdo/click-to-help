@@ -5,6 +5,7 @@ Meteor.startup(function () {
   Tasker.remove({});
   ClickStatus.remove({});
   User.remove({});
+  UserChannel.remove({});
 
   Service.insert({
     id: "001",
@@ -145,6 +146,19 @@ Meteor.startup(function () {
   User.insert({
     phone: "0123456789",
     name: "Toan",//phone number
+    password: "123456",
+    createAt: new Date()
+  });
+  User.insert({
+    phone: "0903727390",
+    name: "Linh",
+    password: "123456",
+    createAt: new Date()
+  });
+  User.insert({
+    phone: "0123123123",
+    name: "Trưởng",
+    password: "123456",
     createAt: new Date()
   });
 
@@ -157,5 +171,18 @@ Meteor.startup(function () {
     type:0,//0:asker 1:Tasker
     userId:"9876543210",
     clickAt: new Date()
+  });
+
+  UserChannel.insert({
+    userId: "0903727390",
+    serviceId: "001"
+  });
+  UserChannel.insert({
+    userId: "0123456789",
+    serviceId: "002"
+  });
+  UserChannel.insert({
+    userId: "0123456789",
+    serviceId: "003"
   });
 });
