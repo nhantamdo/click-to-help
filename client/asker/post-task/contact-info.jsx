@@ -68,7 +68,9 @@ ContactInfo = React.createClass({
 
     addressValid = (address==""? "This field is required.":"");
 
+    console.log(phone);
     if (phone == "") {
+      console.log("message");
       this.setState({
         phoneValid : "This field is required.",
       });
@@ -82,7 +84,7 @@ ContactInfo = React.createClass({
 
     var emailValid = "";
     if (email!="") emailValid = (emailRegex.test(email)? "":"Email is not valid.");
-    if (addressValid=="" && this.state.phoneValid=="" &&
+    if (addressValid=="" && this.state.phoneValid=="" && phone!="" &&
       nameValid=="" && emailValid=="") {
         let queryParams = {
           serviceId: this.props.serviceId,

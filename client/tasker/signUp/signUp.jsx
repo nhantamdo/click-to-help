@@ -73,42 +73,42 @@ SignUp = React.createClass({
     let avataStyle = {display:"inherit"};
     return (
       <div>
-      <AppBar
-      title="SIGN UP"
-      iconElementRight={
-        <div>
-        <IconButton iconClassName="icon-help" />
-        <IconButton iconClassName="icon-back" onClick={this.onBack} />
-        </div>
-      } />
-      <div className="main">
+        <AppBar
+          title="SIGN UP"
+          iconElementRight={
+            <div>
+              <IconButton iconClassName="icon-help" />
+              <IconButton iconClassName="icon-back" onClick={this.onBack} />
+            </div>
+          } />
+          <div className="main">
 
-      <div>
-      <Avatar className="itemCenter" src="avatars/avatarDefault.png" size={150} style={avataStyle} onClick={this.onCapture}/>
-      </div>
-      <div id="userInformation" className="padding-left-right" >
-      <TextField fullWidth={true}
-      id="txtYourName"
-      ref="txtYourName"
-      hintText="Your name"
-      />
-      <TextField fullWidth={true}
-      id="txtMobilePhone"
-      ref="txtMobilePhone"
-      hintText="Mobile phone"
-      onChange={this.onChangePhone}/>
-      <div className="padding-top-bottom">
-      <RaisedButton fullWidth={true} label="Next >" primary={true} />
-      </div>
-      <div className="backButton">
-      <RaisedButton secondary={true} label="Facebook" fullWidth={true}/>
-      </div>
-      <div className="nextButton">
-      <RaisedButton primary={true} label="Google" fullWidth={true}/>
-      </div>
-      </div>
-      </div>
-      </div>
-    );
-  }
-});
+            <div>
+              <Avatar className="itemCenter" src="avatars/avatarDefault.png" size={150} style={avataStyle} onClick={this.onCapture}/>
+            </div>
+            <div id="userInformation" className="padding-left-right" >
+              <TextField fullWidth={true}
+                id="txtYourName"
+                ref="txtYourName"
+                hintText="Your name"
+                />
+              <TextField fullWidth={true}
+                id="txtMobilePhone"
+                ref="txtMobilePhone"
+                hintText="Mobile phone"
+                onChange={this.onChangePhone}/>
+              <div className="padding-top-bottom">
+                <RaisedButton fullWidth={true} label="Next >" primary={true} />
+              </div>
+              <div className="backButton">
+                <RaisedButton secondary={true} label="Facebook" fullWidth={true}/>
+              </div>
+              <div className="nextButton">
+                <RaisedButton primary={true} label="Google" fullWidth={true}/>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+  });
