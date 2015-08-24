@@ -18,11 +18,13 @@ const{
   ListDivider,
   CircularProgress,
   FlatButton,
-  SvgIcon
+  SvgIcon,
+  Dialog
 } = mui;
 
 const ThemeManager = new mui.Styles.ThemeManager();
 
+var a = false;
 ListAskerNotification = React.createClass({
   childContextTypes: {
     muiTheme: React.PropTypes.object
@@ -52,7 +54,8 @@ ListAskerNotification = React.createClass({
           avatar: tasker.avatar,
           description: task.description,
           taskerName: tasker.username,
-          acceptedAt: taskStatus.updatedAt
+          acceptedAt: taskStatus.updatedAt,
+          taskStatusId: taskStatus._id
         });
       });
       return {
@@ -69,15 +72,15 @@ ListAskerNotification = React.createClass({
   },
   propTypes: {
   },
-  onSkipButton(){
+  onSkipButton(taskStatusId){
     console.log("On skip button click");
-    this.refs.confirmSkip.show();
+    a = true;
+    Meteor.call("changeToReject",taskStatusId);
   },
   onDetailClick(taskKey){
-    FlowRouter.go('/task-detail-asker/show-detail?taskKey='+taskKey);
-  },
-  onSkipClick() {
-    console.log("skip click");
+    console.log("Detail Click");
+    if (!a) FlowRouter.go('/task-detail-asker/show-detail?taskKey='+taskKey);
+    else a = false;
   },
 
   listDivider(index,length) {
@@ -126,17 +129,20 @@ ListAskerNotification = React.createClass({
                     </p>
                   }
                   leftAvatar={ <Avatar src={notif.avatar? notif.avatar : ""}/> }
-                  rightIcon={<SvgIcon
-                    onClick={this.onSkipClick}>
-                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-                    <path d="M0 0h24v24H0z" fill="none"/>
-                  </SvgIcon>}/>,
-                  this.listDivider(index,this.data.notif.length)
-                  ]
-                })):<CircularProgress mode="indeterminate" />
-              }</List>
-            </div>
-          </Paper>
-        );
-      }
-    });
+                  rightIconButton=
+                  <IconButton
+                    onClick={this.onSkipButton.bind(this,notif.taskStatusId)}>
+                    <SvgIcon>
+                      <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                      <path d="M0 0h24v24H0z" fill="none"/>
+                    </SvgIcon>
+                  </IconButton>/>,
+                this.listDivider(index,this.data.notif.length)
+                ]
+              })):<CircularProgress mode="indeterminate" />
+            }</List>
+          </div>
+        </Paper>
+      );
+    }
+  });
