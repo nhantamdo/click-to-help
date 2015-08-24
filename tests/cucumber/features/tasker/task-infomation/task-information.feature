@@ -21,7 +21,7 @@ Feature: Task confirming test
     When I click the notification button
     And I click the task "Lau dọn nhà trong ngày 15/08/2015, bao gồm 2 phòng ngủ, 1 phòng khách"
     Then I see "Task information" and "Lau dọn nhà trong ngày 15/08/2015, bao gồm 2 phòng ngủ, 1 phòng khách"
-    #And I click Accept button
-    #And I see "Accept succesful"
-    #And I click "Back to Tasks list"
-    #And I see Tab Accepted in Taks list
+    And I click Accept button
+    And I see "Accept succesful"
+    And I click "Back to Tasks list"
+    And I see Tab Accepted in Taks list
