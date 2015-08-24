@@ -38,6 +38,7 @@ SignUp = React.createClass({
   },
 
   getInitialState () {
+    phoneErrorText:""
     return {
     };
   },
@@ -58,9 +59,15 @@ SignUp = React.createClass({
     FlowRouter.go('/login');
   },
   onChangePhone(){
-    if(this.refs.txtMobilePhone.getValue().length < 10){
-      console.log(this.refs.txtMobilePhone.getValue().length);
-      this.refs.txtMobilePhone.errorText="Mobile phone must be 10 or 11 charactors";
+    if(this.refs.txtMobilePhone.getValue().length != 10 && this.refs.txtMobilePhone.getValue().length != 11){
+      this.setState({
+        phoneErrorText: "The phone number should contain 10 or 11 digits",
+      });
+    }
+    else{
+      this.setState({
+        phoneErrorText: "",
+      });
     }
   },
   onCapture(){
@@ -91,11 +98,14 @@ SignUp = React.createClass({
                 id="txtYourName"
                 ref="txtYourName"
                 hintText="Your name"
+                floatingLabelText="Your name"
                 />
               <TextField fullWidth={true}
                 id="txtMobilePhone"
                 ref="txtMobilePhone"
                 hintText="Mobile phone"
+                floatingLabelText="Mobile phone"
+                errorText={this.state.phoneErrorText}
                 onChange={this.onChangePhone}/>
               <div className="padding-top-bottom">
                 <RaisedButton fullWidth={true} label="Next >" primary={true} />
