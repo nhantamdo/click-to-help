@@ -62,27 +62,27 @@ SignUp = React.createClass({
     let avataStyle = {display:"inherit"};
     return (
       <div>
-      <TaskerAppBAr title="Task List" onBack={this.onBack}/>
-      <div className="main">
-      <div>
-      <Avatar className="itemCenter" src="avatars/avatarDefault.png" size={150} style={avataStyle}/>
-      </div>
-      <div id="userInformation" className="padding-left-right" >
-      <TextField fullWidth={true}
-      id="txtYourName"
-      hintText="Your name" />
-      <TextField fullWidth={true}
-      id="txtMobilePhone"
-      hintText="Mobile phone" />
-      <div className="padding-top">
-      <RaisedButton fullWidth={true} label="Next >" primary={true} />
-      </div>
-      <div className="itemCenter">
-      <RaisedButton secondary={true} label="Facebook"/>
-      <RaisedButton primary={true} label="Google"/>
-      </div>
-      </div>
-      </div>
+        <TaskerAppBAr title="Task List" onBack={this.onBack}/>
+        <div className="main">
+          <div>
+            <Avatar className="itemCenter" src="avatars/avatarDefault.png" size={150} style={avataStyle}/>
+          </div>
+          <div id="userInformation" className="padding-left-right" >
+            <TextField fullWidth={true}
+              id="txtYourName"
+              hintText="Your name" />
+            <TextField fullWidth={true}
+              id="txtMobilePhone"
+              hintText="Mobile phone" />
+            <div className="padding-top">
+              <RaisedButton fullWidth={true} label="Next >" primary={true} />
+            </div>
+            <div className="itemCenter">
+              <RaisedButton secondary={true} label="Facebook"/>
+              <RaisedButton primary={true} label="Google"/>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

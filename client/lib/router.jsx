@@ -54,3 +54,9 @@ FlowRouter.route('/login',{
     ReactLayout.render(Login);
   }
 });
+
+FlowRouter.route('/choose-service',{
+  action: function(params, queryParams){
+    ReactLayout.render(ChooseService);
+  }
+});
