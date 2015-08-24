@@ -38,8 +38,9 @@ SignUp = React.createClass({
   },
 
   getInitialState () {
-    phoneErrorText:""
     return {
+      phoneErrorText:"",
+      nameErrorText:""
     };
   },
   propTypes: {
@@ -56,7 +57,7 @@ SignUp = React.createClass({
 
 
   onBack(){
-    FlowRouter.go('/login');
+    FlowRouter.go('/');
   },
   onChangePhone(){
     if(this.refs.txtMobilePhone.getValue().length != 10 && this.refs.txtMobilePhone.getValue().length != 11){
@@ -74,12 +75,28 @@ SignUp = React.createClass({
     //Capture avatar picture
   },
   toActivationPage(){
-    var param = {
-      name: this.refs.txtYourName.getValue().trim(),
-      phone:this.refs.txtMobilePhone.getValue().trim(),
-      code:"12345"
-    };
-    FlowRouter.go('/activation', "", param);
+    var validate = true;
+    if(this.refs.txtYourName.getValue().trim() == ""){
+      this.setState({
+        nameErrorText:"This field is required."
+      });
+      validate = false;
+    }
+    if(this.refs.txtMobilePhone.getValue().trim() == ""){
+      this.setState({
+        phoneErrorText:"This field is required."
+      });
+      validate = false;
+    }
+    if(validate == true){
+      var param = {
+        name: this.refs.txtYourName.getValue().trim(),
+        phone:this.refs.txtMobilePhone.getValue().trim(),
+        code:"12345"
+      };
+      FlowRouter.go('/activation', "", param);
+    }
+
   },
 
 
@@ -107,6 +124,7 @@ SignUp = React.createClass({
                 ref="txtYourName"
                 hintText="Your name"
                 floatingLabelText="Your name"
+                errorText={this.state.nameErrorText}
                 />
               <TextField fullWidth={true}
                 id="txtMobilePhone"
