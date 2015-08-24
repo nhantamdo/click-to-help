@@ -66,3 +66,9 @@ FlowRouter.route('/sign-up',{
     ReactLayout.render(SignUp);
   }
 });
+
+FlowRouter.route('/activation',{
+  action: function(params, queryParams){
+    ReactLayout.render(Activation_Tasker, queryParams);
+  }
+});

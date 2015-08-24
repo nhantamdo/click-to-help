@@ -47,7 +47,6 @@ ChooseService = React.createClass({
     this.setState({
       selectedServiceId: this.state.selectedServiceId
     });
-    console.log(this.state.selectedServiceId);
   },
 
   renderService() {
@@ -55,8 +54,7 @@ ChooseService = React.createClass({
         this.data.services.map((service) => {
           let style = {};
           if (this.state.selectedServiceId.indexOf(service.id) != -1) {
-            style["color"] = "#ffffff";
-            style["backgroundColor"] = "#00bcd4";
+            style["color"] = "#00bcd4";
           }
 
           return [
