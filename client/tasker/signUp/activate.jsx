@@ -92,7 +92,7 @@ Activation_Tasker = React.createClass({
         password: false
       }, function(){
         if(Number(code) === activationCodeGenerate){
-          
+
         }
         else {
           this.refs.dialogMessage.show();
@@ -127,14 +127,14 @@ Activation_Tasker = React.createClass({
           </div>
           <TextField
             ref="txtActivationCode"
-            floatingLabelText="Activation Code (test: 1234)"
-            errorText={this.state.activationCode ? "This field is required" : ""}
+            floatingLabelText="Activation Code (test: 12345)"
+            errorText={this.state.activationCode}
             onBlur={this.onBlurActivationCode}
             fullWidth={true} />
           <TextField
             ref="txtPassword"
             floatingLabelText="Password"
-            errorText={this.state.password ? "This field is required" : ""}
+            errorText={this.state.password}
             type="password"
             onBlur={this.onBlurPassword}
             fullWidth={true} />

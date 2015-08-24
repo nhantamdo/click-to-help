@@ -172,6 +172,10 @@ Login = React.createClass({
     }
   },
 
+  onSignUp(){
+    FlowRouter.go('/sign-up');
+  },
+
   render() {
     let styleSignUp = {
       position: "fixed",
@@ -226,7 +230,8 @@ Login = React.createClass({
           <RaisedButton
             label="Sign up"
             primary={true}
-            fullWidth={true}/>
+            fullWidth={true}
+            onClick={this.onSignUp}/>
         </div>
         <Dialog
           ref="dlMessage"
