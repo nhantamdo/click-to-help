@@ -48,3 +48,9 @@ FlowRouter.route('/task-detail-tasker/:taskStatusId',{
     ReactLayout.render(TaskDetail, queryParams);
   }
 });
+
+FlowRouter.route('/login',{
+  action: function(params, queryParams){
+    ReactLayout.render(Login);
+  }
+});
