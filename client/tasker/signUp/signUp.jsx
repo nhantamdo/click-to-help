@@ -73,6 +73,14 @@ SignUp = React.createClass({
   onCapture(){
     //Capture avatar picture
   },
+  toActivationPage(){
+    var param = {
+      name: this.refs.txtYourName.getValue().trim(),
+      phone:this.refs.txtMobilePhone.getValue().trim(),
+      code:"12345"
+    };
+    FlowRouter.go('/activation', "", param);
+  },
 
 
 
@@ -108,7 +116,7 @@ SignUp = React.createClass({
                 errorText={this.state.phoneErrorText}
                 onChange={this.onChangePhone}/>
               <div className="padding-top-bottom">
-                <RaisedButton fullWidth={true} label="Next >" primary={true} />
+                <RaisedButton id="btnToActivation" fullWidth={true} label="Next >" primary={true} onClick={this.toActivationPage}/>
               </div>
               <div className="backButton">
                 <RaisedButton secondary={true} label="Facebook" fullWidth={true}/>
