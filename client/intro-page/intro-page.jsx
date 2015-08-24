@@ -42,7 +42,7 @@ IntroPage = React.createClass({
   },
 
   onTaskerClick() {
-    FlowRouter.go('/list-task-tasker');
+    FlowRouter.go('/sign-up');
   },
 
   render() {

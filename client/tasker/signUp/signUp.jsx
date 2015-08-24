@@ -38,8 +38,9 @@ SignUp = React.createClass({
   },
 
   getInitialState () {
-    phoneErrorText:""
     return {
+      phoneErrorText:"",
+      nameErrorText:""
     };
   },
   propTypes: {
@@ -56,7 +57,7 @@ SignUp = React.createClass({
 
 
   onBack(){
-    FlowRouter.go('/login');
+    FlowRouter.go('/');
   },
   onChangePhone(){
     if(this.refs.txtMobilePhone.getValue().length != 10 && this.refs.txtMobilePhone.getValue().length != 11){
@@ -74,6 +75,12 @@ SignUp = React.createClass({
     //Capture avatar picture
   },
   toActivationPage(){
+    if(this.refs.txtYourName.getValue().trim() == ""){
+      this.setState({
+        nameErrorText:""
+      });
+    }
+
     var param = {
       name: this.refs.txtYourName.getValue().trim(),
       phone:this.refs.txtMobilePhone.getValue().trim(),
