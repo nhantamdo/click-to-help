@@ -28,78 +28,71 @@ Activation_Tasker = React.createClass({
 
   getInitialState () {
     return {
-      activationCode: false,
-      activationCodeText: "Activation Code not correct, Please check message on your phone.",
-      password: false
+      activationCode: "",
+      password: ""
     };
   },
   propTypes: {
   },
 
-  onBack(){
-    //React.render(<HomePage />, document.getElementById("container"));
-  },
-
   onBlurActivationCode(){
-    var activationCode = this.refs.txtActivationCode.getValue().trim();
-    if(activationCode.length == 0){
-      this.setState({
-        activationCode: true
-      });
+    var mes = "";
+    var code = this.refs.txtActivationCode.getValue().trim();
+    if(code.length == 0){
+      mes = "This field is required";
     }
     else {
-      this.setState({
-        activationCode: false
-      });
+      mes = "";
     }
+    this.setState({
+      activationCode: mes
+    });
   },
 
   onBlurPassword(){
+    var mes = "";
     var password = this.refs.txtPassword.getValue().trim();
     if(password.length == 0){
-      this.setState({
-        password: true
-      });
+      mes = "This field is required";
     }
     else {
-      this.setState({
-        password: false
-      });
+      mes = "";
     }
+    this.setState({
+      password: mes
+    });
   },
 
   onNext(){
-    var activationCode = this.refs.txtActivationCode.getValue().trim();
+    var messageCode = "", messagePass = "";
+    var code = this.refs.txtActivationCode.getValue().trim();
     var password = this.refs.txtPassword.getValue().trim();
-    if(activationCode.length == 0 || password.length == 0){
-      if(activationCode.length == 0){
-        this.setState({
-          activationCode: true
-        });
+    if(code.length == 0 || password.length == 0){
+      if(code.length == 0){
+        messageCode = "This field is required";
       }
       else {
-        this.setState({
-          activationCode: false
-        });
+        messageCode = "";
       }
 
       if(password.length == 0){
-        this.setState({
-          password: true
-        });
+        messagePass = "This field is required";
       }
       else {
-        this.setState({
-          password: false
-        });
+        messagePass = "";
       }
+      this.setState({
+        activationCode: messageCode,
+        password: messagePass
+      });
     }
     else {
       this.setState({
         activationCode: false,
         password: false
       }, function(){
-        if(Number(activationCode) === activationCodeGenerate){
+        if(Number(code) === activationCodeGenerate){
+          
         }
         else {
           this.refs.dialogMessage.show();
@@ -122,7 +115,6 @@ Activation_Tasker = React.createClass({
           iconElementRight={
             <div>
               <IconButton iconClassName="icon-help" />
-              <IconButton iconClassName="icon-back" onClick={this.onBack} />
             </div>
           } />
         <br/>
@@ -158,7 +150,7 @@ Activation_Tasker = React.createClass({
         <Dialog
           ref="dialogMessage"
           actions={standardActions}>
-          {this.state.activationCodeText}
+          Activation Code not correct, Please check message on your phone.
         </Dialog>
       </div>
       );
