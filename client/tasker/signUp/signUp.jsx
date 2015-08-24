@@ -61,13 +61,13 @@ SignUp = React.createClass({
     if(this.refs.txtMobilePhone.getValue().length < 10){
       console.log(this.refs.txtMobilePhone.getValue().length);
       this.refs.txtMobilePhone.errorText="Mobile phone must be 10 or 11 charactors";
-    },
+    }
+  },
   onCapture(){
     //Capture avatar picture
   },
 
 
-  },
 
   render() {
     let avataStyle = {display:"inherit"};
