@@ -55,31 +55,56 @@ SignUp = React.createClass({
 
 
   onBack(){
-    React.render(<Login />, document.getElementById("container"));
+    FlowRouter.go('/login');
+  },
+  onChangePhone(){
+    if(this.refs.txtMobilePhone.getValue().length < 10){
+      console.log(this.refs.txtMobilePhone.getValue().length);
+      this.refs.txtMobilePhone.errorText="Mobile phone must be 10 or 11 charactors";
+    },
+  onCapture(){
+    //Capture avatar picture
+  },
+
+
   },
 
   render() {
     let avataStyle = {display:"inherit"};
     return (
       <div>
-      <TaskerAppBAr title="Task List" onBack={this.onBack}/>
+      <AppBar
+      title="SIGN UP"
+      iconElementRight={
+        <div>
+        <IconButton iconClassName="icon-help" />
+        <IconButton iconClassName="icon-back" onClick={this.onBack} />
+        </div>
+      } />
       <div className="main">
+
       <div>
-      <Avatar className="itemCenter" src="avatars/avatarDefault.png" size={150} style={avataStyle}/>
+      <Avatar className="itemCenter" src="avatars/avatarDefault.png" size={150} style={avataStyle} onClick={this.onCapture}/>
       </div>
       <div id="userInformation" className="padding-left-right" >
       <TextField fullWidth={true}
       id="txtYourName"
-      hintText="Your name" />
+      ref="txtYourName"
+      hintText="Your name"
+      />
       <TextField fullWidth={true}
       id="txtMobilePhone"
-      hintText="Mobile phone" />
-      <div className="padding-top">
+      ref="txtMobilePhone"
+      hintText="Mobile phone"
+      onChange={this.onChangePhone}/>
+      <div className="padding-top-bottom">
       <RaisedButton fullWidth={true} label="Next >" primary={true} />
       </div>
-      <div className="itemCenter">
-      <RaisedButton secondary={true} label="Facebook"/>
-      <RaisedButton primary={true} label="Google"/>
+      <div className="backButton">
+      <RaisedButton secondary={true} label="Facebook" fullWidth={true}/>
+      </div>
+      <div className="nextButton">
+      <RaisedButton primary={true} label="Google" fullWidth={true}/>
       </div>
       </div>
       </div>
