@@ -172,16 +172,7 @@ Login = React.createClass({
     }
   },
 
-  onSignUp(){
-    FlowRouter.go('/sign-up');
-  },
-
-  render() {
-    let styleSignUp = {
-      position: "fixed",
-      width: "90%",
-      bottom: "4%"
-    };
+  render() {    
     let standardActions = [
       { text: 'OK' }
     ];
@@ -225,13 +216,6 @@ Login = React.createClass({
         </div><br/>
         <div className="button-secondary">
           <a href="/forgot-password">Forgot password</a>
-        </div>
-        <div className="padding-left-right" style={styleSignUp}>
-          <RaisedButton
-            label="Sign up"
-            primary={true}
-            fullWidth={true}
-            onClick={this.onSignUp}/>
         </div>
         <Dialog
           ref="dlMessage"

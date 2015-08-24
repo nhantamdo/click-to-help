@@ -8,12 +8,11 @@ const{
   IconButton,
   TextField,
   RaisedButton,
-  Dialog
+  Dialog,
+  Checkbox
 } = mui;
 
 const ThemeManager = new mui.Styles.ThemeManager();
-
-var activationCodeGenerate = 1234;
 
 Activation_Tasker = React.createClass({
   childContextTypes: {
@@ -29,7 +28,8 @@ Activation_Tasker = React.createClass({
   getInitialState () {
     return {
       activationCode: "",
-      password: ""
+      password: "",
+      passwordConfirm: ""
     };
   },
   propTypes: {
@@ -63,11 +63,36 @@ Activation_Tasker = React.createClass({
     });
   },
 
+  onBlurPasswordConfirm(){
+    var mes = "";
+    var password = this.refs.txtPassword.getValue().trim();
+    var passwordConfirm = this.refs.txtPasswordConfirm.getValue().trim();
+    if(passwordConfirm.length == 0){
+      mes = "This field is required";
+    }
+    else {
+      if(password != passwordConfirm){
+        mes = "Password Confirm is incorrect";
+      }
+      else {
+        mes = "";
+      }
+    }
+    this.setState({
+      passwordConfirm: mes
+    });
+  },
+
+  onChangePasswordConfirm(){
+    this.onBlurPasswordConfirm();
+  },
+
   onNext(){
-    var messageCode = "", messagePass = "";
+    var messageCode = "", messagePass = "", messagePassConfirm;
     var code = this.refs.txtActivationCode.getValue().trim();
     var password = this.refs.txtPassword.getValue().trim();
-    if(code.length == 0 || password.length == 0){
+    var passwordConfirm = this.refs.txtPasswordConfirm.getValue().trim();
+    if(code.length == 0 || password.length == 0 || passwordConfirm.length == 0){
       if(code.length == 0){
         messageCode = "This field is required";
       }
@@ -81,23 +106,48 @@ Activation_Tasker = React.createClass({
       else {
         messagePass = "";
       }
+
+      if(passwordConfirm.length == 0){
+        messagePassConfirm = "This field is required";
+      }
+      else {
+        messagePassConfirm = "";
+      }
       this.setState({
         activationCode: messageCode,
-        password: messagePass
+        password: messagePass,
+        passwordConfirm: messagePassConfirm
       });
     }
     else {
       this.setState({
-        activationCode: false,
-        password: false
+        activationCode: "",
+        password: "",
+        passwordConfirm: ""
       }, function(){
-        if(Number(code) === activationCodeGenerate){
+        var codeGenerate = Number(this.props.code);
+        if(Number(code) === codeGenerate){
 
         }
         else {
           this.refs.dialogMessage.show();
         }
       });
+    }
+  },
+
+  onBack(){
+    FlowRouter.go('/sign-up');
+  },
+
+  onCheckShowPassword(e,checked){
+    if(checked){
+      $("#txtPassword").attr('type','text');
+      $("#txtPasswordConfirm").attr('type','text');
+    }
+    else {
+      $("#txtPassword").attr('type','password');
+      $("#txtPasswordConfirm").attr('type','password');
     }
   },
 
@@ -122,7 +172,7 @@ Activation_Tasker = React.createClass({
           <div style={styleMessage}>
             Please enter activation code to active your account
             <div>
-              <strong>Nguyễn Hàn Linh - 0903727390</strong>
+              <strong>{this.props.name} - {this.props.phone}</strong>
             </div>
           </div>
           <TextField
@@ -132,16 +182,36 @@ Activation_Tasker = React.createClass({
             onBlur={this.onBlurActivationCode}
             fullWidth={true} />
           <TextField
+            id="txtPassword"
             ref="txtPassword"
             floatingLabelText="Password"
             errorText={this.state.password}
             type="password"
             onBlur={this.onBlurPassword}
             fullWidth={true} />
+          <TextField
+            id="txtPasswordConfirm"
+            ref="txtPasswordConfirm"
+            floatingLabelText="Password Confirm"
+            errorText={this.state.passwordConfirm}
+            type="password"
+            onBlur={this.onBlurPasswordConfirm}
+            onChange={this.onChangePasswordConfirm}
+            fullWidth={true} />
+          <Checkbox
+            label="Show password"
+            onCheck={this.onCheckShowPassword}/>
           <br/><br/>
-          <div className="button-secondary">
+          <div className="backButton">
             <RaisedButton
-              label="Next"
+              label="Back"
+              primary={true}
+              fullWidth={true}
+              onClick={this.onBack} />
+          </div>
+          <div className="nextButton">
+            <RaisedButton
+              label="Active"
               secondary={true}
               fullWidth={true}
               onClick={this.onNext} />
