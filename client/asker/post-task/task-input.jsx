@@ -214,7 +214,11 @@ TaskInput = React.createClass({
               date: date,
               time: time,
               duration: duration,
-              cost: this.refs.txtCost.getValue().trim()
+              cost: this.refs.txtCost.getValue().trim(),
+              address: this.props.address,
+              phone: this.props.phone,
+              name: this.props.name,
+              email: this.props.email
             };
             FlowRouter.go("/list-service/fill-info","", queryParams);
           }

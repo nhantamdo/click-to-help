@@ -69,13 +69,9 @@ ContactInfo = React.createClass({
     addressValid = (address==""? "This field is required.":"");
 
     if (phone == "") {
-      phoneValid = "This field is required.";
-    } else if (isNaN(parseInt(phone))) {
-      phoneValid = "The phone number is not valid";
-    } else if (!(phone.length == 10) && !(phone.length == 11)) {
-      phoneValid = "The phone number is the wrong length.";
-    } else {
-      phoneValid="";
+      this.setState({
+        phoneValid : "This field is required.",
+      });
     }
 
     if (name == "") {
@@ -86,7 +82,7 @@ ContactInfo = React.createClass({
 
     var emailValid = "";
     if (email!="") emailValid = (emailRegex.test(email)? "":"Email is not valid.");
-    if (addressValid=="" && phoneValid=="" &&
+    if (addressValid=="" && this.state.phoneValid=="" &&
       nameValid=="" && emailValid=="") {
         let queryParams = {
           serviceId: this.props.serviceId,
@@ -106,11 +102,28 @@ ContactInfo = React.createClass({
       else {
         this.setState({
           addressValid : addressValid,
-          phoneValid : phoneValid,
           nameValid : nameValid,
           emailValid : emailValid
         });
       }
+    },
+
+    onChangePhone(e) {
+      var phone = this.refs.phoneNumber.getValue();
+      if (phone != "") {
+        if (isNaN(parseInt(phone))) {
+          phoneValid = "The phone number is invalid";
+        } else if (!(phone.length == 10) && !(phone.length == 11)) {
+          phoneValid = "The phone number should contain 10 or 11 digits";
+        } else {
+          phoneValid = "";
+        }
+      } else {
+        phoneValid = "";
+      }
+      this.setState({
+        phoneValid : phoneValid,
+      });
     },
 
     onBack(){
@@ -121,7 +134,11 @@ ContactInfo = React.createClass({
         date: this.props.date,
         time: this.props.time,
         duration: this.props.duration,
-        cost: this.props.cost
+        cost: this.props.cost,
+        address: this.refs.address.getValue(),
+        phone: this.refs.phoneNumber.getValue(),
+        name: this.refs.name.getValue(),
+        email: this.refs.email.getValue()
       };
       FlowRouter.go("/list-service/post-task","", queryParams);
     },
@@ -149,6 +166,7 @@ ContactInfo = React.createClass({
                   fullWidth={true}
                   defaultValue={this.props.phone}
                   errorText={this.state.phoneValid}
+                  onChange={this.onChangePhone}
                   id="phoneNumber"/>
                 <TextField ref="name"
                   floatingLabelText="Your name"
