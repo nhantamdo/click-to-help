@@ -17,7 +17,8 @@ const{
   ListItem,
   ListDivider,
   CircularProgress,
-  FlatButton
+  FlatButton,
+  SvgIcon
 } = mui;
 
 const ThemeManager = new mui.Styles.ThemeManager();
@@ -54,9 +55,9 @@ ListAskerNotification = React.createClass({
           acceptedAt: taskStatus.updatedAt
         });
       });
-     return {
-       notif: result,
-     };
+      return {
+        notif: result,
+      };
     }
     return {
     };
@@ -75,6 +76,9 @@ ListAskerNotification = React.createClass({
   onDetailClick(taskKey){
     FlowRouter.go('/task-detail-asker/show-detail?taskKey='+taskKey);
   },
+  onSkipClick() {
+    console.log("skip click");
+  },
 
   listDivider(index,length) {
     let listDividerStyle = {
@@ -84,7 +88,12 @@ ListAskerNotification = React.createClass({
   },
 
   render() {
-
+    let primaryTextStyle = {
+      overflow: 'hidden',
+      whiteSpace: 'pre-line',
+      textOverflow: 'ellipsis',
+      maxHeight: '32px',
+    };
     return (
       <Paper zDepth={1} className="notification">
         <div id="notification">
@@ -109,20 +118,25 @@ ListAskerNotification = React.createClass({
                 <ListItem
                   id={notif.key}
                   key={notif.key}
-                  primaryText={notif.description}
+                  primaryText={<p style={primaryTextStyle}>{notif.description}</p>}
                   onClick ={this.onDetailClick.bind(this,notif.key)}
                   secondaryText={
                     <p style={styleItem}>
                       {notif.taskerName} accepted at {time}  {date}
                     </p>
                   }
-                  leftAvatar={ <Avatar src={notif.avatar? notif.avatar : ""}/> }/>,
-                this.listDivider(index,this.data.notif.length)
-                ]
-              })):<CircularProgress mode="indeterminate" />
-            }</List>
-          </div>
-        </Paper>
-      );
-    }
-  });
+                  leftAvatar={ <Avatar src={notif.avatar? notif.avatar : ""}/> }
+                  rightIcon={<SvgIcon
+                    onClick={this.onSkipClick}>
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    <path d="M0 0h24v24H0z" fill="none"/>
+                  </SvgIcon>}/>,
+                  this.listDivider(index,this.data.notif.length)
+                  ]
+                })):<CircularProgress mode="indeterminate" />
+              }</List>
+            </div>
+          </Paper>
+        );
+      }
+    });
